@@ -5,7 +5,7 @@
 		    <div class="row">
 		      <div class="col-md">
 				<a href="https://wildfirego.com">
-					<img class="w-40" src="/admin/img/logo.png">
+					<img class="w-40" src="/img/logo.png">
 				</a>
 				<p class="text-muted small mb-3 mt-4 pr-5">
 					Made with <span class="fas fa-heart"></span><?= $types['webapp']['headmeta_title']?'<br><em>for '.$types['webapp']['headmeta_title'].'</em>':''; ?>
@@ -35,7 +35,7 @@
 	<script src="<?= $dash->get_dir_url(); ?>/plugins/datatables/datatables.min.js"></script>
 	<script src="<?= $dash->get_dir_url(); ?>/plugins/clipboard.min.js"></script>
 	<script src="<?= $dash->get_dir_url(); ?>/plugins/keymaster.js"></script>
-	<script src="<?= $dash->get_dir_url(); ?>/admin/js/custom.js?v=<?= time(); ?>"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/js/custom.js?v=<?= time(); ?>"></script>
 	<script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
 	<script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
 
@@ -63,7 +63,7 @@
 		</script>
 	<?php endif; ?>
 
-    <script src="<?= $dash->get_dir_url(); ?>/admin/js/list.js?v=<?= time() ?>"></script>
-    <script src="<?= $dash->get_dir_url(); ?>/admin/js/edit.js?v=<?= time() ?>"></script>
+    <script src="<?= $dash->get_dir_url(); ?>/js/list.js?v=<?= time() ?>"></script>
+    <script src="<?= $dash->get_dir_url(); ?>/js/edit.js?v=<?= time() ?>"></script>
 </body>
 </html>
