@@ -1,6 +1,6 @@
 <?php
 include_once ('../../../tribe.init.php');
-include_once (ABSOLUTE_PATH.'/admin/header.php');
+include_once (__DIR__.'/header.php');
 ?>
 
 <div class="p-3">
@@ -72,4 +72,4 @@ if (isset($types['user']['roles_restricted_within_matching_modules']) && $types[
 
 </div>
 
-<?php include_once (ABSOLUTE_PATH.'/admin/footer.php'); ?>
+<?php include_once (__DIR__.'/footer.php'); ?>

@@ -1,6 +1,6 @@
 <?php
 include_once ('../../../tribe.init.php');
-include_once (ABSOLUTE_PATH.'/admin/header.php');
+include_once (__DIR__.'/header.php');
 ?>
 
 <?php echo $admin->get_admin_menu('dash'); ?>
@@ -20,4 +20,4 @@ include_once (ABSOLUTE_PATH.'/admin/header.php');
 </div>
 </div>
 
-<?php include_once (ABSOLUTE_PATH.'/admin/footer.php'); ?>
+<?php include_once (__DIR__.'/footer.php'); ?>

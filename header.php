@@ -24,7 +24,7 @@
 <body>
 <hr class="hr fixed-top" style="margin:0 !important;">
 <?php
-$admin_menus=json_decode(file_get_contents(ABSOLUTE_PATH.'/admin/config/admin_menus.json'), true);
+$admin_menus=json_decode(file_get_contents(__DIR__.'/config/admin_menus.json'), true);
 if ($menus['main']['logo']['name']) {
 	$admin_menus['admin_menu']['logo']=$menus['main']['logo'];
 	$admin_menus['admin_menu']['logo']['src']='';
