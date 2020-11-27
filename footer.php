@@ -27,15 +27,15 @@
 		</div>
 	</footer>
 
-	<script src="/plugins/jquery.min.js"></script>
-	<script src="/plugins/popper/popper.min.js"></script>
-	<script src="/plugins/moment.js"></script>
-	<script src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="/plugins/typeout/typeout.js"></script>
-	<script src="/plugins/datatables/datatables.min.js"></script>
-	<script src="/plugins/clipboard.min.js"></script>
-	<script src="/plugins/keymaster.js"></script>
-	<script src="<?= BASE_URL; ?>/admin/js/custom.js?v=<?= time(); ?>"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/jquery.min.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/popper/popper.min.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/moment.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/typeout/typeout.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/datatables/datatables.min.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/clipboard.min.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/plugins/keymaster.js"></script>
+	<script src="<?= $dash->get_dir_url(); ?>/admin/js/custom.js?v=<?= time(); ?>"></script>
 	<script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
 	<script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
 
@@ -63,7 +63,7 @@
 		</script>
 	<?php endif; ?>
 
-    <script src="<?= BASE_URL; ?>/admin/js/list.js?v=<?= time() ?>"></script>
-    <script src="<?= BASE_URL; ?>/admin/js/edit.js?v=<?= time() ?>"></script>
+    <script src="<?= $dash->get_dir_url(); ?>/admin/js/list.js?v=<?= time() ?>"></script>
+    <script src="<?= $dash->get_dir_url(); ?>/admin/js/edit.js?v=<?= time() ?>"></script>
 </body>
 </html>
