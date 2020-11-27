@@ -1,6 +1,6 @@
 <?php
-    include_once '../../../tribe.init.php';
-    include_once 'header.php';
+    include_once ('../../../tribe.init.php');
+    include_once (__DIR__.'/header.php');
 
     $role = NULL;
 
@@ -113,4 +113,4 @@
 
     <?php endif; ?>
 
-<?php include_once 'footer.php'; ?>
+<?php include_once (__DIR__.'/footer.php'); ?>
