@@ -4,8 +4,8 @@
 		<div class="container my-5">
 		    <div class="row">
 		      <div class="col-md">
-				<a href="https://wildfirego.com">
-					<img class="w-40" src="/img/logo.png">
+				<a href="https://wildfire.world">
+					<img class="w-40" src="<?= $dash->get_dir_url(); ?>/img/logo.png">
 				</a>
 				<p class="text-muted small mb-3 mt-4 pr-5">
 					Made with <span class="fas fa-heart"></span><?= $types['webapp']['headmeta_title']?'<br><em>for '.$types['webapp']['headmeta_title'].'</em>':''; ?>
