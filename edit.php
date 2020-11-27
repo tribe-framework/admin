@@ -1,5 +1,5 @@
 <?php
-    include_once '../init.php';
+    include_once '../../../tribe.init.php';
     include_once 'header.php';
 
     $role = NULL;

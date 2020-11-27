@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL | E_STRICT);
-include_once ('../init.php');
+include_once ('../../../tribe.init.php');
 
 //https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/UploadHandler.php
 include_once(ABSOLUTE_PATH.'/plugins/blueimp-jquery-file-upload/UploadHandler.php');
