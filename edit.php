@@ -15,7 +15,7 @@
             !$_GET['id'] || $userless_install
         )
     ):
-        echo 'Not allowed. <a href="/admin">Go back</a>.';
+        echo 'Not allowed. <a href="/admin/">Go back</a>.';
     else:
         if (isset($_GET['role'])) {
             $role = $types['user']['roles'][$_GET[role]];
@@ -27,7 +27,7 @@
                 $pid=$dash->get_next_id();
 ?>
 
-        <link rel="stylesheet" type="text/css" href="/plugins/typeout/typeout.css">
+        <link rel="stylesheet" type="text/css" href="<?= $dash->get_dir_url(); ?>/plugins/typeout/typeout.css">
 
         <div class="container">
             <a name="infos"></a>
