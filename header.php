@@ -3,6 +3,11 @@
         header ('Location: /user/login');
         die();
     }
+    else {
+    	$extp=explode('/', $_SERVER[REQUEST_URI]);
+    	$type=$dash->do_unslugify($extp[1]);
+    	$slug=$dash->do_unslugify($extp[2]);
+    }
 ?>
 
 <!doctype html>
