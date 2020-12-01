@@ -1,15 +1,4 @@
-<?php
-    if (!(($_SESSION['user_id'] && $_SESSION['wildfire_dashboard_access']) || $userless_install)) {
-        header ('Location: /user/login');
-        die();
-    }
-    else {
-    	$extp=explode('/', $_SERVER[REQUEST_URI]);
-    	$type=$dash->do_unslugify($extp[1]);
-    	$slug=$dash->do_unslugify($extp[2]);
-    }
-?>
-
+<?php include_once __DIR__.'/init.php'; ?>
 <!doctype html>
 <html lang="<?php echo $types['webapp']['lang']; ?>">
 <head>
