@@ -1,5 +1,7 @@
 <?php
 $post = $post ?? NULL; // set $post to NULL if it doesn't exist
+$dash = new Wildfire\Core\Dash();
+$types = $dash->getTypes();
 
 function formComponent ($v) {
     return 'form-components/'.$v.'.php';

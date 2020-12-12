@@ -1,6 +1,9 @@
-<?php include_once __DIR__.'/init.php'; ?>
+<?php
+include_once 'init.php';
+?>
+
 <!doctype html>
-<html lang="<?php echo $types['webapp']['lang']; ?>">
+<html lang="<?= $types['webapp']['lang']; ?>">
 <head>
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex, nofollow">
