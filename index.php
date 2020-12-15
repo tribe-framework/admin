@@ -1,6 +1,9 @@
 <?php
-include_once ('../../../tribe.init.php');
-include_once (__DIR__.'/header.php');
+use Wildfire\Core;
+$dash = new Wildfire\Core\Dash();
+$admin = new Wildfire\Core\Admin();
+
+include_once __DIR__ . '/header.php';
 ?>
 
 <?php echo $admin->get_admin_menu('dash'); ?>
@@ -20,4 +23,4 @@ include_once (__DIR__.'/header.php');
 </div>
 </div>
 
-<?php include_once (__DIR__.'/footer.php'); ?>
+<?php include_once __DIR__ . '/footer.php';?>
