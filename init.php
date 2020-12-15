@@ -1,5 +1,5 @@
 <?php
-
+$dash = new Wildfire\Core\Dash();
 if (!($_SESSION['user_id'] && $_SESSION['wildfire_dashboard_access'])) {
 	header('Location: /user/login');
 	die();
