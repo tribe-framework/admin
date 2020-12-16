@@ -3,7 +3,7 @@
     "logo": {
       "title": "Wildfire",
       "name": "Wildfire",
-      "src": "/admin/img/logo-dark.png",
+      "src": "/vendor/wildfire/admin/img/logo-dark.png",
       "height": "60",
       "href": "/admin/"
     },
