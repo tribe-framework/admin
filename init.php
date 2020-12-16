@@ -1,6 +1,7 @@
 <?php
 $dash = new Wildfire\Core\Dash();
 $admin = new Wildfire\Core\Admin();
+$theme = new Wildfire\Core\Theme();
 
 $session_user = $dash->getSessionUser();
 if (!$session_user['wildfire_dashboard_access']) {
