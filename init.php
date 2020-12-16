@@ -1,9 +1,6 @@
 <?php
-use Wildfire\Core\Admin;
-use Wildfire\Core\Dash;
-
-$dash = new Dash();
-$admin = new Admin();
+$dash = new Wildfire\Core\Dash();
+$admin = new Wildfire\Core\Admin();
 
 $session_user = $dash->getSessionUser();
 if (!$session_user['wildfire_dashboard_access']) {
