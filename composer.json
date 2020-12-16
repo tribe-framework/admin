@@ -1,3 +1,6 @@
 {
-    "name": "wildfire/admin"
+    "name": "wildfire/admin",
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.17"
+    }
 }
