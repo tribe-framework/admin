@@ -1,9 +1,4 @@
-<?php
-use Wildfire\Core;
-$dash = new Wildfire\Core\Dash();
-$admin = new Wildfire\Core\Admin();
-include_once __DIR__ . '/header.php';
-?>
+<?php include_once __DIR__ . '/header.php';?>
 
 <div class="p-3">
 

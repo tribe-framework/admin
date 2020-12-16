@@ -1,6 +1,6 @@
 <?php
-use Wildfire\Core;
-$dash = new Wildfire\Core\Dash();
+use Wildfire\Core\Dash;
+$dash = new Dash();
 
 //https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/UploadHandler.php
 include_once __DIR__ . '/plugins/blueimp-jquery-file-upload/UploadHandler.php';
