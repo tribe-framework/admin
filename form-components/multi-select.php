@@ -1,4 +1,4 @@
-<div class="form-group mt-5"><?php echo ($module_input_placeholder?$module_input_placeholder:'Select '.$module_input_slug_lang); ?>
+<div class="form-group mt-5"><?php echo($module_input_placeholder?$module_input_placeholder:'Select '.$module_input_slug_lang); ?>
                     <?php
                     if ($options=$module_input_options) {
                         $i=0;
@@ -10,8 +10,7 @@
                                     <input type="checkbox" class="custom-control-input" name="'.$module_input_slug_lang.'[]" id="'.$module_input_slug_lang.'_customSwitch_'.$i.'" value="'.$opt['slug'].'" '.(in_array($opt['slug'], $post[$module_input_slug_lang])?'checked="checked"':'').'>
                                     <label class="custom-control-label" for="'.$module_input_slug_lang.'_customSwitch_'.$i.'">'.$opt['title'].'</label>
                                 </div>';
-                            }
-                            else {
+                            } else {
                                 echo '
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" class="custom-control-input" name="'.$module_input_slug_lang.'[]" id="'.$module_input_slug_lang.'_customSwitch_'.$i.'" value="'.$opt.'" '.(in_array($opt, $post[$module_input_slug_lang])?'checked="checked"':'').'>
@@ -19,8 +18,7 @@
                                 </div>';
                             }
                         }
-                    }
-                    else {
+                    } else {
                         $options=$dash->get_all_ids($module_input_slug_lang, $types[$module_input_slug_lang]['primary_module'], 'ASC');
                         $i=0;
                         foreach ($options as $opt) {

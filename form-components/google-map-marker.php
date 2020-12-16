@@ -2,25 +2,26 @@
             if ($post[$module_input_slug_lang]) {
                 $mapr=json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?place_id='.$post[$module_input_slug_lang].'&fields=address_components&key='.GOOGLE_MAP_API_KEY_2), true);
                 $mapr_val='';
-                foreach ($mapr['result']['address_components'] as $kv)
+                foreach ($mapr['result']['address_components'] as $kv) {
                     $mapr_val.=$kv['long_name'].', ';
+                }
                 echo '<div class="input-group mt-5">
                     <div class="input-group-prepend">
                         <span class="input-group-text border-top-0 border-left-0 border-right-0 rounded-0" id="basic-addon1"><span class="fas fa-map-marked-alt"></span></span>
                     </div>
-                    <input disabled type="text" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 m-0" value="'.substr($mapr_val,0,-2).'">
+                    <input disabled type="text" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 m-0" value="'.substr($mapr_val, 0, -2).'">
                     <div class="input-group-append">
                         <span class="input-group-text border-top-0 border-left-0 border-right-0 rounded-0" id="basic-addon1"><a href="#google_map_div" data-toggle="collapse">Edit map location</a></span>
                     </div>
                     </div>';
             }
             ?>
-            <div class="col-12 card p-0 <?php echo ($post[$module_input_slug_lang]?'collapse':''); ?>" id="google_map_div">
+            <div class="col-12 card p-0 <?php echo($post[$module_input_slug_lang]?'collapse':''); ?>" id="google_map_div">
             <div class="card-header pl-3"><span class="fas fa-map-marker-alt mr-3"></span>&nbsp;Mark your location on the map</div>
             <div class="card-body">
                 <form><div class="input-group">
                 <input id="pac-input" class="form-control" type="text"
-                    placeholder="<?php echo ($module_input_placeholder?$module_input_placeholder:ucfirst($types[$type]['name']).' '.$module_input_slug_lang); ?>"></div>
+                    placeholder="<?php echo($module_input_placeholder?$module_input_placeholder:ucfirst($types[$type]['name']).' '.$module_input_slug_lang); ?>"></div>
             </div>
             <div id="map"></div>
             <div id="infowindow-content">
