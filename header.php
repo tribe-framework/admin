@@ -9,11 +9,11 @@
 	<title><?php echo 'Wildfire Dashboard' . (isset($types['webapp']['headmeta_title']) ? ' &raquo; ' . $types['webapp']['headmeta_title'] : ''); ?></title>
 	<meta name="description" content="Content management dashboard interface<?php echo (isset($types['webapp']['headmeta_title']) ? ' for ' . $types['webapp']['headmeta_title'] : ''); ?>">
 	<link rel="stylesheet" href="https://use.typekit.net/xkh7dxd.css">
-	<link href="<?=$dash->get_dir_url();?>/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?=$dash->get_dir_url();?>/css/wildfire.css" rel="stylesheet">
-	<link href="<?=$dash->get_dir_url();?>/plugins/fontawesome/css/all.min.css" rel="stylesheet">
-	<link href="<?=$dash->get_dir_url();?>/plugins/datatables/datatables.min.css" rel="stylesheet">
-	<link href="<?=$dash->get_dir_url();?>/css/custom.css" rel="stylesheet">
+	<link href="<?=ADMIN_URL;?>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?=ADMIN_URL;?>/css/wildfire.css" rel="stylesheet">
+	<link href="<?=ADMIN_URL;?>/plugins/fontawesome/css/all.min.css" rel="stylesheet">
+	<link href="<?=ADMIN_URL;?>/plugins/datatables/datatables.min.css" rel="stylesheet">
+	<link href="<?=ADMIN_URL;?>/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
