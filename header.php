@@ -36,12 +36,11 @@ if ($menus['admin_menu'] ?? false) {
 	$admin_menus['admin_menu'] = $menus['admin_menu'];
 	$admin_menus['admin_footer_1'] = $menus['admin_footer_1'];
 	$admin_menus['admin_footer_2'] = $menus['admin_footer_2'];
+	$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['admin_menu']['logo']['name'];
 } else {
 	$admin_menus = json_decode(file_get_contents(__DIR__ . '/config/admin_menus.json'), true);
 
 	if ($menus['main']['logo']['name']) {
-		$admin_menus['admin_menu']['logo'] = $menus['main']['logo'];
-		$admin_menus['admin_menu']['logo']['src'] = '';
 		$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['main']['logo']['name'];
 	}
 }
