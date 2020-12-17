@@ -1,5 +1,5 @@
 <?php
-$dash = new Wildfire\Core\Dash;
+include_once 'init.php';
 
 //https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/UploadHandler.php
 include_once __DIR__ . '/plugins/blueimp-jquery-file-upload/UploadHandler.php';
