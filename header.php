@@ -32,14 +32,18 @@ $theme = new Theme();
 <hr class="hr fixed-top" style="margin:0 !important;">
 
 <?php
-$admin_menus = json_decode(file_get_contents(__DIR__ . '/config/admin_menus.json'), true);
-$admin_menu = $admin_menus['admin_menu'];
+if ($menus['admin_menu'] ?? false) {
+	$admin_menus['admin_menu'] = $menus['admin_menu'];
+	$admin_menus['admin_footer_1'] = $menus['admin_footer_1'];
+	$admin_menus['admin_footer_2'] = $menus['admin_footer_2'];
+} else {
+	$admin_menus = json_decode(file_get_contents(__DIR__ . '/config/admin_menus.json'), true);
 
-if ($menus['main']['logo']['name']) {
-	$menuLogoName = $menus['main']['logo']['name'];
-    $admin_menu['logo'] = $menus['main']['logo'];
-    $admin_menu['logo']['src'] = '';
-    $admin_menu['logo']['name'] = "<span class='fas fa-angle-double-left'></span>&nbsp;$menuLogoName";
+	if ($menus['main']['logo']['name']) {
+		$admin_menus['admin_menu']['logo'] = $menus['main']['logo'];
+		$admin_menus['admin_menu']['logo']['src'] = '';
+		$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['main']['logo']['name'];
+	}
 }
 $css_classes = [
 	'navbar' => 'navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0',
