@@ -19,11 +19,18 @@
 <body>
 <hr class="hr fixed-top" style="margin:0 !important;">
 <?php
-$admin_menus = json_decode(file_get_contents(__DIR__ . '/config/admin_menus.json'), true);
-if ($menus['main']['logo']['name']) {
-	$admin_menus['admin_menu']['logo'] = $menus['main']['logo'];
-	$admin_menus['admin_menu']['logo']['src'] = '';
-	$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['main']['logo']['name'];
+if ($menus['admin_menu'] ?? false) {
+	$admin_menus['admin_menu'] = $menus['admin_menu'];
+	$admin_menus['admin_footer_1'] = $menus['admin_footer_1'];
+	$admin_menus['admin_footer_2'] = $menus['admin_footer_2'];
+} else {
+	$admin_menus = json_decode(file_get_contents(__DIR__ . '/config/admin_menus.json'), true);
+
+	if ($menus['main']['logo']['name']) {
+		$admin_menus['admin_menu']['logo'] = $menus['main']['logo'];
+		$admin_menus['admin_menu']['logo']['src'] = '';
+		$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['main']['logo']['name'];
+	}
 }
 echo $theme->get_navbar_menu($admin_menus['admin_menu'], array('navbar' => 'navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0', 'ul' => 'navbar-nav ml-auto mr-0', 'li' => 'nav-item', 'a' => 'nav-link text-white', 'toggler' => 'navbar-toggler text-white'), '<span class="fas fa-bars"></span>', '');?>
 
