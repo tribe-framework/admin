@@ -25,6 +25,23 @@
         $i = 0;
         if (isset($post)):
     ?>
+    <button
+        class="btn btn-primary w-100 ex-area position-sticky mb-1"
+        style="top: 0; z-index: 999;"
+        type="button"
+        data-toggle="collapse"
+        data-target="#file<?=$module['input_slug']?>"
+        aria-expanded="false"
+        aria-controls="file<?=$module['input_slug']?>"
+    >
+        <span class="d-flex justify-content-between align-items-center">
+            <span>Uploaded files (<?=count($type_name_values)?>)</span>
+            <span class="fas fa-chevron-circle-down"></span>
+        </span>
+  </button>
+
+    <div class="collapse" id="file<?=$module['input_slug']?>">
+
         <?php foreach($post[$module_input_slug_lang] as $file): ?>
             <p class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0">
                 <span><?=urldecode(basename($file))?></span>
@@ -123,5 +140,6 @@
             </p>
             <?php $i++ ?>
         <?php endforeach ?>
+    </div> <!-- !.collapse -->
     <?php endif ?>
 </div>
