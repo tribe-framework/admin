@@ -10,6 +10,27 @@
         $type_name_values[0]=$module_input_default_value;
     }
 
+    if ($module_input_type === 'multi-text'):
+    ?>
+    <button
+        class="btn btn-primary w-100 ex-area position-sticky mb-1"
+        style="top: 0; z-index: 999;"
+        type="button"
+        data-toggle="collapse"
+        data-target="#module<?=$module['input_slug']?>"
+        aria-expanded="false"
+        aria-controls="module<?=$module['input_slug']?>"
+    >
+        <span class="d-flex justify-content-between align-items-center">
+            <span><?=$module['input_placeholder']?> (<?=count($type_name_values)?>)</span>
+            <span class="fas fa-chevron-circle-down"></span>
+        </span>
+  </button>
+
+    <div class="collapse" id="module<?=$module['input_slug']?>">
+    <?php endif ?>
+
+    <?php
     foreach ($type_name_values as $type_name_value):
         if ($i<1 || trim($type_name_value)):
     ?>
@@ -71,4 +92,8 @@
         <?php endif; ?>
         <?php $i++; ?>
     <?php endforeach; ?>
+
+    <?php if($module_input_type === 'multi-text'): ?>
+    </div> <!-- // .collapse -->
+    <?php endif ?>
 </div>
