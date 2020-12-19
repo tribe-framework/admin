@@ -13,7 +13,7 @@
     if ($module_input_type === 'multi-text'):
     ?>
     <button
-        class="btn btn-primary w-100 ex-area position-sticky mb-1"
+        class="btn btn-outline-primary w-100 ex-area position-sticky mb-1"
         style="top: 0; z-index: 999;"
         type="button"
         data-toggle="collapse"
