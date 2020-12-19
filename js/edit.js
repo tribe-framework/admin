@@ -25,7 +25,7 @@ $( document ).ready(function() {
 		else
 			var type_val=$('select[name="type"]').val();
 
-		$.post('json.php', $(this).serialize(), function(data) {
+		$.post('/admin/json', $(this).serialize(), function(data) {
 			process_json_out(data, btn_html);
 			$('#infos').removeClass('d-none').html('Content has been saved. <a href="/admin/list?type='+type_val+'" class="alert-link">Click here</a> to go back.');
 		}, 'json');
