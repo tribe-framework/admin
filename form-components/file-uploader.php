@@ -1,20 +1,38 @@
 <div class="input-group mt-5">
     <div class="input-group-prepend">
-        <span class="input-group-text border-top-0 border-left-0 border-right-0 rounded-0"
-            id="inputGroupFileAddon01"><span class="fas fa-upload"></span></span>
+        <span
+            class="input-group-text border-top-0 border-left-0 border-right-0 rounded-0"
+            id="inputGroupFileAddon01"
+        >
+            <span class="fas fa-upload"></span>
+        </span>
     </div>
+
     <div class="custom-file border-top-0 border-left-0 border-right-0 rounded-0">
-        <input type="file" class="custom-file-input border-top-0 border-left-0 border-right-0 rounded-0" type="file"
-            id="<?php echo $module_input_slug_lang; ?>"
-            data-bunching='<?php echo json_encode($module['input_bunching']); ?>'
-            data-descriptor="<?php echo($module['input_descriptor']?'1':''); ?>"
-            data-url="/vendor/wildfire/admin/uploader.php" multiple>
-        <label class="custom-file-label border-top-0 border-left-0 border-right-0 rounded-0" for="fileupload">Choose
-            file</label>
+        <input
+            type="file"
+            class="custom-file-input border-top-0 border-left-0 border-right-0 rounded-0"
+            type="file"
+            id="<?=$module_input_slug_lang?>"
+            data-bunching="<?=json_encode($module['input_bunching'])?>"
+            data-descriptor="<?=$module['input_descriptor'] ? '1' : ''?>"
+            data-url="/vendor/wildfire/admin/uploader.php"
+            multiple
+        >
+        <label
+            class="custom-file-label border-top-0 border-left-0 border-right-0 rounded-0"
+            for="fileupload"
+        >Choose file</label>
     </div>
-    <?php echo($module_input_placeholder?'<div class="col-12 row text-muted small m-0"><span class="ml-auto mr-0">'.$module_input_placeholder.'</span></div>':''); ?>
+
+    <?php if($module_input_placeholder): ?>
+    <div class="col-12 row text-muted small m-0">
+        <span class="ml-auto mr-0"><?=$module_input_placeholder?></span>
+    </div>
+    <?php endif ?>
 </div>
-<div class="col-12 p-0 mb-4 d-none" id="<?php echo $module_input_slug_lang; ?>_fileuploads">
+
+<div class="col-12 p-0 mb-4 d-none" id="<?=$module_input_slug_lang?>_fileuploads">
     <div id="progress">
         <div style="width: 0%;" class="bar"></div>
     </div>
