@@ -1,4 +1,14 @@
-<?php include_once __DIR__ . '/header.php';?>
+<?php
+use Wildfire\Core\Dash;
+use Wildfire\Core\Admin;
+
+include_once __DIR__.'/header.php';
+
+$admin = new Admin();
+$dash = new Dash();
+
+$types = $dash->getTypes();
+?>
 
 <div class="p-3">
 
