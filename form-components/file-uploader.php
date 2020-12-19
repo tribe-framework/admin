@@ -35,8 +35,11 @@
         aria-controls="file<?=$module['input_slug']?>"
     >
         <span class="d-flex justify-content-between align-items-center">
-            <span>Uploaded files (<?=count($type_name_values)?>)</span>
-            <span class="fas fa-chevron-circle-down"></span>
+            Uploaded files
+            <span>
+                <strong>[<?=count($type_name_values)?>]</strong>&nbsp;&nbsp;
+                <span class="fas fa-chevron-circle-down"></span>
+            </span>
         </span>
   </button>
 
@@ -140,6 +143,7 @@
             </p>
             <?php $i++ ?>
         <?php endforeach ?>
+
     </div> <!-- !.collapse -->
     <?php endif ?>
 </div>

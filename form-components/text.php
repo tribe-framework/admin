@@ -22,8 +22,11 @@
         aria-controls="module<?=$module['input_slug']?>"
     >
         <span class="d-flex justify-content-between align-items-center">
-            <span><?=$module['input_placeholder']?> (<?=count($type_name_values)?>)</span>
-            <span class="fas fa-chevron-circle-down"></span>
+            <span><?=$module['input_placeholder']?></span>
+            <span>
+                <strong>[<?=count($type_name_values)?>]</strong>&nbsp;&nbsp;
+                <span class="fas fa-chevron-circle-down"></span>
+            </span>
         </span>
   </button>
 
