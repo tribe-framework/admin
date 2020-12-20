@@ -60,7 +60,7 @@
 		</script>
 	<?php endif;?>
 
-    <script src="<?=ADMIN_URL;?>/js/list.js?v=<?=time()?>"></script>
-    <script src="<?=ADMIN_URL;?>/js/edit.js?v=<?=time()?>"></script>
+    <script src="<?=ADMIN_URL;?>/js/list.js"></script>
+    <script src="<?=ADMIN_URL;?>/js/edit.js"></script>
 </body>
 </html>
