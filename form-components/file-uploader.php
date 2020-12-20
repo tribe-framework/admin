@@ -16,7 +16,7 @@
             id="<?=$module_input_slug_lang?>"
             data-bunching="<?=json_encode($module['input_bunching'])?>"
             data-descriptor="<?=$module['input_descriptor'] ? '1' : ''?>"
-            data-url="/vendor/wildfire/admin/uploader.php"
+            data-url="/admin/uploader"
             multiple
         >
         <label
@@ -25,11 +25,11 @@
         >Choose file</label>
     </div>
 
-    <?php if($module_input_placeholder): ?>
+    <?php if ($module_input_placeholder): ?>
     <div class="col-12 row text-muted small m-0">
         <span class="ml-auto mr-0"><?=$module_input_placeholder?></span>
     </div>
-    <?php endif ?>
+    <?php endif?>
 </div>
 
 <div class="col-12 p-0 mb-4 d-none" id="<?=$module_input_slug_lang?>_fileuploads">
@@ -40,9 +40,9 @@
 
 <div class="col-12 p-0 mb-4 d-block">
     <?php
-        $i = 0;
-        if (isset($post)):
-    ?>
+$i = 0;
+if (isset($post)):
+?>
     <button
         class="btn btn-light w-100 ex-area position-sticky mb-1"
         style="top: 0; z-index: 999;"
@@ -63,7 +63,7 @@
 
     <div class="collapse" id="file<?=$module['input_slug']?>">
 
-        <?php foreach($post[$module_input_slug_lang] as $file): ?>
+        <?php foreach ($post[$module_input_slug_lang] as $file): ?>
             <p class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0">
                 <span><?=urldecode(basename($file))?></span>
 
@@ -98,15 +98,15 @@
                                 <option
                                     value="<?=$opt['slug']?>"
                                     <?=
-                                        $post[$module_input_slug_lang.'_bunching'][$i] === $opt['slug'] ?'selected="selected"':
-                                        ''
-                                    ?>
+$post[$module_input_slug_lang . '_bunching'][$i] === $opt['slug'] ? 'selected="selected"' :
+''
+?>
                                 >
                                     <?=$opt['title']?>
                                 </option>
-                            <?php endforeach ?>
+                            <?php endforeach?>
                         </select>
-                    <?php endif ?>
+                    <?php endif?>
 
                     <?php if ($module['input_descriptor']): ?>
                         &nbsp;&nbsp;
@@ -138,11 +138,11 @@
                                             class="form-control"
                                             placeholder="enter file descriptor"
                                         >
-                                            <?=$post[$module_input_slug_lang.'_descriptor'][$i]?>
+                                            <?=$post[$module_input_slug_lang . '_descriptor'][$i]?>
                                         </textarea>
                                         <input
                                             name="<?=$module_input_slug_lang?>_descriptor_date[]"
-                                            value="<?=$post[$module_input_slug_lang.'_descriptor_date'][$i]?>"
+                                            value="<?=$post[$module_input_slug_lang . '_descriptor_date'][$i]?>"
                                             type="date"
                                             class="form-control"
                                             placeholder="enter file date"
@@ -156,12 +156,12 @@
                                 </div>
                             </div>
                         </div>
-                    <?php endif ?>
+                    <?php endif?>
                 </span>
             </p>
-            <?php $i++ ?>
-        <?php endforeach ?>
+            <?php $i++?>
+        <?php endforeach?>
 
     </div> <!-- !.collapse -->
-    <?php endif ?>
+    <?php endif?>
 </div>
