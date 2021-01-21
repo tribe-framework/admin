@@ -1,6 +1,6 @@
 .copy_btn {cursor: pointer;}
 
-.dragula {cursor: move;}
+.dragula, .dragula .input-group-prepend {cursor: grab;}
 
 .bar {
     height: 18px;
