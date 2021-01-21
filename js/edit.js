@@ -43,7 +43,7 @@ $( document ).ready(function() {
 
 	var drake = dragula({
 	  isContainer: function (el) {
-	    return el.classList.contains('dragula');
+	    return el.classList.contains('dragula-container');
 	  }
 	});
 
