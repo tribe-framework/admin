@@ -44,7 +44,8 @@ $( document ).ready(function() {
 	var drake = dragula({
 	  isContainer: function (el) {
 	    return el.classList.contains('dragula-container');
-	  }
+	  },
+	  direction: 'vertical'
 	});
 
 	$(document).on('click', '.select_multi_drop_option', function(e) {
