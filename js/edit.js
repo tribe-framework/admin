@@ -41,6 +41,8 @@ $( document ).ready(function() {
 		$(this).closest('.grid-item').remove();
 	});
 
+	$( ".draggable" ).draggable();
+
 	$(document).on('click', '.select_multi_drop_option', function(e) {
 		e.preventDefault();
 		$('#'+$(this).data('multi_drop_filled_table')+' .grid').append('<div class="bg-light grid-item w-100 p-3">'+$('#'+$(this).data('multi_drop_option_text')).text()+' <a href="#" class="float-right remove_multi_drop_option"><span class="fas fa-minus-circle"></span></a><input type="hidden" name="'+$(this).parent().data('name')+'" value="'+$(this).parent().data('value')+'"></div>');

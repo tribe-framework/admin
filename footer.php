@@ -28,6 +28,7 @@
 	</footer>
 
 	<script src="<?=ADMIN_URL;?>/plugins/jquery.min.js"></script>
+	<script src="<?=ADMIN_URL;?>/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="<?=ADMIN_URL;?>/plugins/popper/popper.min.js"></script>
 	<script src="<?=ADMIN_URL;?>/plugins/moment.js"></script>
 	<script src="<?=ADMIN_URL;?>/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
