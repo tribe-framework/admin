@@ -41,7 +41,11 @@ $( document ).ready(function() {
 		$(this).closest('.grid-item').remove();
 	});
 
-	$( ".draggable" ).draggable();
+	var drake = dragula({
+	  isContainer: function (el) {
+	    return el.classList.contains('dragula-container');
+	  }
+	});
 
 	$(document).on('click', '.select_multi_drop_option', function(e) {
 		e.preventDefault();

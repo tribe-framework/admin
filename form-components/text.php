@@ -37,7 +37,7 @@ if ($module_input_type === 'multi-text'):
 foreach ($type_name_values as $type_name_value):
 	if ($i < 1 || trim($type_name_value)):
 	?>
-	        <div class="input-group mt-5 draggable">
+	        <div class="input-group mt-5 dragula">
 	            <div class="input-group-prepend">
 	                <span
 	                    class="input-group-text border-top-0 border-left-0 border-right-0 rounded-0"
@@ -77,19 +77,19 @@ foreach ($type_name_values as $type_name_value):
 if ($module_input_primary && $module_input_type != 'multi-text' && !$slug_displayed):
 	$slug_displayed = 1;
 	?>
-				                <div class="input-group">
-				                    <div
-				                        id="slug_update_div"
-				                        class="custom-control custom-switch <?=$_GET['id'] ? 'd-block' : 'd-none'?>"
-				                    >
-				                        <input type="checkbox" class="custom-control-input" name="slug_update" id="slug_update" value="1">
-				                        <label class="custom-control-label" for="slug_update">
-				                            Update the URL slug based on title (will change the link)
-				                            <span id="title-slug" class="text-muted ml-4"><em><?='/' . $post['slug']?></em></span>
-				                        </label>
-				                    </div>
-				                </div>
-				            <?php endif;?>
+						                <div class="input-group">
+						                    <div
+						                        id="slug_update_div"
+						                        class="custom-control custom-switch <?=$_GET['id'] ? 'd-block' : 'd-none'?>"
+						                    >
+						                        <input type="checkbox" class="custom-control-input" name="slug_update" id="slug_update" value="1">
+						                        <label class="custom-control-label" for="slug_update">
+						                            Update the URL slug based on title (will change the link)
+						                            <span id="title-slug" class="text-muted ml-4"><em><?='/' . $post['slug']?></em></span>
+						                        </label>
+						                    </div>
+						                </div>
+						            <?php endif;?>
         <?php endif;?>
         <?php $i++;?>
     <?php endforeach;?>

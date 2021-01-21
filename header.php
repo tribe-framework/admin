@@ -13,7 +13,6 @@
 	<link href="<?=ADMIN_URL;?>/css/wildfire.css" rel="stylesheet">
 	<link href="<?=ADMIN_URL;?>/plugins/fontawesome/css/all.min.css" rel="stylesheet">
 	<link href="<?=ADMIN_URL;?>/plugins/datatables/datatables.min.css" rel="stylesheet">
-	<link href="<?=ADMIN_URL;?>/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 	<link href="<?=ADMIN_URL;?>/css/custom.css" rel="stylesheet">
 </head>
 
