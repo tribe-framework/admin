@@ -1,5 +1,7 @@
 .copy_btn {cursor: pointer;}
 
+.dragula {cursor: move;}
+
 .bar {
     height: 18px;
     background: #993399;
