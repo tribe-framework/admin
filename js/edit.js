@@ -70,7 +70,7 @@ $( document ).ready(function() {
         dataType: 'json',
 		add: function(e, data) {
 			$('#progress').parent().removeClass('d-none');
-		    data.context = $('<p class="mt-2 file">')
+		    data.context = $('<p class="mt-2 file dragula">')
 		      .append($('<span>').text(data.files[0].name))
 		      .appendTo('#'+$(this).attr('id')+'_fileuploads');
 		    data.submit();
