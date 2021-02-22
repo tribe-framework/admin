@@ -63,48 +63,53 @@ if (isset($post)):
 
     <div class="collapse dragula-container" id="file<?=$module['input_slug']?>">
 
-        <?php foreach ($post[$module_input_slug_lang] as $file): ?>
-            <p class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0 dragula">
-                <span><?=urldecode(basename($file))?></span>
+    <?php
+foreach ($post[$module_input_slug_lang] as $file) {
+	$file_arr = $dash->get_uploaded_file_versions($file);?>
+        <p class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0 dragula">
+            <span>
+                <?=($file_arr['url']['thumbnail'] ? '<img src="' . $file_arr['url']['thumbnail'] . '" style="max-width:80px; max-height:80px;"> ' . urldecode(basename($file)) : urldecode(basename($file)))?>
+            </span>
 
-                <span>
-                    <span class="btn-group">
-                        <span class="delete_btn btn btn-sm btn-outline-danger">
-                            <span class="fas fa-trash-alt"></span>
-                        </span>
-                        <input type="hidden" name="<?=$module_input_slug_lang?>[]" value="<?=$file?>">
-
-                        <span class="copy_btn btn btn-sm btn-outline-primary" data-clipboard-text="<?=$file?>">
-                            <span class="fas fa-link"></span>&nbsp;copy URL
-                        </span>
-                        <a
-                            style="display: inline-block;"
-                            class="btn btn-sm btn-outline-primary"
-                            href="<?=$file?>"
-                            target="new"
-                        >
-                            <span class="fas fa-external-link-alt"></span>&nbsp;view
-                        </a>
+            <span>
+                <span class="btn-group">
+                    <span class="delete_btn btn btn-sm btn-outline-danger">
+                        <span class="fas fa-trash-alt"></span>
                     </span>
+                    <input type="hidden" name="<?=$module_input_slug_lang?>[]" value="<?=$file?>">
 
-                    <?php if (is_array($module['input_bunching'])): ?>
-                        &nbsp;&nbsp;
-                        <select
-                            class="btn btn-sm btn-outline-primary"
-                            name="<?=$module_input_slug_lang?>_bunching[]"
-                        >
-                            <option value="">file option</option>
-                            <?php foreach ($module['input_bunching'] as $opt): ?>
-                                <option
-                                    value="<?=$opt['slug']?>"
-                                    <?=
-$post[$module_input_slug_lang . '_bunching'][$i] === $opt['slug'] ? 'selected="selected"' :
-''
-?>
-                                >
-                                    <?=$opt['title']?>
-                                </option>
-                            <?php endforeach?>
+                    <span class="copy_btn btn btn-sm btn-outline-primary" data-clipboard-text="<?=$file?>">
+                        <span class="fas fa-link"></span>&nbsp;copy URL
+                    </span>
+                    <a
+                        style="display: inline-block;"
+                        class="btn btn-sm btn-outline-primary"
+                        href="<?=$file?>"
+                        target="new"
+                    >
+                        <span class="fas fa-external-link-alt"></span>&nbsp;view
+                    </a>
+                </span>
+
+                <?php if (is_array($module['input_bunching'])): ?>
+                    &nbsp;&nbsp;
+                    <select
+                        class="btn btn-sm btn-outline-primary"
+                        name="<?=$module_input_slug_lang?>_bunching[]"
+                    >
+                        <option value="">file option</option>
+                        <?php foreach ($module['input_bunching'] as $opt) {
+		?>
+                            <option
+                                value="<?=$opt['slug']?>"
+                                <?=
+		$post[$module_input_slug_lang . '_bunching'][$i] === $opt['slug'] ? 'selected="selected"' :
+		''
+		?>
+                            >
+                                <?=$opt['title']?>
+                            </option>
+                        <?php }?>
                         </select>
                     <?php endif?>
 
@@ -160,7 +165,7 @@ $post[$module_input_slug_lang . '_bunching'][$i] === $opt['slug'] ? 'selected="s
                 </span>
             </p>
             <?php $i++?>
-        <?php endforeach?>
+        <?php }?>
 
     </div> <!-- !.collapse -->
     <?php endif?>
