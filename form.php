@@ -8,7 +8,6 @@ function formComponent($v) {
 
 $components = [
 	'text' => 'text',
-	'color' => 'color',
 	'multi-text' => 'text',
 	'textarea' => 'textarea',
 	'typeout' => 'typeout',
@@ -28,6 +27,8 @@ $components = [
 	'multi_select' => 'multi-select',
 	'file_uploader' => 'file-uploader',
 	'google_map_marker' => 'google-map-marker',
+	'color' => 'color',
+	'multi-color' => 'color',
 ];
 
 foreach ($types[$type]['modules'] as $module) {
