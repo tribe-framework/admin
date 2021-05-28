@@ -4,76 +4,76 @@
 $role = null;
 
 if (isset($_GET['id'])) {
-	$post = $dash->get_content($_GET['id']);
+    $post = $dash->get_content($_GET['id']);
 }
 
 if (
-	!(
-		$session_user['role'] == 'admin' ||
-		$post['user_id'] == $session_user['user_id'] ||
-		!$_GET['id']
-	)
+    !(
+        $currentUser['role'] == 'admin' ||
+        $post['user_id'] == $currentUser['user_id'] ||
+        !$_GET['id']
+    )
 ):
-	echo 'Not allowed. <a href="/admin/">Go back</a>.';
+    echo 'Not allowed. <a href="/admin/">Go back</a>.';
 else:
-	if (isset($_GET['role'])) {
-		$role = $types['user']['roles'][$_GET[role]];
-	}
+    if (isset($_GET['role'])) {
+        $role = $types['user']['roles'][$_GET[role]];
+    }
 
-	if ((isset($_GET['id']) && $post['type'] == $type) || !isset($_GET['id'])):
-		//for testing resticted min and max ids for archive format changes
-		if (isset($_GET['id']) && !($pid = $_GET['id'])) {
-			$pid = $dash->get_next_id();
-		}
+    if ((isset($_GET['id']) && $post['type'] == $type) || !isset($_GET['id'])):
+        //for testing resticted min and max ids for archive format changes
+        if (isset($_GET['id']) && !($pid = $_GET['id'])) {
+            $pid = $dash->get_next_id();
+        }
 
-		?>
+        ?>
 
-		<link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
+				<link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
 
-		<div class="container">
-		    <a name="infos"></a>
-		    <div id="infos" class="d-none alert alert-success"></div>
+				<div class="container">
+				    <a name="infos"></a>
+				    <div id="infos" class="d-none alert alert-success"></div>
 
-		    <a name="errors"></a>
-		    <div id="errors" class="d-none alert alert-danger"></div>
-		</div>
+				    <a name="errors"></a>
+				    <div id="errors" class="d-none alert alert-danger"></div>
+				</div>
 
 
-		<form method="post" class="edit_form" action="/admin/json" autocomplete="off">
-		    <?=
-		$admin->get_admin_menu(
-			$types[$type]['disallow_editing'] ?
-			'view' :
-			'edit',
-			$type,
-			$role['slug'] ?? '',
-			$_GET['id'] ?? ''
-		);
-		?>
+				<form method="post" class="edit_form" action="/admin/json" autocomplete="off">
+				    <?=
+        $admin->get_admin_menu(
+            $types[$type]['disallow_editing'] ?
+            'view' :
+            'edit',
+            $type,
+            $role['slug'] ?? '',
+            $_GET['id'] ?? ''
+        );
+        ?>
 
-		    <h2 class="form_title">
-			<?php if ($type === 'user'): ?>
-				<?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
-			<?php endif;?>
-			Edit <?=$types[$type]['name']?>
-	    </h2>
+				    <h2 class="form_title">
+					<?php if ($type === 'user'): ?>
+						<?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
+					<?php endif;?>
+				Edit <?=$types[$type]['name']?>
+		    </h2>
 
-	    <div class="form-style">
-			<?php include __DIR__ . '/form.php';?>
-	    </div>
+		    <div class="form-style">
+				<?php include __DIR__ . '/form.php';?>
+		    </div>
 
-	    <input type="hidden" name="class" value="dash">
+		    <input type="hidden" name="class" value="dash">
 
-		<?php if ($role['slug']): ?>
-			<input type="hidden" name="role_slug" value="<?=$role['slug']?>">
-		<?php elseif ($post['role_slug']): ?>
+			<?php if ($role['slug']): ?>
+				<input type="hidden" name="role_slug" value="<?=$role['slug']?>">
+			<?php elseif ($post['role_slug']): ?>
 		<input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
 	<?php endif?>
 
 	<?php
 if (
-	($types['webapp']['allow_type_change'] ?? false) &&
-	($types[$type]['type'] == 'content')
+    ($types['webapp']['allow_type_change'] ?? false) &&
+    ($types[$type]['type'] == 'content')
 ):
 ?>
 		<div class="form-group mt-5">
@@ -84,7 +84,7 @@ if (
 			>
 			<?php
 if (!($post_type = $post['type'])) {
-	$post_type = $_GET['type'];
+    $post_type = $_GET['type'];
 }
 ?>
 			<?php foreach ($types as $key => $value): ?>
@@ -111,7 +111,7 @@ if (!($post_type = $post['type'])) {
 		<input
 			type="hidden"
 			name="user_id"
-			value="<?=$post['user_id'] ?: $session_user['user_id']?>"
+			value="<?=$post['user_id'] ?: $currentUser['user_id']?>"
 		>
 	<?php endif?>
 
@@ -120,12 +120,12 @@ if (!($post_type = $post['type'])) {
     <input type="hidden" name="slug" value="<?=$post['slug']?>">
 
     <?php if (count($types[$type]['modules']) > 3) {
-	echo $admin->get_admin_menu(
-		($types[$type]['disallow_editing'] ? 'view' : 'edit'),
-		$type,
-		$role['slug'],
-		$_GET['id']
-	);
+    echo $admin->get_admin_menu(
+        ($types[$type]['disallow_editing'] ? 'view' : 'edit'),
+        $type,
+        $role['slug'],
+        $_GET['id']
+    );
 }?>
     <p>&nbsp;</p>
 </form>

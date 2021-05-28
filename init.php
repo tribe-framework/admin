@@ -7,11 +7,11 @@ $theme = new Theme();
 
 $types = $dash->getTypes();
 $menus = $dash->getMenus();
-$session_user = $dash->getSessionUser();
+$currentUser = $auth->getCurrentUser();
 
-if (!$session_user['wildfire_dashboard_access']) {
-	header('Location: /user/login');
-	die();
+if (!$currentUser['wildfire_dashboard_access']) {
+    header('Location: /user/login');
+    die();
 } else {
-	$type = $dash->do_unslugify($_GET['type']);
+    $type = $dash->do_unslugify($_GET['type']);
 }
