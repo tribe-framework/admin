@@ -1,9 +1,10 @@
 <?php
-namespace Wildfire\Core;
+namespace Wildfire;
 
-$dash = new Dash();
-$admin = new Admin();
-$theme = new Theme();
+$dash = new Core\Dash();
+$admin = new Core\Admin();
+$theme = new Core\Theme();
+$auth = new Auth\Auth();
 
 $types = $dash->getTypes();
 $menus = $dash->getMenus();
