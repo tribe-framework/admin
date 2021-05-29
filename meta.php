@@ -26,6 +26,8 @@ $api = new Api();
 	    	<input type="hidden" name="class" value="dash">
 	    	<input type="hidden" name="type" value="key_value_pair">
 	    	<input type="hidden" name="function" value="push_content">
+	    	<input type="hidden" name="user_id" value="<?=$currentUser['user_id']?>">
+	    	<input type="hidden" name="content_privacy" value="public">
 	    	<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn" data-form-id="key_value_pair_edit_form"><span class="fa fa-save"></span>&nbsp;Save</button>
 	    </form>
 	    <table class="table mt-5">
@@ -42,7 +44,7 @@ $api = new Api();
 $ids = $dash->get_all_ids('key_value_pair');
 foreach ($ids as $idr) {
     $pair = $dash->get_content($idr['id']);
-    echo '<tr><th scope="row">' . $idr['id'] . '</th><td>' . $idr['meta_key'] . '</td><td>' . $idr['meta_value'] . '</td><td>' . date('Y-m-d', $idr['created_on']) . '</td></tr>';
+    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td></tr>';
 }
 ?>
 		  </tbody>
@@ -58,8 +60,9 @@ foreach ($ids as $idr) {
     	    <input type="text" class="form-control" name="api_secret" placeholder="API Secret" value="<?=$api->guidv4()?>">
 	    	<input type="hidden" name="class" value="dash">
 	    	<input type="hidden" name="type" value="api_key_secret">
-	    	<input type="hidden" name="user_id" value="<?=$post['user_id'] ?: $currentUser['user_id']?>">
 	    	<input type="hidden" name="function" value="push_content">
+	    	<input type="hidden" name="user_id" value="<?=$currentUser['user_id']?>">
+	    	<input type="hidden" name="content_privacy" value="public">
 	    	<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn" data-form-id="api_key_secret_edit_form"><span class="fa fa-save"></span>&nbsp;Save</button>
 	    </form>
 	  </div>
