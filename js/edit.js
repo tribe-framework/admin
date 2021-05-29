@@ -30,7 +30,7 @@ $( document ).ready(function() {
 			$('#infos').removeClass('d-none').html('Content has been saved. <a href="/admin/list?type='+type_val+'" class="alert-link">Click here</a> to go back.');
 
 			if ($(this).data('redirect-on-save')) {
-				window.location.replace($(this).data('redirect-on-save'));
+				window.location.href($(this).data('redirect-on-save'));
 			}
 		}, 'json');
 	});

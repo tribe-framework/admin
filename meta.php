@@ -20,7 +20,7 @@ $api = new Api();
 	  <div class="card-header">Key-value pairs</div>
 	  <div class="card-body">
 	    <p class="card-text">Key-value pairs for quickly saving meta-data to be used in front-end theme, editable from the admin. <strong>These are publicly viewable values.</strong> Do not store passwords.</p>
-	    <form id="key_value_pair_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off">
+	    <form id="key_value_pair_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off" data-redirect-on-save="/admin/meta">
     	    <input type="text" class="form-control" name="meta_key" placeholder="Key">
     	    <input type="text" class="form-control" name="meta_value" placeholder="Value">
     	    <input type="text" class="form-control" name="title" placeholder="Remarks">
@@ -88,7 +88,7 @@ foreach ($ids as $idr) {
 $ids = $dash->get_all_ids('api_key_secret');
 foreach ($ids as $idr) {
     $pair = $dash->get_content($idr['id']);
-    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . ($pair['title'] ?? '<em>&lt;untitled&gt;</em>') . '<small><br><pre>Use in theme: $dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</pre></small></td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
+    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . ($pair['title'] ?? '<em>&lt;untitled&gt;</em>') . '</td><td>' . $pair['api_key'] . '</td><td>' . $pair['api_secret'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
 }
 ?>
 		  </tbody>
