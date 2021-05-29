@@ -27,6 +27,8 @@ $( document ).ready(function() {
 
 		if ($(this).data('redirect-on-save'))
 			var redirect_to=$(this).data('redirect-on-save');
+		else
+			var redirect_to='';
 
 		$.post('/admin/json', $(this).serialize(), function(data) {
 			process_json_out(data, btn_html);
