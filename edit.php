@@ -28,19 +28,19 @@ else:
 
         ?>
 
-				<link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
+						<link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
 
-				<div class="container">
-				    <a name="infos"></a>
-				    <div id="infos" class="d-none alert alert-success"></div>
+						<div class="container">
+						    <a name="infos"></a>
+						    <div id="infos" class="d-none alert alert-success"></div>
 
-				    <a name="errors"></a>
-				    <div id="errors" class="d-none alert alert-danger"></div>
-				</div>
+						    <a name="errors"></a>
+						    <div id="errors" class="d-none alert alert-danger"></div>
+						</div>
 
 
-				<form method="post" class="edit_form" action="/admin/json" autocomplete="off">
-				    <?=
+						<form method="post" class="edit_form" action="/admin/json" autocomplete="off">
+						    <?=
         $admin->get_admin_menu(
             $types[$type]['disallow_editing'] ?
             'view' :
@@ -51,22 +51,22 @@ else:
         );
         ?>
 
-				    <h2 class="form_title">
-					<?php if ($type === 'user'): ?>
-						<?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
-					<?php endif;?>
-				Edit <?=$types[$type]['name']?>
-		    </h2>
+						    <h2 class="form_title">
+							<?php if ($type === 'user'): ?>
+								<?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
+							<?php endif;?>
+					Edit <?=$types[$type]['name']?>
+			    </h2>
 
-		    <div class="form-style">
-				<?php include __DIR__ . '/form.php';?>
-		    </div>
+			    <div class="form-style">
+					<?php include __DIR__ . '/form.php';?>
+			    </div>
 
-		    <input type="hidden" name="class" value="dash">
+			    <input type="hidden" name="class" value="dash">
 
-			<?php if ($role['slug']): ?>
-				<input type="hidden" name="role_slug" value="<?=$role['slug']?>">
-			<?php elseif ($post['role_slug']): ?>
+				<?php if ($role['slug']): ?>
+					<input type="hidden" name="role_slug" value="<?=$role['slug']?>">
+				<?php elseif ($post['role_slug']): ?>
 		<input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
 	<?php endif?>
 
@@ -146,7 +146,7 @@ if (!($post_type = $post['type'])) {
                 <form method="post" class="edit_form" action="/admin/json">
                     <input type="hidden" name="class" value="dash">
                     <input type="hidden" name="function" value="do_delete">
-                    <input type="hidden" name="type" value="<?=$types[$type]['slug']?>">
+                    <input type="hidden" name="type" value="<?=$type?>">
                     <input type="hidden" name="id" value="<?=$_GET['id']?>">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Yes, delete it</button>

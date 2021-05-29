@@ -25,12 +25,15 @@ $( document ).ready(function() {
 		else
 			var type_val=$('select[name="type"]').val();
 
+		if ($(this).data('redirect-on-save'))
+			var redirect_to=$(this).data('redirect-on-save');
+
 		$.post('/admin/json', $(this).serialize(), function(data) {
 			process_json_out(data, btn_html);
 			$('#infos').removeClass('d-none').html('Content has been saved. <a href="/admin/list?type='+type_val+'" class="alert-link">Click here</a> to go back.');
 
-			if ($(this).data('redirect-on-save')) {
-				window.location.href($(this).data('redirect-on-save'));
+			if (redirect_to) {
+				window.location.href(redirect_to);
 			}
 		}, 'json');
 	});
