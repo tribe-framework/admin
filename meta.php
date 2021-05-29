@@ -62,8 +62,8 @@ foreach ($ids as $idr) {
 	  <div class="card-body">
 	    <p class="card-text">API key-secret pairs. Make sure you enter remarks to be able to place why you created them. Enter</p>
 	    <form id="api_key_secret_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off" data-redirect-on-save="/admin/meta">
-    	    <input type="text" class="form-control" name="api_key" placeholder="API Key" value="<?=uniqid()?>">
-    	    <input type="text" class="form-control" name="api_secret" placeholder="Secret" value="<?=$api->guidv4()?>">
+    	    <input type="text" class="form-control" name="api_key" placeholder="API Key" value="<?=uniqid()?>" readonly>
+    	    <input type="text" class="form-control" name="api_secret" placeholder="Secret" value="<?=$api->guidv4()?>" readonly>
     	    <input type="text" class="form-control" name="title" placeholder="Remarks">
 	    	<input type="hidden" name="class" value="dash">
 	    	<input type="hidden" name="type" value="api_key_secret">
