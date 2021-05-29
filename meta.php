@@ -35,9 +35,9 @@ $api = new Api();
 		<thead>
 		    <tr>
 		      <th scope="col">#</th>
+		      <th scope="col">Remarks</th>
 		      <th scope="col">Key</th>
 		      <th scope="col">Value</th>
-		      <th scope="col">Remarks</th>
 		      <th scope="col">Created</th>
 		      <th scope="col"></th>
 		    </tr>
