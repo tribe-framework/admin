@@ -60,7 +60,7 @@ foreach ($ids as $idr) {
 	<div class="card my-2">
 	  <div class="card-header">API keys</div>
 	  <div class="card-body">
-	    <p class="card-text">API key-secret pairs. Make sure you enter remarks to be able to place why you created them. Enter</p>
+	    <p class="card-text">Auto-generated API key-secret pairs. Make sure you enter remarks to be able to place why you created them.</p>
 	    <form id="api_key_secret_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off" data-redirect-on-save="/admin/meta">
     	    <input type="text" class="form-control" name="api_key" placeholder="API Key" value="<?=uniqid()?>" readonly>
     	    <input type="text" class="form-control" name="api_secret" placeholder="Secret" value="<?=$api->guidv4()?>" readonly>
