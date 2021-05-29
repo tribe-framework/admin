@@ -28,6 +28,36 @@ $api = new Api();
 	    	<input type="hidden" name="function" value="push_content">
 	    	<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn" data-form-id="key_value_pair_edit_form"><span class="fa fa-save"></span>&nbsp;Save</button>
 	    </form>
+	    <table class="table">
+		<thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">First</th>
+		      <th scope="col">Last</th>
+		      <th scope="col">Handle</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">1</th>
+		      <td>Mark</td>
+		      <td>Otto</td>
+		      <td>@mdo</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">2</th>
+		      <td>Jacob</td>
+		      <td>Thornton</td>
+		      <td>@fat</td>
+		    </tr>
+		    <tr>
+		      <th scope="row">3</th>
+		      <td>Larry</td>
+		      <td>the Bird</td>
+		      <td>@twitter</td>
+		    </tr>
+		  </tbody>
+		</table>
 	  </div>
 	</div>
 	<div class="card my-2">
@@ -39,6 +69,7 @@ $api = new Api();
     	    <input type="text" class="form-control" name="api_secret" placeholder="API Secret" value="<?=$api->guidv4()?>">
 	    	<input type="hidden" name="class" value="dash">
 	    	<input type="hidden" name="type" value="api_key_secret">
+	    	<input type="hidden" name="user_id" value="<?=$post['user_id'] ?: $currentUser['user_id']?>">
 	    	<input type="hidden" name="function" value="push_content">
 	    	<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn" data-form-id="api_key_secret_edit_form"><span class="fa fa-save"></span>&nbsp;Save</button>
 	    </form>
