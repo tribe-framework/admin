@@ -28,34 +28,23 @@ $api = new Api();
 	    	<input type="hidden" name="function" value="push_content">
 	    	<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn" data-form-id="key_value_pair_edit_form"><span class="fa fa-save"></span>&nbsp;Save</button>
 	    </form>
-	    <table class="table">
+	    <table class="table mt-5">
 		<thead>
 		    <tr>
 		      <th scope="col">#</th>
-		      <th scope="col">First</th>
-		      <th scope="col">Last</th>
-		      <th scope="col">Handle</th>
+		      <th scope="col">Key</th>
+		      <th scope="col">Value</th>
+		      <th scope="col">updated_on</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>Jacob</td>
-		      <td>Thornton</td>
-		      <td>@fat</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>Larry</td>
-		      <td>the Bird</td>
-		      <td>@twitter</td>
-		    </tr>
+		    <?php
+$ids = $dash->get_all_ids('key_value_pair');
+foreach ($ids as $idr) {
+    $pair = $dash->get_content($idr['id']);
+    echo '<tr><th scope="row">' . $idr['id'] . '</th><td>' . $idr['meta_key'] . '</td><td>' . $idr['meta_value'] . '</td><td>' . date('Y-m-d', $idr['created_on']) . '</td></tr>';
+}
+?>
 		  </tbody>
 		</table>
 	  </div>
