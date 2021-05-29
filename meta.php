@@ -47,7 +47,7 @@ $api = new Api();
 $ids = $dash->get_all_ids('key_value_pair');
 foreach ($ids as $idr) {
     $pair = $dash->get_content($idr['id']);
-    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . ($pair['title'] ?? '<em>&lt;untitled&gt;</em>') . '<small><br><pre>Use in theme: $dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</pre></small></td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
+    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . ($pair['title'] ?? '<em>&lt;untitled&gt;</em>') . '<small><br><pre>$dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</pre></small></td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
 }
 ?>
 		  </tbody>
