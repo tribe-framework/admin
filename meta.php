@@ -19,10 +19,11 @@ $api = new Api();
 	<div class="card my-2">
 	  <div class="card-header">Key-value pairs</div>
 	  <div class="card-body">
-	    <p class="card-text">On the front-end key-value pairs can be accessed from $dash->get_content($id). Usually used to save website metadata.</p>
+	    <p class="card-text">Key-value pairs for quickly saving meta-data to be used in front-end theme, editable from the admin. <strong>These are publicly viewable values.</strong> Do not store passwords.</p>
 	    <form id="key_value_pair_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off">
     	    <input type="text" class="form-control" name="meta_key" placeholder="Key">
     	    <input type="text" class="form-control" name="meta_value" placeholder="Value">
+    	    <input type="text" class="form-control" name="title" placeholder="Remarks">
 	    	<input type="hidden" name="class" value="dash">
 	    	<input type="hidden" name="type" value="key_value_pair">
 	    	<input type="hidden" name="function" value="push_content">
@@ -36,7 +37,9 @@ $api = new Api();
 		      <th scope="col">#</th>
 		      <th scope="col">Key</th>
 		      <th scope="col">Value</th>
-		      <th scope="col">updated_on</th>
+		      <th scope="col">Remarks</th>
+		      <th scope="col">Created</th>
+		      <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -44,7 +47,7 @@ $api = new Api();
 $ids = $dash->get_all_ids('key_value_pair');
 foreach ($ids as $idr) {
     $pair = $dash->get_content($idr['id']);
-    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td></tr>';
+    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . $pair['title'] . '<br>Use in theme: $dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
 }
 ?>
 		  </tbody>
