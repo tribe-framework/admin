@@ -55,7 +55,7 @@ else:
 		<?php if ($type === 'user'): ?>
 		<?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
 		<?php endif;?>
-	Edit <?=($types[$type]['name'] ?? $type)?> / ID: <?=$post['id']?>
+	Edit <?=($types[$type]['name'] ?? $type)?><?=$post['id']?' / ID: '.$post['id']:'New')?>
 	</h2>
 
 					    <div class="form-style">
