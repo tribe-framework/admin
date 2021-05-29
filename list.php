@@ -1,5 +1,12 @@
 <?php include_once __DIR__ . '/header.php';?>
 
+<?php
+if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
+    ob_start();
+    header('Location: /admin/meta');
+}
+?>
+
 <div class="p-3">
 
 <?php

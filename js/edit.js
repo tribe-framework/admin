@@ -28,6 +28,10 @@ $( document ).ready(function() {
 		$.post('/admin/json', $(this).serialize(), function(data) {
 			process_json_out(data, btn_html);
 			$('#infos').removeClass('d-none').html('Content has been saved. <a href="/admin/list?type='+type_val+'" class="alert-link">Click here</a> to go back.');
+
+			if ($(this).data('redirect-on-save')) {
+				window.location.replace($(this).data('redirect-on-save'));
+			}
 		}, 'json');
 	});
 

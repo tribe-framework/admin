@@ -47,7 +47,7 @@ $api = new Api();
 $ids = $dash->get_all_ids('key_value_pair');
 foreach ($ids as $idr) {
     $pair = $dash->get_content($idr['id']);
-    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . $pair['title'] . '<small><br><pre>Use in theme: $dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</pre></small></td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
+    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . ($pair['title'] ?? '<em>&lt;untitled&gt;</em>') . '<small><br><pre>Use in theme: $dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</pre></small></td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
 }
 ?>
 		  </tbody>
@@ -60,17 +60,39 @@ foreach ($ids as $idr) {
 	<div class="card my-2">
 	  <div class="card-header">API keys</div>
 	  <div class="card-body">
-	    <p class="card-text">The API secret is displayed only once, when the API key is created.</p>
-	    <form id="api_key_secret_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off">
+	    <p class="card-text">API key-secret pairs. Make sure you enter remarks to be able to place why you created them. Enter</p>
+	    <form id="api_key_secret_edit_form" method="post" class="edit_form" action="/admin/json" autocomplete="off" data-redirect-on-save="/admin/meta">
     	    <input type="text" class="form-control" name="api_key" placeholder="API Key" value="<?=uniqid()?>">
-    	    <input type="text" class="form-control" name="api_secret" placeholder="API Secret" value="<?=$api->guidv4()?>">
+    	    <input type="text" class="form-control" name="api_secret" placeholder="Secret" value="<?=$api->guidv4()?>">
+    	    <input type="text" class="form-control" name="title" placeholder="Remarks">
 	    	<input type="hidden" name="class" value="dash">
 	    	<input type="hidden" name="type" value="api_key_secret">
 	    	<input type="hidden" name="function" value="push_content">
 	    	<input type="hidden" name="user_id" value="<?=$currentUser['user_id']?>">
-	    	<input type="hidden" name="content_privacy" value="public">
+	    	<input type="hidden" name="content_privacy" value="private">
 	    	<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn" data-form-id="api_key_secret_edit_form"><span class="fa fa-save"></span>&nbsp;Save</button>
 	    </form>
+	    <table class="table mt-5">
+		<thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">API Key</th>
+		      <th scope="col">Secret</th>
+		      <th scope="col">Remarks</th>
+		      <th scope="col">Created</th>
+		      <th scope="col"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <?php
+$ids = $dash->get_all_ids('api_key_secret');
+foreach ($ids as $idr) {
+    $pair = $dash->get_content($idr['id']);
+    echo '<tr><th scope="row">' . $pair['id'] . '</th><td>' . ($pair['title'] ?? '<em>&lt;untitled&gt;</em>') . '<small><br><pre>Use in theme: $dash->get_content_meta(' . $pair['id'] . ', \'meta_value\')</pre></small></td><td>' . $pair['meta_key'] . '</td><td>' . $pair['meta_value'] . '</td><td>' . date('Y-m-d', $pair['created_on']) . '</td><td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($pair['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $pair['type'] . '&id=' . $pair['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>' : '') . '</td></tr>';
+}
+?>
+		  </tbody>
+		</table>
 	  </div>
 	</div>
 </div>
