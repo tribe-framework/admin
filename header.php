@@ -1,19 +1,26 @@
-<?php include_once __DIR__ . '/init.php';?>
+<?php
+require_once __DIR__ . '/init.php';
+
+$app_title = $types['webapp']['headmeta_title'] ?? false;
+?>
 
 <!doctype html>
-<html lang="<?=$types['webapp']['lang'];?>">
+<html lang="<?= $types['webapp']['lang'] ?>">
 <head>
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title><?php echo 'Wildfire Dashboard' . (isset($types['webapp']['headmeta_title']) ? ' &raquo; ' . $types['webapp']['headmeta_title'] : ''); ?></title>
-	<meta name="description" content="Content management dashboard interface<?php echo (isset($types['webapp']['headmeta_title']) ? ' for ' . $types['webapp']['headmeta_title'] : ''); ?>">
+	<meta
+		name="description"
+		content="Content management dashboard interface <?= $app_title ? "for $app_title" : '' ?>"
+	>
+	<title>Wildfire Dashboard <?= $app_title ? "&raquo; $app_title" : '' ?></title>
 	<link rel="stylesheet" href="https://use.typekit.net/xkh7dxd.css">
-	<link href="<?=ADMIN_URL;?>/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?=ADMIN_URL;?>/css/wildfire.css" rel="stylesheet">
-	<link href="<?=ADMIN_URL;?>/plugins/fontawesome/css/all.min.css" rel="stylesheet">
-	<link href="<?=ADMIN_URL;?>/plugins/datatables/datatables.min.css" rel="stylesheet">
-	<link href="<?=ADMIN_URL;?>/css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/wildfire.css">
+	<link rel="stylesheet" href="<?= ADMIN_URL ?>/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/custom.css">
 </head>
 
 <body>
@@ -25,12 +32,13 @@ if ($menus['admin_menu'] ?? false) {
 	$admin_menus['admin_footer_2'] = $menus['admin_footer_2'];
 	$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['admin_menu']['logo']['name'];
 } else {
-	$admin_menus = json_decode(file_get_contents(__DIR__ . '/config/admin_menus.json'), true);
+	$admin_menus = json_decode(file_get_contents(__DIR__.'/config/admin_menus.json'), true);
 
 	if ($menus['main']['logo']['name']) {
 		$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['main']['logo']['name'];
 	}
 }
+
 $css_classes = [
 	'navbar' => 'navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0',
 	'ul' => 'navbar-nav ml-auto mr-0',
