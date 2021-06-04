@@ -1,4 +1,4 @@
-<?php include_once __DIR__ . '/header.php';?>
+<?php include_once __DIR__ . '/includes/_header.php';?>
 
 <?php
 $role = null;
@@ -158,4 +158,4 @@ if (!($post_type = $post['type'])) {
 
 <?php endif?>
 <?php endif?>
-<?php include_once __DIR__ . '/footer.php';?>
+<?php include_once __DIR__ . '/includes/_footer.php';?>

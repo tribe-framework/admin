@@ -1,4 +1,4 @@
-<?php include_once __DIR__ . '/header.php';?>
+<?php include_once __DIR__ . '/includes/_header.php';?>
 
 <?php
 if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
@@ -84,4 +84,4 @@ foreach ($ids as $arr) {
 
 </div>
 
-<?php include_once __DIR__ . '/footer.php';?>
+<?php include_once __DIR__ . '/includes/_footer.php';?>

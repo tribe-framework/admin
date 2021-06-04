@@ -1,4 +1,4 @@
-<?php include_once __DIR__ . '/header.php';?>
+<?php include_once __DIR__ . '/includes/_header.php';?>
 
 <?php echo $admin->get_admin_menu('dash'); ?>
 
@@ -17,4 +17,4 @@
 </div>
 </div>
 
-<?php include_once __DIR__ . '/footer.php';?>
+<?php include_once __DIR__ . '/includes/_footer.php';?>
