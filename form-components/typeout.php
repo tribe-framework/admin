@@ -12,11 +12,11 @@
                     <?php }?>
 
                     <?php if (in_array('heading', $module_input_options)) {?>
-                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-input-exec typeout-heading" data-typeout-command="heading" data-typeout-info="h4" data-toggle="tooltip" data-placement="top" title="heading"><span class="fas fa-heading"></span></button>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-input-exec typeout-heading" data-typeout-command="heading" data-typeout-info="h3" data-toggle="tooltip" data-placement="top" title="heading"><span class="fas fa-heading"></span></button>
                     <?php }?>
 
                     <?php if (in_array('blockquote', $module_input_options)) {?>
-                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-input-exec typeout-blockquote" data-typeout-command="formatblock" data-typeout-info="blockquote" data-toggle="tooltip" data-placement="top" title="blockquote"><span class="fas fa-quote-right"></span></button>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-input-exec typeout-heading" data-typeout-command="heading" data-typeout-info="h4" data-toggle="tooltip" data-placement="top" title="heading"><span class="fas fa-heading"></span></button>
                     <?php }?>
 
                     <?php if (in_array('bold', $module_input_options)) {?>
