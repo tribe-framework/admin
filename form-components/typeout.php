@@ -16,7 +16,7 @@
                     <?php }?>
 
                     <?php if (in_array('blockquote', $module_input_options)) {?>
-                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-input-exec typeout-blockquote" data-typeout-command="blockquote" data-typeout-info="h4" data-toggle="tooltip" data-placement="top" title="blockquote"><span class="fas fa-quote-right"></span></button>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-input-exec typeout-blockquote" data-typeout-command="formatblock" data-typeout-info="blockquote" data-toggle="tooltip" data-placement="top" title="blockquote"><span class="fas fa-quote-right"></span></button>
                     <?php }?>
 
                     <?php if (in_array('bold', $module_input_options)) {?>
@@ -25,6 +25,14 @@
 
                     <?php if (in_array('italic', $module_input_options)) {?>
                     <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-italic" data-typeout-command="italic" data-toggle="tooltip" data-placement="top" title="italic"><span class="fas fa-italic"></span></button>
+                    <?php }?>
+
+                    <?php if (in_array('insertorderedlist', $module_input_options)) {?>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-insertorderedlist" data-typeout-command="insertorderedlist" data-toggle="tooltip" data-placement="top" title="insertorderedlist"><span class="fas fa-list-ol"></span></button>
+                    <?php }?>
+
+                    <?php if (in_array('insertunorderedlist', $module_input_options)) {?>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-insertunorderedlist" data-typeout-command="insertunorderedlist" data-toggle="tooltip" data-placement="top" title="insertunorderedlist"><span class="fas fa-list-ul"></span></button>
                     <?php }?>
 
                     <?php if (in_array('createLink', $module_input_options)) {?>

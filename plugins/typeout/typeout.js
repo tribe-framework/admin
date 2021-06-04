@@ -1,6 +1,9 @@
 $( document ).ready(function() {
+	user_pref("capability.policy.policynames", "allowclipboard");
+    user_pref("capability.policy.allowclipboard.Clipboard.cutcopy", "allAccess");
+    user_pref("capability.policy.allowclipboard.Clipboard.paste", "allAccess");
 	
-	document.execCommand('enableObjectResizing');
+    document.execCommand('enableObjectResizing');
 	document.execCommand('enableInlineTableEditing');
 
 	$('.typeout-exec').on("click", function() {
@@ -46,7 +49,7 @@ $( document ).ready(function() {
 		else
 			command=$(this).data('typeout-command');
 		if (inputData)
-			document.execCommand(command, '', inputData);
+			document.execCommand(command, false, inputData);
 	});
 
     $(".typeout-content").focusout(function(){
