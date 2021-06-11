@@ -1,11 +1,11 @@
 <?php
-include_once __DIR__ . '/init.php';
+require_once __DIR__ . '/init.php';
 //https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/UploadHandler.php
 include_once __DIR__ . '/plugins/blueimp-jquery-file-upload/UploadHandler.php';
 
 $upload_paths = $dash->get_uploader_path();
 
-if (defined('UPLOAD_FILE_TYPES')) {
+if (defined('UPLOAD_FILE_TYPES')) { // upload whitelisted files only if defined
 	$upload_handler = new UploadHandler([
 		'script_url' => '/admin/uploader',
 		'upload_dir' => $upload_paths['upload_dir'] . '/',

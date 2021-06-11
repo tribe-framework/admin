@@ -32,7 +32,31 @@ $( document ).ready(function() {
 
 		$.post('/admin/json', $(this).serialize(), function(data) {
 			process_json_out(data, btn_html);
-			$('#infos').removeClass('d-none').html('Content has been saved. <a href="/admin/list?type='+type_val+'" class="alert-link">Click here</a> to go back.');
+			// $('#infos')
+			// 	.removeClass('d-none')
+			// 	.html(`Content has been saved.<br/><a href="/admin/list?type=${type_val}" class="alert-link">Click here</a> to go back.`);
+
+			let infos = document.getElementById('infos');
+			if (infos) {
+				infos.classList.remove('d-none');
+				infos.innerHTML = `Content has been saved.<br/><a href="/admin/list?type=${type_val}" class="alert-link">Click here</a> to go back.`;
+
+				let progressDiv = document.createElement('div');
+				progressDiv.className = 'progress';
+
+				progressDiv.style.width = "0%";
+				infos.appendChild(progressDiv);
+
+				setTimeout(() => {
+					infos.classList.add('d-none');
+				}, 10000);
+
+				setTimeout(() => {
+					progressDiv.style.width = "100%";
+				}, 1000);
+			}
+
+
 
 			if (redirect_to) {
 				window.location.href(redirect_to);
@@ -76,21 +100,25 @@ $( document ).ready(function() {
 
 	var sli=0;
     $('.edit_form input[type=file]').fileupload({
-        dataType: 'json',
+		dataType: 'json',
+
 		add: function(e, data) {
 			$('#progress').parent().removeClass('d-none');
-		    data.context = $('<p class="mt-2 file dragula">')
-		      .append($('<span>').text(data.files[0].name))
-		      .appendTo('#'+$(this).attr('id')+'_fileuploads');
+		    data.context = $('<p class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
+				.append($('<span class="flex-grow-1">').text(data.files[0].name))
+				.appendTo('#'+$(this).attr('id')+'_fileuploads');
 		    data.submit();
 		},
+
 		progress: function(e, data) {
 		    var progress = parseInt((data.loaded / data.total) * 100, 10);
 		    $('#progress .bar').css('width', progress + '%');
 		},
+
 		done: function(e, data) {
 			sli++;
 			slvl='';
+
 			if ($(this).data('bunching')) {
 				slvl+='&nbsp;&nbsp;<select class="btn btn-sm btn-outline-primary" name="'+$(this).attr('id')+'_bunching[]'+'">';
 				slvl+='<option value="">file option</option>';
@@ -99,13 +127,36 @@ $( document ).ready(function() {
 				});
 				slvl+='</select>';
 			}
+
 			if ($(this).data('descriptor')) {
 				slvl+='&nbsp;&nbsp;<button type="button" class="btn btn-sm btn-outline-primary m-1" data-toggle="modal" data-target="#'+$(this).attr('id')+'_descriptor_'+sli+'">descriptor</button><div class="modal fade" id="'+$(this).attr('id')+'_descriptor_'+sli+'" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">add file descriptor</h5><button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><textarea name="'+$(this).attr('id')+'_descriptor[]'+'" class="form-control" placeholder="enter file descriptor"></textarea><input name="'+$(this).attr('id')+'_descriptor_date[]'+'" type="date" class="form-control" placeholder="enter file date"></div><div class="modal-footer"><button type="button" class="btn btn-sm btn-outline-primary" data-dismiss="modal">save</button></div></div></div></div>';
 			}
+
+			document.querySelector('#progress .bar').classList.add('d-none');
+
+			window.upData = data;
+
+			if (!data.result.files[0].url) {
+				data.context.addClass('alert-danger px-2 border').removeClass('file pb-2');
+				data.context.append(`<span>${data.result.files[0].error}</span>`);
+				return;
+			}
+
+			const isImage = data.result.files[0].type.includes('image');
+			if (isImage) {
+				data.context
+					.prepend(`
+						<span class="fas fa-check-circle text-success mr-2">
+						<img class="thumb-preview" src="${data.result.files[0].url}">
+					`);
+			} else {
+				data.context
+					.prepend('<span class="fas fa-check-circle text-success mr-2">');
+			}
+
 		    data.context
-		      .append('&nbsp;&nbsp;<span class="delete_btn btn btn-sm btn-outline-danger"><span class="fas fa-trash-alt"></span></span><input type="hidden" name="'+$(this).attr('id')+'[]'+'" value="'+data.result.files[0].url+'">&nbsp;&nbsp;<span class="copy_btn btn btn-sm btn-outline-primary" data-clipboard-text="'+data.result.files[0].url+'"><span class="fas fa-link"></span>&nbsp;copy URL</span>&nbsp;&nbsp;<a style="display: inline-block;" class="btn btn-sm btn-outline-primary" href="'+data.result.files[0].url+'" target="new"><span class="fas fa-external-link-alt"></span>&nbsp;view</a>'+slvl)
+		      .append(`<div class="btn-group"><span class="delete_btn btn btn-sm btn-outline-danger px-3"><span class="fas fa-trash-alt"></span></span><input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}"><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><span class="fas fa-copy mr-1"></span>&nbsp;copy URL</span><a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><span class="fas fa-external-link-alt mr-1"></span>&nbsp;view</a></div>${slvl}`)
 		      .addClass("done");
 		}
-
     });
 });

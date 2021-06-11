@@ -1,4 +1,4 @@
-<?php include_once __DIR__ . '/includes/_header.php';?>
+<?php require_once __DIR__ . '/includes/_header.php';?>
 
 <?php
 use Wildfire\Api\Api as Api;
@@ -97,4 +97,4 @@ foreach ($ids as $idr) {
 	</div>
 </div>
 
-<?php include_once __DIR__ . '/includes/_footer.php';?>
+<?php require_once __DIR__ . '/includes/_footer.php';?>
