@@ -54,7 +54,7 @@
     ?>
 
     <button
-        class="btn btn-light w-100 ex-area position-sticky mb-1 mt-4"
+        class="btn btn-light w-100 ex-area position-sticky mb-1"
         style="top: 0; z-index: 999;"
         type="button"
         data-toggle="collapse"
@@ -92,7 +92,7 @@
                     <?php endif ?>
                 </span>
 
-                <span>
+                <span class="d-flex">
                     <span class="btn-group">
                         <span class="delete_btn btn btn-sm btn-outline-danger px-3">
                             <span class="fas fa-trash-alt"></span>
@@ -143,10 +143,11 @@
                         &nbsp;&nbsp;
                         <button
                             type="button"
-                            class="btn btn-sm btn-outline-primary m-1 text-capitalize"
+                            class="btn btn-sm btn-outline-primary text-capitalize"
                             data-toggle="modal"
                             data-target="#<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>"
                             >
+                            <i class="fas fa-align-left m-1"></i>
                             descriptor
                         </button>
                         <div
