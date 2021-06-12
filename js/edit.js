@@ -64,10 +64,58 @@ $( document ).ready(function() {
 		}, 'json');
 	});
 
-	$(document).on('click', '.multi_add_btn', function(e) {
-		$(this).closest('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group').first().clone().appendTo('#'+$(this).data('group-class')+'-'+$(this).data('input-slug'));
-		$('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group:last input').val('');
-	});
+	let multiAddBtn = document.querySelectorAll('.btn.multi_add');
+
+	if (multiAddBtn) {
+		const listIndexes = {};
+
+		multiAddBtn.forEach(btn => {
+			btn.addEventListener('click', function (e) {
+				e.preventDefault();
+
+				let buttonParentWrapper = e.target
+					.closest('button')
+					.closest('.multi_add_btn_parent');
+
+				let listId = buttonParentWrapper.previousElementSibling.id;
+
+				let inputForm = buttonParentWrapper
+					.previousElementSibling
+					.querySelector('div.dragula:last-of-type')
+					.cloneNode(true);
+
+				window.iform = inputForm;
+
+				if (!listIndexes[listId]) {
+					listIndexes[listId] = Number(inputForm.querySelector('.input-group-prepend > span').innerText);
+
+					buttonParentWrapper.querySelector('p.d-none').classList.remove('d-none');
+				}
+
+				listIndexes[listId] = listIndexes[listId] + 1;
+
+				inputForm.querySelector('.input-group-prepend > span').innerText = listIndexes[listId];
+				inputForm.querySelector('input').value = "";
+				inputForm.querySelector('.btn.delete-multi-form')
+					.addEventListener('click', e => dropMultiFormField(e));
+
+				buttonParentWrapper.querySelector('.input-append').appendChild(inputForm);
+			});
+		})
+	}
+
+	let deleteFormBtn = document.querySelectorAll('.btn.delete-multi-form');
+	if (deleteFormBtn) {
+		deleteFormBtn.forEach(btn => {
+			btn.addEventListener('click', e => dropMultiFormField(e));
+		});
+	}
+
+	function dropMultiFormField(e) {
+		e.preventDefault();
+
+		e.target.closest('.dragula').remove();
+	}
 
 	$(document).on('click', '.remove_multi_drop_option', function(e) {
 		e.preventDefault();
