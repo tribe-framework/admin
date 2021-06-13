@@ -37,8 +37,8 @@ if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
     <?php endif; ?>
     </h2>
 
-    <table class="my-4 table table-borderless table-hover datatable">
-        <thead>
+    <table class="my-4 table table-borderless table-hover table-responsive datatable border border-light shadow-sm">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <?php
@@ -68,12 +68,13 @@ if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
                                 "
                                 style="
                                     <?=
-                                        isset($module['input_primary']) && $module['input_primary'] ?
+                                        isset($module['input_primary']) &&
+                                        $module['input_primary'] ?
                                             'max-width:50%' :
                                             ''
                                     ?>
                                 "
-                                >
+                                ><?= $module['input_slug'] ?>
                             </th>
                 <?php
                         endif;
@@ -125,7 +126,10 @@ if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
                         }
                     }
                 }
-                $tr_echo .= '<td>' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($post['id'], 'user_id')) ? '<a href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><span class="fas fa-edit"></span></a>&nbsp;' : '') . '<a target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><span class="fas fa-external-link-alt"></span></a></td></tr>';
+
+                // edit and view buttons
+                $tr_echo .= '<td><span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span></td></tr>';
+
                 if (!$donotlist) {
                     echo $tr_echo;
                 }
