@@ -37,5 +37,5 @@
         <span class="ml-auto mr-0"
             ><?= $module_input_placeholder ?>
         </span>
-    </div>'
+    </div>
 <?php endif ?>
