@@ -27,6 +27,22 @@
                     <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-italic" data-typeout-command="italic" data-toggle="tooltip" data-placement="top" title="italic"><span class="fas fa-italic"></span></button>
                     <?php }?>
 
+                    <?php if (in_array('justifyCenter', $module_input_options)) {?>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-justifyCenter" data-typeout-command="justifyCenter" data-toggle="tooltip" data-placement="top" title="justifyCenter"><span class="fas fa-align-center"></span></button>
+                    <?php }?>
+
+                    <?php if (in_array('justifyFull', $module_input_options)) {?>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-justifyFull" data-typeout-command="justifyFull" data-toggle="tooltip" data-placement="top" title="justifyFull"><span class="fas fa-align-justify"></span></button>
+                    <?php }?>
+
+                    <?php if (in_array('justifyLeft', $module_input_options)) {?>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-justifyLeft" data-typeout-command="justifyLeft" data-toggle="tooltip" data-placement="top" title="justifyLeft"><span class="fas fa-align-left"></span></button>
+                    <?php }?>
+
+                    <?php if (in_array('justifyRight', $module_input_options)) {?>
+                    <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-justifyRight" data-typeout-command="justifyRight" data-toggle="tooltip" data-placement="top" title="justifyRight"><span class="fas fa-align-right"></span></button>
+                    <?php }?>
+
                     <?php if (in_array('insertorderedlist', $module_input_options)) {?>
                     <button type="button" class="btn btn-outline-primary border-0 rounded-0 mt-1 typeout typeout-exec typeout-insertorderedlist" data-typeout-command="insertorderedlist" data-toggle="tooltip" data-placement="top" title="insertorderedlist"><span class="fas fa-list-ol"></span></button>
                     <?php }?>
