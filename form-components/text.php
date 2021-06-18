@@ -44,7 +44,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 
 			<?php if ($i < 1 || trim($type_name_value)): // if: $i?>
 				<div class="input-group <?= $module_input_type == 'multi-text' ? 'mt-2' : 'mt-5' ?>">
-					<div class="input-group-prepend" title="Drag to re-order">
+					<div class="input-group-prepend border-right" title="Drag to re-order">
 						<span
 							class="input-group-text"
 							id="basic-addon1"
@@ -62,7 +62,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 					<input
 						type="text"
 						name="<?=$module_input_slug_lang . ($module_input_type == 'multi-text' ? '[]' : '');?>"
-						class="form-control m-0"
+						class="form-control m-0 border-top-0 border-right-0 border-left-0"
 						data-child="text-group"
 						placeholder="<?=$module_input_placeholder ?:
 							ucfirst($types[$type]['name']) . ' ' . $module_input_slug_lang
@@ -73,7 +73,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 					<?php if($is_multi_text): ?>
 					<button
 						title="Delete"
-						class="input-group-append btn btn-outline-light text-danger align-items-center delete-multi-form"
+						class="input-group-append btn btn-outline-light text-danger align-items-center delete-multi-form border-top-0 border-right-0"
 						type="button"
 						>
 						<i class="fas fa-trash-alt"></i>
