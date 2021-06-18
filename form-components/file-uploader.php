@@ -176,16 +176,7 @@ foreach ($post[$module_input_slug_lang] as $file) {
                                             name="<?=$module_input_slug_lang?>_descriptor[]"
                                             class="form-control"
                                             placeholder="enter file descriptor"
-                                        >
-                                            <?=$post[$module_input_slug_lang . '_descriptor'][$i]?>
-                                        </textarea>
-                                        <input
-                                            name="<?=$module_input_slug_lang?>_descriptor_date[]"
-                                            value="<?=$post[$module_input_slug_lang . '_descriptor_date'][$i]?>"
-                                            type="date"
-                                            class="form-control"
-                                            placeholder="enter file date"
-                                        >
+                                        ><?=$post[$module_input_slug_lang . '_descriptor'][$i]?></textarea>
                                     </div>
 
                                     <div class="modal-footer">
