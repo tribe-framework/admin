@@ -37,8 +37,8 @@ if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
     <?php endif; ?>
     </h2>
 
-    <table class="my-4 table table-borderless table-hover table-responsive datatable border border-light shadow-sm">
-        <thead class="thead-dark">
+    <table class="my-4 table table-borderless table-hover datatable">
+        <thead class="thead-black">
             <tr>
                 <th scope="col">#</th>
                 <?php
