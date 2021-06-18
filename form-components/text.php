@@ -44,7 +44,12 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 
 			<?php if ($i < 1 || trim($type_name_value)): // if: $i?>
 				<div class="input-group <?= $module_input_type == 'multi-text' ? 'mt-2' : 'mt-5' ?>">
-					<div class="input-group-prepend border-right" title="Drag to re-order">
+					<div
+						class="input-group-prepend border-right"
+						<?php if ($module_input_type == 'multi-text'): ?>
+						title="Drag to re-order"
+						<?php endif ?>
+						>
 						<span
 							class="input-group-text"
 							id="basic-addon1"
