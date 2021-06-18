@@ -203,7 +203,7 @@ $( document ).ready(function() {
 			}
 
 		    data.context
-		      .append(`<div class="btn-group"><span class="delete_btn btn btn-sm btn-outline-danger px-3"><span class="fas fa-trash-alt"></span></span><input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}"><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><span class="fas fa-copy mr-1"></span>&nbsp;copy URL</span><a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><span class="fas fa-external-link-alt mr-1"></span>&nbsp;view</a></div>${slvl}`)
+		      .append(`<div class="btn-group"><span class="delete_btn btn btn-sm btn-outline-danger px-3"><span class="fas fa-trash-alt"></span></span><input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}"><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><span class="fas fa-copy mr-1"></span>&nbsp;copy URL</span><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><span class="fas fa-copy mr-1"></span>&nbsp;copy shortcode</span><a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><span class="fas fa-external-link-alt mr-1"></span>&nbsp;view</a></div>${slvl}`)
 		      .addClass("done");
 		}
     });
