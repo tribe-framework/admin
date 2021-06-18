@@ -49,9 +49,9 @@
 <!-- uploaded files list -->
 <div class="col-12 p-0 mb-4 d-block">
     <?php
-    $i = 0;
-    if (isset($post)):
-    ?>
+$i = 0;
+if (isset($post)):
+?>
 
     <button
         class="btn btn-light w-100 ex-area position-sticky mb-1"
@@ -77,19 +77,19 @@
         >
 
         <?php
-        foreach ($post[$module_input_slug_lang] as $file) {
-            $file_arr = $dash->get_uploaded_file_versions($file);
-            ?>
+foreach ($post[$module_input_slug_lang] as $file) {
+    $file_arr = $dash->get_uploaded_file_versions($file);
+    ?>
             <p class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0 dragula">
                 <span>
                     <?php if (file_arr['url']['thumbnail']): ?>
                         <img
-                            src="<?= $file_arr['url']['thumbnail'] ?>"
+                            src="<?=$file_arr['url']['thumbnail']?>"
                             class="thumb-preview mr-2"
                             alt=""
-                            ><?= urldecode(basename($file))?>
+                            ><?=urldecode(basename($file))?>
                     <?php else: ?>
-                    <?php endif ?>
+                    <?php endif?>
                 </span>
 
                 <span class="d-flex">
@@ -105,6 +105,13 @@
                             data-clipboard-text="<?=$file?>"
                             >
                             <span class="fas fa-copy mr-1"></span>copy URL
+                        </span>
+
+                        <span
+                            class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize"
+                            data-clipboard-text="[[<?=$file?>]]"
+                            >
+                            <span class="fas fa-copy mr-1"></span>copy shortcode
                         </span>
 
                         <a
@@ -128,16 +135,16 @@
                             <option
                                 value="<?=$opt['slug']?>"
                                 <?=
-                                    $post[$module_input_slug_lang . '_bunching'][$i] === $opt['slug'] ?
-                                        'selected="selected"' :
-                                        ''
-                                ?>
+    $post[$module_input_slug_lang . '_bunching'][$i] === $opt['slug'] ?
+    'selected="selected"' :
+    ''
+    ?>
                                 >
                                 <?=$opt['title']?>
                             </option>
-                            <?php endforeach; ?>
+                            <?php endforeach;?>
                         </select>
-                    <?php endif; ?>
+                    <?php endif;?>
 
                     <?php if ($module['input_descriptor']): ?>
                         &nbsp;&nbsp;
@@ -192,9 +199,9 @@
                 </span>
             </p>
             <?php
-            $i++;
-        }
-         ?>
+$i++;
+}
+?>
     </div> <!-- !.collapse -->
     <?php endif?>
 </div>
