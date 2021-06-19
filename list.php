@@ -49,40 +49,10 @@ $displayed_field_slugs = array();
 foreach ($types[$type]['modules'] as $module):
     if (!in_array($module['input_slug'], $displayed_field_slugs)):
         if (isset($module['list_field']) && $module['list_field']):
-        ?>
-		                            <th
-		                                scope="col"
-		                                class="pl-2"
-		                                data-orderable="
-		                                    <?=
-        isset($module['list_sortable']) ?
-        $module['list_sortable'] :
-        'false'
-        ?>
-		                                "
-		                                data-searchable="
-		                                    <?=
-        isset($module['list_searchable']) ?
-        $module['list_searchable'] :
-        'false'
-        ?>
-		                                "
-		                                style="
-		                                    <?=
-        isset($module['input_primary']) &&
-        $module['input_primary'] ?
-        'max-width:50%' :
-        ''
-        ?>
-		                                "
-		                                ><?=$module['input_slug']?>
-		                            </th>
-		                <?php
+        ?><th scope="col" class="pl-2" data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>" data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>" style="<?=(isset($module['input_primary']) && $module['input_primary']) ? 'max-width:50%' : ''?>"><?=$module['input_slug']?></th><?php
     endif;
-
     $displayed_field_slugs[] = $module['input_slug'];
 endif;
-
 $i++;
 endforeach;
 ?>
@@ -118,7 +88,7 @@ foreach ($ids as $arr) {
 
     $donotlist = 0;
     foreach ($types[$type]['modules'] as $module) {
-        if (isset($module['list_field']) && $module['list_field'] && (!$module['restrict_id_max'] || $post['id'] <= $module['restrict_id_max']) && (!$module['restrict_id_min'] || $post['id'] >= $module['restrict_id_min'])) {
+        if (isset($module['list_field']) && $module['list_field']) {
             $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang']) ? '_' . $module['input_lang'][0]['slug'] : '');
             $cont = $dash->get_content_meta($post['id'], $module_input_slug_lang);
             $tr_echo .= '<td>' . $cont . '</td>';
