@@ -51,8 +51,9 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 						<?php endif ?>
 						>
 						<span
-							class="input-group-text"
+							class="input-group-text justify-content-center"
 							id="basic-addon1"
+							style="min-width: 3rem;"
 							>
 							<?php
 								if ($module_input_type == 'multi-text'):

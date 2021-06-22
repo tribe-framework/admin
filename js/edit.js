@@ -64,6 +64,11 @@ $( document ).ready(function() {
 		}, 'json');
 	});
 
+	$(document).on('click', '.multi_add_btn', function(e) {
+		$(this).closest('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group').first().clone().appendTo('#'+$(this).data('group-class')+'-'+$(this).data('input-slug'));
+		$('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group:last input').val('');
+	});
+
 	let multiAddBtn = document.querySelectorAll('.btn.multi_add');
 
 	if (multiAddBtn) {
