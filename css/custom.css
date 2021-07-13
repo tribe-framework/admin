@@ -106,3 +106,8 @@
     border-color: #000;
     color: #eee;
 }
+
+.typeout-content a {
+    color: #993399;
+    text-decoration: underline !important;
+}
