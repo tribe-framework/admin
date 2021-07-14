@@ -10,7 +10,7 @@ $types = $dash->getTypes();
 $menus = $dash->getMenus();
 $currentUser = $auth->getCurrentUser();
 
-if (!$currentUser['wildfire_dashboard_access']) {
+if (!$currentUser['wildfire_dashboard_access'] && $slug!='uploader') {
     header('Location: /user/login');
     die();
 } else {
