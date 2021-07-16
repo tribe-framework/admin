@@ -37,25 +37,25 @@ else:
 
 		?>
 
-																        <link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
+						        <link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
 
-																        <div class="popup-banner">
-																            <a name="infos"></a>
-																            <div id="infos" class="d-none alert alert-success shadow shadow-sm mb-0">
-																                <div class="progress"></div>
-																                <span class="text"></span>
-																            </div>
+						        <div class="popup-banner">
+						            <a name="infos"></a>
+						            <div id="infos" class="d-none alert alert-success shadow shadow-sm mb-0">
+						                <div class="progress"></div>
+						                <span class="text"></span>
+						            </div>
 
-																            <a name="errors"></a>
-																            <div id="errors" class="d-none alert alert-danger shadow shadow-sm mb-0">
-																                <div class="progress"></div>
-																                <span class="text"></span>
-																            </div>
-																        </div>
+						            <a name="errors"></a>
+						            <div id="errors" class="d-none alert alert-danger shadow shadow-sm mb-0">
+						                <div class="progress"></div>
+						                <span class="text"></span>
+						            </div>
+						        </div>
 
 
-																        <form method="post" class="edit_form" action="/admin/json" autocomplete="off">
-																            <?=
+						        <form method="post" class="edit_form" action="/admin/json" autocomplete="off">
+						            <?=
 		$admin->get_admin_menu(
 			$types[$type]['disallow_editing'] ?
 			'view' :
@@ -66,24 +66,24 @@ else:
 		);
 		?>
 
-																            <h2 class="form_title">
-																                <?php if ($type === 'user'): ?>
-																                <?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
-																                <?php endif;?>
-								                Edit <?=($types[$type]['name'] ?? $type)?><?=($post['id'] ? ' / ID: ' . $post['id'] : ' / New')?>
-								            </h2>
+						<h2 class="form_title">
+						    <?php if ($type === 'user'): ?>
+						    <?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
+						    <?php endif;?>
+			        Edit <?=($types[$type]['name'] ?? $type)?><?=($post['id'] ? ' / ID: ' . $post['id'] : ' / New')?>
+			    </h2>
 
-								            <div class="form-style">
-								                <?php include __DIR__ . '/form.php';?>
-								            </div>
+			    <div class="form-style">
+			        <?php include __DIR__ . '/form.php';?>
+			    </div>
 
-								            <input type="hidden" name="class" value="dash">
+			    <input type="hidden" name="class" value="dash">
 
-								            <?php if ($role['slug']): ?>
-								                <input type="hidden" name="role_slug" value="<?=$role['slug']?>">
-								            <?php elseif ($post['role_slug']): ?>
-                <input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
-            <?php endif?>
+			    <?php if ($role['slug']): ?>
+			        <input type="hidden" name="role_slug" value="<?=$role['slug']?>">
+			    <?php elseif ($post['role_slug']): ?>
+    <input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
+<?php endif?>
 
             <?php
 if (
@@ -138,8 +138,8 @@ if (!($post_type = $post['type'])) {
 if ($post) {
 	foreach ($post as $key => $value) {
 		$modules = array_column($types[$type]['modules'], 'input_slug');
-		if (!in_array($key, $modules) && $key != 'type' && $key != 'function' && $key != 'class' && $key != 'slug' && $key != 'id' && $key != 'updated_on' && $key != 'created_on') {
-			echo '<input type="hidden" name="' . $key . '" value="' . $value . '">';
+		if (!in_array($key, $modules) && $key != 'type' && $key != 'function' && $key != 'class' && $key != 'slug' && $key != 'id' && $key != 'updated_on' && $key != 'created_on' && $key != 'user_id') {
+			echo '<input type="hidden" name="' . $key . '" value=\'' . $value . '\'>';
 		}
 	}
 }
