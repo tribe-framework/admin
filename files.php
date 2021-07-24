@@ -51,7 +51,7 @@ foreach ($files as $file) {
     $i++;
     $filename=str_replace(TRIBE_ROOT, BASE_URL, $file);
     //$eval_sql_query.='$posts['.$filename.']=$sql->executeSQL();';
-    $eval_sql[]="SELECT `id`, '".mysqli_real_escape_string($sql->databaseLink, $filename)."' AS `file`, `content`->>'$.type' AS `type`, `content`->>'$.slug' AS `slug`, `content`->>'$.title' AS `title` FROM `data` WHERE `content` LIKE '%".mysqli_real_escape_string($sql->databaseLink, $filename)."%'";
+    $eval_sql[]="SELECT `id`, '".mysqli_real_escape_string($sql->databaseLink, $filename)."' AS `file`, `type`, `slug`, `content`->>'$.title' AS `title` FROM `data` WHERE `content` LIKE '%".mysqli_real_escape_string($sql->databaseLink, $filename)."%'";
 }
 $eval_sql_query=implode(' UNION ', $eval_sql);
 $posts=$sql->executeSQL($eval_sql_query);
