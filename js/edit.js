@@ -182,7 +182,40 @@ $( document ).ready(function() {
 			}
 
 			if ($(this).data('descriptor')) {
-				slvl+=`<button type="button" class="btn btn-sm btn-outline-primary m-1 text-capitalize" data-toggle="modal" data-target="#${$(this).attr('id')}_descriptor_${sli}"><i class="fas fa-align-left mr-1"></i>descriptor</button><div class="modal fade" id="${$(this).attr('id')}_descriptor_${sli}" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">add file descriptor</h5><button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><textarea name="${$(this).attr('id')}_descriptor[]" class="form-control" placeholder="enter file descriptor"></textarea></div><div class="modal-footer"><button type="button" class="btn btn-sm btn-outline-primary text-capitalize" data-dismiss="modal">save</button></div></div></div></div>`;
+				slvl += `<button
+						type="button"
+						class="btn btn-sm btn-outline-primary m-1 text-capitalize"
+						data-toggle="modal"
+						data-target="#${$(this).attr('id')}_descriptor_${sli}"
+						><i class="fas fa-align-left mr-1"></i>descriptor
+					</button>
+					<div class="modal fade" id="${$(this).attr('id')}_descriptor_${sli}" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">add file descriptor</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="close"
+										><span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<textarea
+										name="${$(this).attr('id')}_descriptor[]"
+										class="form-control"
+										placeholder="enter file descriptor"
+									></textarea>
+								</div>
+								<div class="modal-footer">
+									<button
+										type="button"
+										class="btn btn-sm btn-outline-primary text-capitalize"
+										data-dismiss="modal"
+										>save
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>`;
 			}
 
 			document.querySelector('#progress .bar').classList.add('d-none');
