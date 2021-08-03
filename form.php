@@ -42,6 +42,7 @@ foreach ($types[$type]['modules'] as $module) {
     $module_input_lang = $module['input_lang'] ?? null;
     $module_input_primary = $module['input_primary'] ?? null;
     $module_input_options = $module['input_options'] ?? null;
+    $module_input_default_value = $module['input_value'] ?? null;
     $module_input_placeholder = $module['input_placeholder'] ?? null;
     $slug_displayed = 0;
 
