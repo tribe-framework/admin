@@ -113,6 +113,9 @@ if (!($post_type = $post['type'])) {
             <span class="ml-auto mr-0">Change content type (rarely used, use with caution)</span>
         </div>
     </div>
+    <?php else if ($types[$type]['type'] == 'user'): ?>
+    <input type="hidden" name="type" value="user">
+    <input type="hidden" name="role_slug" value="<?=$types[$type]['slug']?>">
     <?php else: ?>
     <input type="hidden" name="type" value="<?=$types[$type]['slug']?>">
     <?php endif?>
