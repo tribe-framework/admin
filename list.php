@@ -64,7 +64,9 @@ endforeach;
             <?php
 if ($type == 'user') {
     $ids = $dash->get_all_ids(array('type' => $type, 'role_slug' => $_GET['role']));
-} else {
+} else if ($types[$type]['type']=='user') {
+    $ids = $dash->get_all_ids(array('type' => 'user', 'role_slug' => $type));
+}else {
     $ids = $dash->get_all_ids($type);
 }
 
