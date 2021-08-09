@@ -108,7 +108,6 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 							class="custom-control-input"
 							name="slug_update"
 							id="slug_update"
-							value="1"
 						>
 						<label class="custom-control-label" for="slug_update">
 							Update the URL slug based on title (will change the link)
