@@ -122,7 +122,7 @@ if (!($post_type = $post['type'])) {
         </select>
 
         <div class="col-12 row text-muted small m-0">
-            <span class="ml-auto mr-0">Change role slug (rarely used, use with caution)</span>
+            <span class="ml-auto mr-0">Change user role (rarely used, use with caution)</span>
         </div>
     </div>
     <?php } else { ?>
@@ -149,7 +149,7 @@ if (!($post_type = $post['type'])) {
 
     <?php
     if ($post) {
-        $ignored_keys = ['type', 'function', 'class', 'slug', 'id', 'updated_on', 'created_on', 'user_id', 'files_descriptor', 'password_md5'];
+        $ignored_keys = ['type', 'function', 'class', 'slug', 'id', 'updated_on', 'created_on', 'user_id', 'files_descriptor', 'password_md5', 'role_slug'];
 
         foreach ($post as $key => $value) {
             $modules = array_column($types[$type]['modules'], 'input_slug');
