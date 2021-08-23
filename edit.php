@@ -79,12 +79,6 @@ else:
 
     <input type="hidden" name="class" value="dash">
 
-    <?php if ($role['slug']): ?>
-    <input type="hidden" name="role_slug" value="<?=$role['slug']?>">
-    <?php elseif ($post['role_slug']): ?>
-    <input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
-    <?php endif?>
-
     <?php
 if (
 	($types['webapp']['allow_type_change'] ?? false) &&
@@ -114,8 +108,33 @@ if (!($post_type = $post['type'])) {
         </div>
     </div>
     <?php elseif ($types[$type]['type'] == 'user'): ?>
+
+    <?php if ($types['webapp']['allow_role_change'] ?? false) { ?>
+    <div class="form-group mt-5">
+        <select class="form-control pl-0 border-top-0 border-left-0 border-right-0 rounded-0 mt-1" id="select_type"
+            name="role_slug">
+            <?php foreach ($types['user']['roles'] as $key => $value): ?>
+            <option value="<?=$key?>"
+                <?=$key === $post['role_slug'] ? 'selected="selected"' : ''?>>
+                <?=ucfirst($value['title'])?>
+            </option>
+            <?php endforeach?>
+        </select>
+
+        <div class="col-12 row text-muted small m-0">
+            <span class="ml-auto mr-0">Change role slug (rarely used, use with caution)</span>
+        </div>
+    </div>
+    <?php } else { ?>
+        <?php if ($role['slug']): ?>
+        <input type="hidden" name="role_slug" value="<?=$role['slug']?>">
+        <?php elseif ($post['role_slug']): ?>
+        <input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
+        <?php endif?>
+    <?php } ?>
+
     <input type="hidden" name="type" value="user">
-    <input type="hidden" name="role_slug" value="<?=$types[$type]['slug']?>">
+    
     <?php else: ?>
     <input type="hidden" name="type" value="<?=$types[$type]['slug']?>">
     <?php endif?>
