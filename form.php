@@ -3,19 +3,23 @@ $post = $post ?? null; // set $post to NULL if it doesn't exist
 $types = $dash->getTypes();
 
 function formComponent($v) {
-    return 'form-components/' . $v . '.php';
+    return "form-components/{$v}.php";
 }
 
 $components = [
     'text' => 'text',
     'multi-text' => 'text',
+    'multi_text' => 'text',
     'textarea' => 'textarea',
+    'multi-textarea' => 'textarea',
     'multi_textarea' => 'textarea',
     'typeout' => 'typeout',
     'date' => 'date',
     'url' => 'url',
+    'multi-url' => 'url',
     'multi_url' => 'url',
     'number' => 'number',
+    'multi-number' => 'number',
     'multi_number' => 'number',
     'checkbox' => 'checkbox',
     'tel' => 'tel',
@@ -24,16 +28,22 @@ $components = [
     'email' => 'email',
     'password' => 'password',
     'select' => 'select',
+    'multi-drop' => 'multi-drop',
     'multi_drop' => 'multi-drop',
+    'multi-select' => 'multi-select',
     'multi_select' => 'multi-select',
     'file_uploader' => 'file-uploader',
     'google_map_marker' => 'google-map-marker',
     'color' => 'color',
     'multi-color' => 'color',
+    'multi_color' => 'color',
 ];
 
 foreach ($types[$type]['modules'] as $module) {
-    if (isset($module['restrict_to_roles']) && !in_array($role['slug'], $module['restrict_to_roles'])) {
+    if (
+        isset($module['restrict_to_roles']) &&
+        !in_array($role['slug'], $module['restrict_to_roles'])
+    ) {
         continue;
     }
 
@@ -47,13 +57,16 @@ foreach ($types[$type]['modules'] as $module) {
 
     $module_input_slug_arr = array();
 
-    if (is_array($module_input_lang)):
-        $module_input_slug_arr = $module_input_lang;else:
+    if (is_array($module_input_lang)) {
+        $module_input_slug_arr = $module_input_lang;
+    } else {
         $module_input_slug_arr[0]['slug'] = '';
-    endif;
+    }
 
     foreach ($module_input_slug_arr as $input_lang) {
-        $module_input_slug_lang = $module_input_slug . ($input_lang['slug'] ? '_' . $input_lang['slug'] : '');
+        $module_append = isset($input_lang['slug']) ? "_{$input_lang['slug']}" : '';
+        $module_input_slug_lang = $module_input_slug . $module_append;
+
         $module_input_default_value = '';
         $module_autofill = $module['autofill'] ?? null;
 
@@ -64,7 +77,7 @@ foreach ($types[$type]['modules'] as $module) {
         if (array_key_exists($module_input_type, $components)) {
             include formComponent($components[$module_input_type]);
         } else {
-            echo '<em style="color:red; border-left:2px solid red; padding: 2px 8px;">"' . $module_input_type . '"' . ': form-component not found</em><br/>';
+            echo "<em style='color: red; border-left: 2px solid red; padding: 2px 8px;'>{$module_input_type} : form-component not found</em><br/>";
         }
     }
 }
