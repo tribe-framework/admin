@@ -18,13 +18,6 @@ if ($_GET['role']) {
     $role = $types['user']['roles'][$_GET[role]];
 }
 
-if (
-    isset($types['user']['roles_restricted_within_matching_modules']) &&
-    $types['user']['roles_restricted_within_matching_modules']
-) {
-    $user_restricted_to_input_modules = array_intersect(array_keys($currentUser), array_keys($types));
-}
-
 echo $admin->get_admin_menu('list', $type, $role['slug']);
 ?>
 
@@ -60,55 +53,6 @@ endforeach;
             </tr>
         </thead>
 
-        <tbody>
-            <?php
-if ($type == 'user') {
-    $ids = $dash->get_all_ids(array('type' => $type, 'role_slug' => $_GET['role']));
-} else if ($types[$type]['type']=='user') {
-    $ids = $dash->get_all_ids(array('type' => 'user', 'role_slug' => $type));
-}else {
-    $ids = $dash->get_all_ids($type);
-}
-
-foreach ($ids as $arr) {
-    //$post = $dash->get_content($arr['id']);
-
-    if (
-        isset($types['user']['roles_restricted_within_matching_modules']) &&
-        $types['user']['roles_restricted_within_matching_modules'] &&
-        !$admin->is_access_allowed($arr['id'], $user_restricted_to_input_modules)
-    ) {
-        continue;
-    }
-
-    $post = array();
-    $post['id'] = $arr['id'];
-    $post['type'] = $type;
-    $post['slug'] = $dash->get_content_meta($post['id'], 'slug');
-
-    $tr_echo = '<tr><th scope="row">' . $post['id'] . '</th>';
-
-    $donotlist = 0;
-    foreach ($types[$type]['modules'] as $module) {
-        if (isset($module['list_field']) && $module['list_field']) {
-            $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang']) ? '_' . $module['input_lang'][0]['slug'] : '');
-            $cont = $dash->get_content_meta($post['id'], $module_input_slug_lang);
-            $tr_echo .= '<td>' . $cont . '</td>';
-            if ($module['list_non_empty_only'] && !trim($cont)) {
-                $donotlist = 1;
-            }
-        }
-    }
-
-    // edit and view buttons
-    $tr_echo .= '<td><span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($type == 'user' ? '&role=' . $_GET['role'] : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span></td></tr>';
-
-    if (!$donotlist) {
-        echo $tr_echo;
-    }
-}
-?>
-        </tbody>
     </table>
 </div>
 
