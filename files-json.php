@@ -1,10 +1,13 @@
 <?php
-require_once __DIR__ . '/includes/init.php';
+require_once __DIR__ . '/init.php';
+
+set_time_limit(600);
 
 $i = 0;
 $or=array();
 header('Content-Type: application/json');
 
+$sql = new Wildfire\Core\MySQL();
 $dir   = new RecursiveDirectoryIterator(TRIBE_ROOT.'/uploads/');
 $flat  = new RecursiveIteratorIterator($dir);
 $flat->setMaxDepth(3);
@@ -24,7 +27,7 @@ $posts=$sql->executeSQL($eval_sql_query);
 foreach ($posts as $post) {
     //$xs_file=$dash->get_uploaded_image_in_size($post['file'], 'xs')['url'];
     $xs_file=$post['file'];
-    $or['data'][$i][] = $post['id']
+    $or['data'][$i][] = $post['id'];
     $or['data'][$i][] = (exif_imagetype($xs_file)?'<img loading="lazy" src="'.$xs_file.'" width="80">':'<span class="fa-3x fas fa-file-alt"></span>');
     $or['data'][$i][] = basename($post['file']) . '<br>used in <a href="/'.$post['type'].'/'.$post['slug'].'" target="new">'.$post['title'].'&nbsp;<span class="fas fa-external-link-alt"></span></a>';
     $or['data'][$i][] = '<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[['.$post['file'].']]"><span class="fas fa-copy mr-1"></span>copy shortcode</span>';
