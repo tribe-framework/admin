@@ -38,6 +38,8 @@ foreach ($ids as $arr) {
     $post['id'] = $arr['id'];
     $post['type'] = $this_type;
     $post['slug'] = $dash->get_content_meta($post['id'], 'slug');
+    
+    $or['data'][$i][] = $post['id'];
 
     $donotlist = 0;
     foreach ($types[$this_type]['modules'] as $module) {
@@ -47,16 +49,18 @@ foreach ($ids as $arr) {
             
             if ($module['list_non_empty_only'] && !trim($cont)) {
                 $donotlist = 1;
+            } else {
+                $or['data'][$i][] = $cont;
             }
         }
     }
 
-    if (!$donotlist) {
-        $or['data'][$i][] = $post['id'];
-        $or['data'][$i][] = $cont;
+    // edit and view buttons
+    $or['data'][$i][] = '<span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($this_type == 'user' ? '&role=' . $this_role : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span>';
 
-        // edit and view buttons
-        $or['data'][$i][] = '<span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($this_type == 'user' ? '&role=' . $this_role : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span>';
+    if ($donotlist) {
+        $or['data'][$i]=array();
+        $i--;
     }
 
     $i++;

@@ -31,7 +31,7 @@ echo $admin->get_admin_menu('list', $type, $role['slug']);
         List of <?=$types[$type]['plural']?>
     </h2>
 
-    <table class="my-4 table table-borderless table-hover datatable">
+    <table class="my-4 table table-borderless table-hover datatable" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role']?>">
         <thead class="thead-black">
             <tr>
                 <th scope="col">#</th>
