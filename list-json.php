@@ -69,7 +69,7 @@ foreach ($ids as $arr) {
 if ($or['data'])
     $or['data']=array_values($or['data']);
 else
-    $or['data']='No data in this yet.';
+    $or['data'][$i]='No data in this yet.';
 
 echo json_encode($or);
 ?>
