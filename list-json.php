@@ -66,6 +66,10 @@ foreach ($ids as $arr) {
     $i++;
 }
 
-$or['data']=array_values($or['data']);
+if ($or['data'])
+    $or['data']=array_values($or['data']);
+else
+    $or['data']='No data in this yet.';
+
 echo json_encode($or);
 ?>
