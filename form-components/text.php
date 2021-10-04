@@ -7,9 +7,15 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 	$i = 0;
 	$type_name_values = array();
 
-	if (is_array($post[$module_input_slug_lang])) {
+	if (
+		isset($post[$module_input_slug_lang]) &&
+		is_array($post[$module_input_slug_lang])
+	) {
 		$type_name_values = $post[$module_input_slug_lang];
-	} elseif ($post[$module_input_slug_lang]) {
+	} else if (
+		isset($post[$module_input_slug_lang]) &&
+		$post[$module_input_slug_lang]
+	) {
 		$type_name_values[0] = $post[$module_input_slug_lang];
 	} else {
 		$type_name_values[0] = $module_input_default_value;
