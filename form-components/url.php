@@ -34,7 +34,7 @@
             name="<?= $module_input_slug_lang.($module_input_type=='multi_url' ? '[]' : '') ?>"
             class="form-control border-top-0 border-left-0 border-right-0 rounded-0 m-0"
             placeholder="<?=
-                $module_input_placeholder ?
+                isset($module_input_placeholder) ?
                     $module_input_placeholder :
                     ucfirst($types[$type]['name'])." $module_input_slug_lang"
             ?>"
