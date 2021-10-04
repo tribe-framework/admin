@@ -64,7 +64,7 @@ foreach ($types[$type]['modules'] as $module) {
     }
 
     foreach ($module_input_slug_arr as $input_lang) {
-        $module_append = isset($input_lang['slug']) ? "_{$input_lang['slug']}" : '';
+        $module_append = isset($input_lang['slug']) && $input_lang['slug'] ? "_{$input_lang['slug']}" : '';
         $module_input_slug_lang = $module_input_slug . $module_append;
 
         $module_input_default_value = '';
