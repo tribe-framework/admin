@@ -148,7 +148,7 @@ $( document ).ready(function() {
 	});
 
 	$(document).on('click', '.delete_btn', function(e) {
-		$(this).closest('p.file').remove();
+		$(this).closest('div.file').remove();
 	});
 
 	var sli=0;
