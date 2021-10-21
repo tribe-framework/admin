@@ -13,6 +13,6 @@ $currentUser = $auth->getCurrentUser();
 if (!$currentUser['wildfire_dashboard_access'] && $slug!='uploader') {
     header('Location: /user/login');
     die();
-} else {
+} else if(isset($_GET['type'])) {
     $type = $dash->do_unslugify($_GET['type']);
 }
