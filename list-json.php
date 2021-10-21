@@ -38,7 +38,7 @@ foreach ($ids as $arr) {
     $post['id'] = $arr['id'];
     $post['type'] = $this_type;
     $post['slug'] = $dash->get_content_meta($post['id'], 'slug');
-    
+
     $or['data'][$i][] = $post['id'];
 
     $donotlist = 0;
@@ -46,7 +46,7 @@ foreach ($ids as $arr) {
         if (isset($module['list_field']) && $module['list_field']) {
             $module_input_slug_lang = $module['input_slug'] . (isset($module['input_land']) && is_array($module['input_lang']) ? "_{$module['input_lang'][0]['slug']}" : '');
             $cont = $dash->get_content_meta($post['id'], $module_input_slug_lang);
-            
+
             if (isset($module['list_non_empty_only']) && $module['list_non_empty_only'] && !trim($cont)) {
                 $donotlist = 1;
             } else {
