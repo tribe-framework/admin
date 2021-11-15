@@ -134,7 +134,7 @@ if (!($post_type = $post['type'])) {
     <?php } ?>
 
     <input type="hidden" name="type" value="user">
-    
+
     <?php else: ?>
     <input type="hidden" name="type" value="<?=$types[$type]['slug']?>">
     <?php endif?>
@@ -149,7 +149,7 @@ if (!($post_type = $post['type'])) {
 
     <?php
     if ($post) {
-        $ignored_keys = ['type', 'function', 'class', 'slug', 'id', 'updated_on', 'created_on', 'user_id', 'files_descriptor', 'password_md5', 'role_slug'];
+        $ignored_keys = ['type', 'function', 'class', 'slug', 'id', 'updated_on', 'created_on', 'user_id', 'files_descriptor', 'password_md5', 'role_slug', 'mysql_access_log'];
 
         foreach ($post as $key => $value) {
             $modules = array_column($types[$type]['modules'], 'input_slug');
