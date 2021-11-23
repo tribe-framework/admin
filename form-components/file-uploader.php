@@ -50,7 +50,7 @@
         <span class="d-flex justify-content-between align-items-center">
             Old Uploads
             <span>
-                <strong>[<?=count($post[$module_input_slug_lang])?>]</strong>&nbsp;&nbsp;
+                <strong>[<?= count($post[$module_input_slug_lang] ?? []) ?>]</strong>&nbsp;&nbsp;
                 <span class="fas fa-chevron-circle-down"></span>
             </span>
         </span>
