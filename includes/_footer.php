@@ -8,6 +8,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 
 	<div class="container my-5">
 		<div class="row">
+			<?php if ($types['webapp']['wildfire_branding']): ?>
 			<div class="col-md">
 				<a href="https://wildfire.world">
 					<img class="w-40" src="<?= ADMIN_URL ?>/img/logo.png">
@@ -29,6 +30,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 					&copy; <?= $year == '2020' ? $year : "2020 - $year" ?>
 				</p>
 			</div>
+			<?php endif; ?>
 
 			<div class="col-md">
 				<?=
