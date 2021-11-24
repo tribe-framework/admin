@@ -11,7 +11,7 @@
         }
     },
     "require": {
-    	"wildfire/core": "^3.0",
+    	"wildfire/core": "^3.0.13",
     	"wildfire/auth": "^2.0"
     }
 }
