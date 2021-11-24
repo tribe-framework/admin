@@ -111,3 +111,7 @@
     color: #993399;
     text-decoration: underline !important;
 }
+
+#mysql_log > .container {
+    max-height: 20rem;
+}

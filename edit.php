@@ -26,7 +26,7 @@ Not allowed. <a href="/admin/">Go back</a>
 <?php
 else:
 	if (isset($_GET['role'])) {
-		$role = $types['user']['roles'][$_GET[role]];
+		$role = $types['user']['roles'][$_GET['role']];
 	}
 
 	if ((isset($_GET['id']) && $post['type'] == $type) || !isset($_GET['id'])):
@@ -114,8 +114,7 @@ if (!($post_type = $post['type'])) {
         <select class="form-control pl-0 border-top-0 border-left-0 border-right-0 rounded-0 mt-1" id="select_type"
             name="role_slug">
             <?php foreach ($types['user']['roles'] as $key => $value): ?>
-            <option value="<?=$key?>"
-                <?=$key === $post['role_slug'] ? 'selected="selected"' : ''?>>
+            <option value="<?=$key?>" <?=$key === $post['role_slug'] ? 'selected="selected"' : ''?>>
                 <?=ucfirst($value['title'])?>
             </option>
             <?php endforeach?>
@@ -126,11 +125,11 @@ if (!($post_type = $post['type'])) {
         </div>
     </div>
     <?php } else { ?>
-        <?php if ($role['slug']): ?>
-        <input type="hidden" name="role_slug" value="<?=$role['slug']?>">
-        <?php elseif ($post['role_slug']): ?>
-        <input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
-        <?php endif?>
+    <?php if ($role['slug']): ?>
+    <input type="hidden" name="role_slug" value="<?=$role['slug']?>">
+    <?php elseif ($post['role_slug']): ?>
+    <input type="hidden" name="role_slug" value="<?=$post['role_slug']?>">
+    <?php endif?>
     <?php } ?>
 
     <input type="hidden" name="type" value="user">
@@ -159,7 +158,34 @@ if (!($post_type = $post['type'])) {
             }
         }
     }
+
     ?>
+
+    <?php if ($types['webapp']['display_activity_log']): ?>
+    <div class="form-group">
+        <button class="btn btn-light w-100 text-left d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#mysql_log"
+            aria-expanded="false" aria-controls="mysql_log">
+            <span><i class="fas fa-clipboard-list mr-3"></i>Log</span>
+            <i class="fas fa-chevron-circle-down"></i>
+        </button>
+        <div class="collapse border border-light overflow-auto" id="mysql_log">
+            <div class="container">
+                <?php if (count($post['mysql_access_log'] ?? [])): ?>
+                    <?php
+                        $access_log = \array_reverse($post['mysql_access_log'], true);
+                        foreach ($access_log as $key => $log):
+                    ?>
+                    <p class="mb-0 small px-2 row <?= $key%2 ? 'bg-light' : 'bg-white' ?>">
+                        <span class="text-muted mr-2 col-1 border-right border-black-50 text-center"><?= (int) $key + 1 ?></span>
+                        <span class="text-warning text-center fw-bold col-2 border-right"><?= $log['time'] ?></span>
+                        <span class="col">user <a href="/admin/edit?type=user&id=<?=$log['user_id']?>" class="text-secondary" target="_blank"><?= $log['user_name'] ? "{$log['user_id']} ({$log['user_name']})" : "{$log['user_id']}" ?></a> modified this record</span>
+                    </p>
+                    <?php endforeach ?>
+                <?php endif ?>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <?php
     if (count($types[$type]['modules']) > 3) {
