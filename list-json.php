@@ -47,6 +47,21 @@ foreach ($ids as $arr) {
             $module_input_slug_lang = $module['input_slug'] . (isset($module['input_lang']) && is_array($module['input_lang']) ? "_{$module['input_lang'][0]['slug']}" : '');
             $cont = $dash->get_content_meta($post['id'], $module_input_slug_lang);
 
+            //For displaying list_linked_module
+            if ($module['list_linked_module']) {
+                $cont_json_decoded = json_decode($cont, true);
+
+                if (is_array($cont_json_decoded)) {
+                    foreach ($cont_json_decoded as $cont_json) {
+                        $cont_json_decoded_arr[]=$dash->get_content_meta(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont_json), $module['list_linked_module']['display_module']);
+                    }
+
+                    $cont = implode(', ', $cont_json_decoded_arr);
+                } else {
+                    $cont = $dash->get_content_meta(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont), $module['list_linked_module']['display_module']);
+                }
+            }
+
             if (isset($module['list_non_empty_only']) && $module['list_non_empty_only'] && !trim($cont)) {
                 $donotlist = 1;
             } else {
