@@ -9,12 +9,11 @@ document.querySelector('#search_wrapper button[type="submit"]')
 document.querySelector('#search_output button')
     .addEventListener('click', (e) => {
         e.preventDefault();
-        clearOutput();
+        output({mode: 'clear'});
     })
 
 function fetchId() {
     let input = document.querySelector('#search_wrapper input');
-
     let req = new Request(`/api/${input.value}`);
 
     fetch(req)
@@ -31,17 +30,29 @@ function fetchId() {
             };
 
             d = JSON.stringify(d, undefined, 4);
-            output(syntaxHighlight(d));
+            output({data: syntaxHighlight(d)});
         })
         .catch(e => {
-            displayError(e.statusText);
+            output({data: e.statusText, mode: 'error'});
         });
 }
 
-function output(inp) {
+function output({ data, mode }) {
     let pre = document.querySelector('#search_output > pre');
-    pre.innerHTML = inp;
-    pre.classList.add('clear-btn')
+
+    if (mode == 'clear') {
+        pre.innerHTML = '';
+        pre.classList.remove('clear-btn');
+    } else {
+        pre.innerHTML = data;
+
+        if (mode == 'error') {
+            pre.classList.remove('clear-btn');
+            return;
+        }
+
+        pre.classList.add('clear-btn');
+    }
 }
 
 function syntaxHighlight(json) {
@@ -61,14 +72,4 @@ function syntaxHighlight(json) {
         }
         return '<span class="' + cls + '">' + match + '</span>';
     });
-}
-
-function displayError(msg) {
-    document.querySelector('#search_output > pre').innerHTML = msg;
-}
-
-function clearOutput() {
-    let pre = document.querySelector('#search_output > pre');
-    pre.innerHTML = '';
-    pre.classList.remove('clear-btn');
 }
