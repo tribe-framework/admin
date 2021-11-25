@@ -25,7 +25,7 @@ if ($save_activity_log && ($_POST['function'] != 'do_delete')) {
         $_POST['id'] = $last_query['last_data'][0]['id'] ?? null;
     }
 
-    $res = $dash->logAdminActivity($_POST['id'], $currentUser);
+    $res = $dash->writeLog($_POST['id'], $currentUser, 'modified using admin access');
 }
 
 echo json_encode($last_query);
