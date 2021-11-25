@@ -11,7 +11,7 @@
 $role = null;
 
 if (isset($_GET['id'])) {
-	$post = $dash->get_content($_GET['id']);
+	$post = $dash->findById($_GET['id']);
 }
 
 if (
@@ -178,9 +178,12 @@ if (!($post_type = $post['type'])) {
                     <p class="mb-0 small px-2 row <?= $key%2 ? 'bg-light' : 'bg-white' ?>">
                         <span class="text-muted mr-2 col-1 border-right border-black-50 text-center"><?= (int) $key + 1 ?></span>
                         <span class="text-warning text-center fw-bold col-2 border-right"><?= $log['time'] ?></span>
-                        <span class="col">user <a href="/admin/edit?type=user&id=<?=$log['user_id']?>" class="text-secondary" target="_blank"><?= $log['user_name'] ? "{$log['user_id']} ({$log['user_name']})" : "{$log['user_id']}" ?></a> modified this record</span>
+                        <span class="col-2 border-right">user <a href="/admin/edit?type=user&id=<?=$log['user_id']?>" class="text-secondary" target="_blank"><?= $log['user_name'] ? "{$log['user_id']} ({$log['user_name']})" : "{$log['user_id']}" ?></a></span>
+                        <span class="col"><?= $log['msg'] ?></span>
                     </p>
                     <?php endforeach ?>
+                <?php else: ?>
+                    <p class="text-muted mb-0 py-4 text-center">No records to display</p>
                 <?php endif ?>
             </div>
         </div>
