@@ -1,3 +1,7 @@
+:root {
+    --overflow-height: 20rem;
+}
+
 .copy_btn {
     cursor: pointer;
 }
@@ -113,5 +117,34 @@
 }
 
 #mysql_log > .container {
-    max-height: 20rem;
+    max-height: var(--overflow-height);
 }
+
+#search_output pre {
+    max-height: calc(2 * var(--overflow-height));
+}
+
+#search_output pre + button {
+    display: none;
+}
+#search_output pre.clear-btn + button {
+    display: unset;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: gray; }
+.key { color: var(--secondary); }

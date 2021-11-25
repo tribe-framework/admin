@@ -95,6 +95,10 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 </script>
 <?php endif;?>
 
+<?php if ($type == 'admin' && $slug == 'index'): ?>
+<script src="<?= ADMIN_URL ?>/js/admin-index.js"></script>
+<?php endif ?>
+
 <script src="<?= ADMIN_URL ?>/js/list.js"></script>
 <script src="<?= ADMIN_URL ?>/js/edit.js"></script>
 </body>
