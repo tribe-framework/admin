@@ -20,12 +20,4 @@ $last_query = [
     'last_redirect' => ${$_POST['class']}->get_last_redirect()
 ];
 
-if ($save_activity_log && ($_POST['function'] != 'do_delete')) {
-    if (!is_numeric($_POST['id'])) {
-        $_POST['id'] = $last_query['last_data'][0]['id'] ?? null;
-    }
-
-    $res = $dash->writeLog($_POST['id'], $currentUser, 'modified using admin access');
-}
-
 echo json_encode($last_query);
