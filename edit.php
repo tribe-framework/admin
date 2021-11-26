@@ -148,7 +148,7 @@ if (!($post_type = $post['type'])) {
 
     <?php
     if ($post) {
-        $ignored_keys = ['type', 'function', 'class', 'slug', 'id', 'updated_on', 'created_on', 'user_id', 'files_descriptor', 'password_md5', 'role_slug', 'mysql_access_log'];
+        $ignored_keys = ['type', 'function', 'class', 'slug', 'id', 'updated_on', 'created_on', 'user_id', 'files_descriptor', 'password_md5', 'role_slug', 'mysql_activity_log'];
 
         foreach ($post as $key => $value) {
             $modules = array_column($types[$type]['modules'], 'input_slug');
@@ -170,15 +170,15 @@ if (!($post_type = $post['type'])) {
         </button>
         <div class="collapse border border-light overflow-auto" id="mysql_log">
             <div class="container">
-                <?php if (count($post['mysql_access_log'] ?? [])): ?>
+                <?php if (count($post['mysql_activity_log'] ?? [])): ?>
                     <?php
-                        $access_log = \array_reverse($post['mysql_access_log'], true);
+                        $access_log = \array_reverse($post['mysql_activity_log'], true);
                         foreach ($access_log as $key => $log):
                     ?>
                     <p class="mb-0 small px-2 row <?= $key%2 ? 'bg-light' : 'bg-white' ?>">
                         <span class="text-muted mr-2 col-1 border-right border-black-50 text-center"><?= (int) $key + 1 ?></span>
                         <span class="text-warning text-center fw-bold col-2 border-right"><?= $log['time'] ?></span>
-                        <span class="col">user <a href="/admin/edit?type=user&id=<?=$log['user_id']?>" class="text-secondary" target="_blank"><?= $log['user_name'] ? "{$log['user_id']} ({$log['user_name']})" : "{$log['user_id']}" ?></a> <?= $log['msg'] ?></span>
+                        <span class="col">user <a href="/admin/edit?type=user&id=<?=$log['user_id']?>" class="text-secondary" target="_blank"><?= $log['user_name'] ? "{$log['user_id']} ({$log['user_name']})" : "{$log['user_id']}" ?></a> <?= $log['message'] ?></span>
                     </p>
                     <?php endforeach ?>
                 <?php else: ?>

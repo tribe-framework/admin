@@ -5,9 +5,9 @@ $log = null;
 $save_activity_log = isset($types['webapp']['display_activity_log']) && $types['webapp']['display_activity_log'];
 
 if ($save_activity_log && ($_POST['function'] != 'do_delete')) {
-    $log = $dash->get_content_meta($_POST['id'], 'mysql_access_log');
+    $log = $dash->get_content_meta($_POST['id'], 'mysql_activity_log');
 
-    $_POST['mysql_access_log'] = $log ? json_decode($log, 1) : [];
+    $_POST['mysql_activity_log'] = $log ? json_decode($log, 1) : [];
 }
 
 // calls push_content or do_delete from $dash (based on form request)
