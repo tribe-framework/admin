@@ -94,9 +94,9 @@
 }
 
 .thumb-preview {
-	max-width: 80px;
-	max-height: 60px;
-	object-fit: contain;
+    max-width: 80px;
+    max-height: 60px;
+    object-fit: contain;
 }
 
 .collapsable-scroll-min {
@@ -116,7 +116,7 @@
     text-decoration: underline !important;
 }
 
-#mysql_log > .container {
+#mysql_log>.container {
     max-height: var(--overflow-height);
 }
 
@@ -124,10 +124,11 @@
     max-height: calc(2 * var(--overflow-height));
 }
 
-#search_output pre + button {
+#search_output pre+button {
     display: none;
 }
-#search_output pre.clear-btn + button {
+
+#search_output pre.clear-btn+button {
     display: unset;
 }
 
@@ -135,16 +136,35 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
 }
 
-pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: gray; }
-.key { color: var(--secondary); }
+pre {
+    outline: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+}
+
+.string,
+.number {
+    color: var(--primary);
+}
+
+
+.boolean {
+    color: blue;
+}
+
+.null {
+    color: gray;
+}
+
+.key {
+    color: var(--secondary);
+}
