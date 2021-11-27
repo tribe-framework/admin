@@ -11,7 +11,7 @@
 $role = null;
 
 if (isset($_GET['id'])) {
-	$post = $dash->findById($_GET['id']);
+	$post = $dash->get_content($_GET['id']);
 }
 
 if (
