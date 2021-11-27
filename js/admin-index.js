@@ -1,9 +1,12 @@
 'use strict';
 
-document.querySelector('#search_wrapper button[type="submit"]')
-    .addEventListener('click', (e) => {
-        e.preventDefault();
-        fetchId();
+document.querySelectorAll('#search_wrapper button[type="submit"]')
+    .forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let search = e.target.closest('button').dataset.search;
+            fetchId(search);
+        });
     });
 
 document.querySelector('#search_output button')
@@ -12,9 +15,34 @@ document.querySelector('#search_output button')
         output({mode: 'clear'});
     })
 
-function fetchId() {
-    let input = document.querySelector('#search_wrapper input');
-    let req = new Request(`/api/${input.value}`);
+function fetchId(search) {
+    let url, input;
+
+    switch (search) {
+        case 'id':
+            input = document.querySelector('#searchById input');
+            url = `/api/${input.value}`;
+            break;
+
+        case 'userSlug':
+            input = document.querySelector('#searchByUserSlug input');
+            url = `/api/user/${input.value}`;
+            break;
+
+        case 'typeSlug':
+            let type = document.querySelector('#searchByType select');
+            input = document.querySelector('#searchByType input');
+            url = `/api/${type.value}/${input.value}`;
+            break;
+
+        default:
+            url = null;
+            break;
+    }
+
+    if (!url) return;
+
+    let req = new Request(url);
 
     fetch(req)
         .then(res => {
