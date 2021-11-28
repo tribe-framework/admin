@@ -1,13 +1,13 @@
 'use strict';
 
-document.querySelectorAll('#search_wrapper button[type="submit"]')
-    .forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            let search = e.target.closest('button').dataset.search;
-            fetchId(search);
-        });
-    });
+// document.querySelectorAll('#search_wrapper button[type="submit"]')
+//     .forEach(btn => {
+//         btn.addEventListener('click', (e) => {
+//             e.preventDefault();
+//             let search = e.target.closest('button').dataset.search;
+//             fetchId(search);
+//         });
+//     });
 
 document.querySelector('#search_output button')
     .addEventListener('click', (e) => {

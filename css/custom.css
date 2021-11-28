@@ -116,12 +116,9 @@
     text-decoration: underline !important;
 }
 
-#mysql_log>.container {
+#mysql_log>.container,
+.search_output pre {
     max-height: var(--overflow-height);
-}
-
-#search_output pre {
-    max-height: calc(2 * var(--overflow-height));
 }
 
 #search_output pre+button {
