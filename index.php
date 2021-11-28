@@ -104,27 +104,10 @@ if ($_POST) {
     <div class="card my-2">
         <div class="card-header">Analytics</div>
         <div class="card-body">
-            <div class="card">
-                <a class="w-100 text-left card-header" data-toggle="collapse" href="#collapseExample" role="button"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    <?= "{$db_record['id']} &#8594; {$db_record['type']} &#8594; '{$db_record['slug']}'" ?>
-                </a>
-                <div class="collapse" id="collapseExample">
-                    <div class="card-body search_output">
-                        <pre><?= json_encode($db_record, JSON_PRETTY_PRINT) ?></pre>
-                    </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $db_record['created_on'])?></span>
-                            <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $db_record['updated_on'])?></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <?php
                 $types_keys = array_keys($types);
                 $db_record_keys = array_keys($db_record);
+                $db_record_dependency[] = $db_record;
 
                 foreach($db_record_keys as $key) {
                     if (in_array($key, $types_keys)) {
@@ -136,6 +119,26 @@ if ($_POST) {
                     }
                 }
             ?>
+            <?php foreach($db_record_dependency as $key => $record): ?>
+            <div class="card mb-3">
+                <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#output_<?=$key?>" role="button"
+                    aria-expanded="false" aria-controls="output_<?=$key?>">
+                    <span><?= "{$record['id']} &#8594; {$record['type']} &#8594; {$record['slug']}" ?></span>
+                    <i class="fas fa-plus-square"></i>
+                </a>
+                <div class="collapse" id="output_<?=$key?>">
+                    <div class="card-body search_output">
+                        <pre><?= json_encode($record, JSON_PRETTY_PRINT) ?></pre>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $record['created_on'])?></span>
+                            <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $record['updated_on'])?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach ?>
         </div>
     </div>
 </div>
