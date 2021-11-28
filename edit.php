@@ -148,7 +148,7 @@ if (!($post_type = $post['type'])) {
 
     <?php
     if ($post) {
-        $ignored_keys = $dash->ignored_keys;
+        $ignored_keys = \Wildfire\Core\Dash::$ignored_keys;
 
         foreach ($post as $key => $value) {
             $modules = array_column($types[$type]['modules'], 'input_slug');
