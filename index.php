@@ -106,14 +106,13 @@ if ($_POST) {
         <div class="card-body">
             <?php
                 $types_keys = array_keys($types);
-                $db_record_keys = array_keys($db_record);
                 $db_record_dependency[] = $db_record;
 
-                foreach($db_record_keys as $key) {
+                foreach($db_record_keys as $key => $value) {
                     if (in_array($key, $types_keys)) {
                         $search = [
                             'type' => $key,
-                            'slug' => $db_record[$key]
+                            'slug' => $value
                         ];
                         $db_record_dependency[] = $dash->get_content($search);
                     }
