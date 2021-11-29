@@ -14,6 +14,8 @@ if ($_POST) {
         $db_record = $dash->get_content($search);
     }
 }
+
+$json_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPUT_ON_ERROR|JSON_PRETTY_PRINT;
 ?>
 
 <div class="card-group m-0">
@@ -87,15 +89,24 @@ if ($_POST) {
             </div>
 
             <?php if ($_POST): ?>
-            <a class="btn btn-light w-100 text-left d-flex justify-content-between align-items-center"
-                data-toggle="collapse" href="#search_output" role="button" aria-expanded="false"
-                aria-controls="search_output" title="Click to expand">
-                <span>Result</span>
-                <i class="fas fa-plus-square"></i>
-            </a>
-            <div class="collapse border border-light search_output" id="search_output">
-                <pre><?=json_encode($db_record, JSON_PRETTY_PRINT)?></pre>
-            </div>
+                <div class="card mb-3">
+                    <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#search_output" role="button"
+                        aria-expanded="false" aria-controls="search_output">
+                        <span><?= "{$db_record['id']} &#8594; {$db_record['type']} &#8594; {$db_record['slug']}" ?></span>
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                    <div class="collapse" id="search_output">
+                        <div class="card-body search_output">
+                            <pre><?= json_encode($db_record, $json_options) ?></pre>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $db_record['created_on'])?></span>
+                                <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $db_record['updated_on'])?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -105,39 +116,78 @@ if ($_POST) {
         <div class="card-header">Analytics</div>
         <div class="card-body">
             <?php
-                $types_keys = array_keys($types);
-                $db_record_dependency[] = $db_record;
+                if ($_POST):
+                    $types_keys = array_keys($types);
 
-                foreach($db_record_keys as $key => $value) {
-                    if (in_array($key, $types_keys)) {
-                        $search = [
-                            'type' => $key,
-                            'slug' => $value
-                        ];
-                        $db_record_dependency[] = $dash->get_content($search);
+                    foreach($db_record as $key => $value) {
+                        if (in_array($key, $types_keys)) {
+                            $search = [
+                                'type' => $key,
+                                'slug' => $value
+                            ];
+                            $db_record_dependency[] = $dash->get_content($search);
+                        }
                     }
-                }
+
+                    $sql = new \Wildfire\Core\MySQL;
+
+                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['slug']}'");
+
+                    if ($q) {
+                        foreach($q as $v) {
+                            $db_record_dependency[] = json_decode($v['content'], 1);
+                        }
+                        unset($q);
+                    }
+
+                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE FIND_IN_SET(`content`->>'$.{$db_record['type']}_ids', '{$db_record['id']}')");
+
+                    if ($q) {
+                        foreach($q as $v) {
+                            $db_record_dependency[] = json_decode($v['content'], 1);
+                        }
+                        unset($q);
+                    }
+
+                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE `content`->>'$.{$db_record['type']}'='{$db_record['slug']}'");
+
+                    if ($q) {
+                        foreach($q as $v) {
+                            $db_record_dependency[] = json_decode($v['content'], 1);
+                        }
+                        unset($q);
+                    }
+
+                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE JSON_CONTAINS(`content`->>'$.{$db_record['type']}', '\"{$db_record['slug']}\"', '$')");
+
+                    if ($q) {
+                        foreach($q as $v) {
+                            $db_record_dependency[] = json_decode($v['content'], 1);
+                        }
+                        unset($q);
+                    }
             ?>
-            <?php foreach($db_record_dependency as $key => $record): ?>
-            <div class="card mb-3">
-                <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#output_<?=$key?>" role="button"
-                    aria-expanded="false" aria-controls="output_<?=$key?>">
-                    <span><?= "{$record['id']} &#8594; {$record['type']} &#8594; {$record['slug']}" ?></span>
-                    <i class="fas fa-plus-square"></i>
-                </a>
-                <div class="collapse" id="output_<?=$key?>">
-                    <div class="card-body search_output">
-                        <pre><?= json_encode($record, JSON_PRETTY_PRINT) ?></pre>
-                    </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $record['created_on'])?></span>
-                            <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $record['updated_on'])?></span>
+                <?php foreach($db_record_dependency as $key => $record): ?>
+                <div class="card mb-3">
+                    <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#output_<?=$key?>" role="button"
+                        aria-expanded="false" aria-controls="output_<?=$key?>">
+                        <span><?= "{$record['id']} &#8594; {$record['type']} &#8594; {$record['slug']}" ?></span>
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                    <div class="collapse" id="output_<?=$key?>">
+                        <div class="card-body search_output">
+                            <pre><?= json_encode($record, $json_options) ?></pre>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $record['created_on'])?></span>
+                                <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $record['updated_on'])?></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <?php endforeach ?>
+                <?php endforeach ?>
+            <?php endif ?>
         </div>
     </div>
 </div>
