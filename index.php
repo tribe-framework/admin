@@ -113,7 +113,7 @@ $json_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPU
     <?php } ?>
 
     <div class="card my-2">
-        <div class="card-header">Analytics</div>
+        <div class="card-header">Analysis</div>
         <div class="card-body">
             <?php
                 if ($_POST):
