@@ -131,38 +131,42 @@ $json_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPU
 
                     $sql = new \Wildfire\Core\MySQL;
 
-                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['slug']}'");
+                    $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['slug']}'");
 
                     if ($q) {
                         foreach($q as $v) {
-                            $db_record_dependency[] = json_decode($v['content'], 1);
+                            $db_record_dependency = $dash->get_content($v['id']);
+                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
 
-                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE FIND_IN_SET(`content`->>'$.{$db_record['type']}_ids', '{$db_record['id']}')");
+                    $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE FIND_IN_SET(`content`->>'$.{$db_record['type']}_ids', '{$db_record['id']}')");
 
                     if ($q) {
                         foreach($q as $v) {
-                            $db_record_dependency[] = json_decode($v['content'], 1);
+                            $db_record_dependency = $dash->get_content($v['id']);
+                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
 
-                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE `content`->>'$.{$db_record['type']}'='{$db_record['slug']}'");
+                    $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}'='{$db_record['slug']}'");
 
                     if ($q) {
                         foreach($q as $v) {
-                            $db_record_dependency[] = json_decode($v['content'], 1);
+                            $db_record_dependency = $dash->get_content($v['id']);
+                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
 
-                    $q = $sql->executeSQL("SELECT `content` FROM `data` WHERE JSON_CONTAINS(`content`->>'$.{$db_record['type']}', '\"{$db_record['slug']}\"', '$')");
+                    $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE JSON_CONTAINS(`content`->>'$.{$db_record['type']}', '\"{$db_record['slug']}\"', '$')");
 
                     if ($q) {
                         foreach($q as $v) {
-                            $db_record_dependency[] = json_decode($v['content'], 1);
+                            $db_record_dependency = $dash->get_content($v['id']);
+                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
