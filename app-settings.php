@@ -36,7 +36,7 @@ if ($_POST) {
     </nav>
     <div class="col-12 col-md-9">
         <h1 class="mt-3 h2 text-muted text-capitalize mb-0">Manage app settings</h1>
-        <div class="">
+        <div class="col-md-7">
             <form action="" method="post">
                 <?php
                     $dash = new \Wildfire\Core\Dash();
