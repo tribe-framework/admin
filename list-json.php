@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/init.php';
+$api = new \Wildfire\Api\Api;
 
 $i = 0;
 $or=array();
@@ -81,12 +82,12 @@ foreach ($ids as $arr) {
     $i++;
 }
 
-if ($or['data'])
+if ($or['data']) {
     $or['data']=array_values($or['data']);
-else {
+    $api->json($or)->send();
+} else {
     $or['data'][$i][0]='';
     $or['data'][$i][1]='No data in this yet.';
+    $api->json($or)->send(400);
 }
-
-echo json_encode($or);
 ?>

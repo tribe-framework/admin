@@ -18,9 +18,9 @@
     }
 
     $json_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPUT_ON_ERROR|JSON_PRETTY_PRINT;
-
 @endphp
-@extends('templates.index')
+
+@extends('templates.admin')
 
 @section('body')
     {!! $admin->get_admin_menu('dash') !!}
@@ -72,15 +72,11 @@
                                     <div class="input-group-prepend col-4 px-0">
                                         <select name="type" id="search_type" class="custom-select">
                                             <option value="" disabled selected hidden>Select Type</option>
-                                            <?php
-                                                foreach($types as $t):
-                                                    if($t['type'] == 'content'):
-                                            ?>
-                                            <option value="<?= $t['slug'] ?>"><?= ucfirst($t['plural']) ?></option>
-                                            <?php
-                                                    endif;
-                                                endforeach;
-                                            ?>
+                                            @foreach ($types as $t)
+                                                @if ($t['type'] == 'content')
+                                                    <option value="{{$t['slug']}}">{{ucfirst($t['plural'])}}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                     <input type="text" name="slug" class="form-control" placeholder="Search type by slug"
@@ -99,17 +95,23 @@
                         <div class="card mb-3">
                             <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#search_output" role="button"
                                 aria-expanded="false" aria-controls="search_output">
-                                <span><?= "{$db_record['id']} &#8594; {$db_record['type']} &#8594; {$db_record['slug']}" ?></span>
+                                <span>
+                                    {{$db_record['id']}} &#8594; {{$db_record['type']}} &#8594; {{$db_record['slug']}}
+                                </span>
                                 <i class="fas fa-plus-square"></i>
                             </a>
                             <div class="collapse" id="search_output">
                                 <div class="card-body search_output">
-                                    <pre><?= json_encode($db_record, $json_options) ?></pre>
+                                    <pre>{{json_encode($db_record, $json_options)}}</pre>
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
-                                        <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $db_record['created_on'])?></span>
-                                        <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $db_record['updated_on'])?></span>
+                                        <span class="col-6 border-right border-light">
+                                            Created:<br>{{\date('d-M-Y H:i', $db_record['created_on'])}}
+                                        </span>
+                                        <span class="col-6">
+                                            Updated:<br>{{\date('d-M-Y H:i', $db_record['updated_on'])}}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +120,7 @@
                 </div>
             </div>
         @endauth
+        {{-- auth - admin --}}
 
         <div class="card my-2">
             <div class="card-header">Analysis</div>
@@ -143,7 +146,6 @@
                     if ($q) {
                         foreach($q as $v) {
                             $db_record_dependency = $dash->get_content($v['id']);
-                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
@@ -153,7 +155,6 @@
                     if ($q) {
                         foreach($q as $v) {
                             $db_record_dependency = $dash->get_content($v['id']);
-                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
@@ -163,7 +164,6 @@
                     if ($q) {
                         foreach($q as $v) {
                             $db_record_dependency = $dash->get_content($v['id']);
-                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
@@ -173,26 +173,29 @@
                     if ($q) {
                         foreach($q as $v) {
                             $db_record_dependency = $dash->get_content($v['id']);
-                            // $db_record_dependency[] = json_decode($v['content'], 1);
                         }
                         unset($q);
                     }
                     @endphp
                     @foreach($db_record_dependency as $key => $record)
                     <div class="card mb-3">
-                        <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#output_<?=$key?>" role="button"
-                            aria-expanded="false" aria-controls="output_<?=$key?>">
-                            <span><?= "{$record['id']} &#8594; {$record['type']} &#8594; {$record['slug']}" ?></span>
+                        <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none" data-toggle="collapse" href="#output_{{$key}}" role="button"
+                            aria-expanded="false" aria-controls="output_{{$key}}">
+                            <span>{{$record['id']}} &#8594; {{$record['type']}} &#8594; {{$record['slug']}}</span>
                             <i class="fas fa-plus-square"></i>
                         </a>
-                        <div class="collapse" id="output_<?=$key?>">
+                        <div class="collapse" id="output_{{$key}}">
                             <div class="card-body search_output">
-                                <pre><?= json_encode($record, $json_options) ?></pre>
+                                <pre>{{json_encode($record, $json_options)}}</pre>
                             </div>
                             <div class="card-footer">
                                 <div class="row">
-                                    <span class="col-6 border-right border-light">Created:<br><?=\date('d-M-Y H:i', $record['created_on'])?></span>
-                                    <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $record['updated_on'])?></span>
+                                    <span class="col-6 border-right border-light">
+                                        Created:<br>{{\date('d-M-Y H:i', $record['created_on'])}}
+                                    </span>
+                                    <span class="col-6">
+                                        Updated:<br>{{\date('d-M-Y H:i', $record['updated_on'])}}
+                                    </span>
                                 </div>
                             </div>
                         </div>

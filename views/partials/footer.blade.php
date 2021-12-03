@@ -7,32 +7,31 @@
 
     <div class="container my-5">
         <div class="row">
-            <?php if (!$types['webapp']['hide_wildfire_logo']): ?>
+            @if (!$types['webapp']['hide_wildfire_logo'])
+                <div class="col-md">
+                    <a href="https://wildfire.world">
+                        <img class="w-40" src="{{ ADMIN_URL }}/img/logo.png">
+                    </a>
+
+                    <p class="text-muted small mb-3 mt-4 pr-5">
+                        Made with <span class="fas fa-heart"></span>
+                        @if ($app_title)
+                            <br><em>for {{$app_title}}</em>
+                        @endif
+                    </p>
+
+                    <p class="text-muted small my-3 pr-5">
+                        Wildfire is a technology consultancy based in New Delhi, India
+                    </p>
+
+                    <p class="text-muted small my-3 pr-5">
+                        {{$year = date('Y')}} &copy; {{$year == '2020' ? $year : "2020 - $year"}}
+                    </p>
+                </div>
+            @endif
+
             <div class="col-md">
-                <a href="https://wildfire.world">
-                    <img class="w-40" src="{{ ADMIN_URL }}/img/logo.png">
-                </a>
-
-                <p class="text-muted small mb-3 mt-4 pr-5">
-                    Made with <span class="fas fa-heart"></span>
-                    <?php if ($app_title): ?>
-                    <br><em>for <?= $app_title ?></em>
-                    <?php endif; ?>
-                </p>
-
-                <p class="text-muted small my-3 pr-5">
-                    Wildfire is a technology consultancy based in New Delhi, India
-                </p>
-
-                <p class="text-muted small my-3 pr-5">
-                    <?php $year = date('Y'); ?>
-                    &copy; <?= $year == '2020' ? $year : "2020 - $year" ?>
-                </p>
-            </div>
-            <?php endif; ?>
-
-            <div class="col-md">
-                <?=
+                {!!
                     $theme->get_menu(
                         $admin_menus['admin_footer_1'],
                         [
@@ -41,11 +40,11 @@
                             'a' => 'small'
                         ]
                     )
-                ?>
+                !!}
             </div>
 
             <div class="col-md">
-                <?=
+                {!!
                     $theme->get_menu(
                         $admin_menus['admin_footer_2'],
                         [
@@ -54,7 +53,7 @@
                             'a' => 'small'
                         ]
                     );
-                ?>
+                !!}
             </div>
         </div>
     </div>

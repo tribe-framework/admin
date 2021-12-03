@@ -45,6 +45,7 @@
 	<link rel="stylesheet" href="{{ADMIN_URL}}/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="{{ADMIN_URL}}/plugins/datatables/datatables.min.css">
 	<link rel="stylesheet" href="{{ADMIN_URL}}/css/custom.css">
+
     @yield('meta')
 </head>
 
@@ -69,7 +70,7 @@
     <script src="{{ ADMIN_URL }}/plugins/datatables/datatables.min.js"></script>
     <script src="{{ ADMIN_URL }}/plugins/clipboard.min.js"></script>
     <script src="{{ ADMIN_URL }}/plugins/keymaster.js"></script>
-    <script src="{{ ADMIN_URL }}/js/custom.js?v=<?=time();?>"></script>
+    <script src="{{ ADMIN_URL }}/js/custom.js?v={{time()}}"></script>
     <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
     <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
 
@@ -85,18 +86,18 @@
     <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
     <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
-    <?php if (isset($types['webapp']['admin_confetti'])): ?>
-    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
-    <script>
-        $(document).on('click', '.save_btn', function(e) {
-            confetti.start(1000);
-        });
-    </script>
-    <?php endif;?>
+    @if (isset($types['webapp']['admin_confetti']))
+        <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+        <script>
+            $(document).on('click', '.save_btn', function(e) {
+                confetti.start(1000);
+            });
+        </script>
+    @endif
 
-    <?php if ($type == 'admin' && $slug == 'index'): ?>
-    <script src="{{ ADMIN_URL }}/js/admin-index.js"></script>
-    <?php endif ?>
+    @if ($type == 'admin' && $slug == 'index')
+        <script src="{{ ADMIN_URL }}/js/admin-index.js"></script>
+    @endif
 
     <script src="{{ ADMIN_URL }}/js/list.js"></script>
     <script src="{{ ADMIN_URL }}/js/edit.js"></script>
