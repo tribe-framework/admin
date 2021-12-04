@@ -9,18 +9,14 @@ function formComponent($v) {
 $components = [
     'text' => 'text',
     'multi-text' => 'text',
-    'multi_text' => 'text',
     'textarea' => 'textarea',
     'multi-textarea' => 'textarea',
-    'multi_textarea' => 'textarea',
     'typeout' => 'typeout',
     'date' => 'date',
     'url' => 'url',
     'multi-url' => 'url',
-    'multi_url' => 'url',
     'number' => 'number',
     'multi-number' => 'number',
-    'multi_number' => 'number',
     'checkbox' => 'checkbox',
     'tel' => 'tel',
     'hidden' => 'hidden',
@@ -29,14 +25,11 @@ $components = [
     'password' => 'password',
     'select' => 'select',
     'multi-drop' => 'multi-drop',
-    'multi_drop' => 'multi-drop',
     'multi-select' => 'multi-select',
-    'multi_select' => 'multi-select',
     'file_uploader' => 'file-uploader',
     'google_map_marker' => 'google-map-marker',
     'color' => 'color',
     'multi-color' => 'color',
-    'multi_color' => 'color',
 ];
 
 foreach ($types[$type]['modules'] as $module) {
@@ -74,7 +67,13 @@ foreach ($types[$type]['modules'] as $module) {
             $module_input_default_value = $dash->get_unique_user_id();
         }
 
+        // replace _ with -
+        $module_input_type_alt = \str_replace('_', '-', $module_input_type);
+
         if (array_key_exists($module_input_type, $components)) {
+            include formComponent($components[$module_input_type]);
+        } else if ($module_input_type_alt && \array_key_exists($module_input_type_alt, $components)) {
+            $module_input_type = $module_input_type_alt;
             include formComponent($components[$module_input_type]);
         } else {
             echo "<em style='color: red; border-left: 2px solid red; padding: 2px 8px;'>{$module_input_type} : form-component not found</em><br/>";
