@@ -27,7 +27,7 @@ foreach ($type_name_values as $i => $type_name_value):
     <textarea
         id="<?= $module_input_slug_lang ?>"
         name="<?= $textarea_name ?>"
-        class="pl-0 border-top-0 border-left-0 border-right-0 rounded-0 form-control"
+        class="border-top-0 border-left-0 border-right-0 rounded-0 form-control"
         placeholder="<?= $placeholder ?>"
     ><?= $type_name_value ?></textarea>
 
