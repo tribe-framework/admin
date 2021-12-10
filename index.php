@@ -19,7 +19,7 @@ if ($_POST) {
 $json_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPUT_ON_ERROR|JSON_PRETTY_PRINT;
 ?>
 
-<div class="card-group m-0">
+<div class="row">
     <?php
         if ($currentUser['role'] == 'admin') {
             require_once __DIR__.'/includes/_search_panel.php';

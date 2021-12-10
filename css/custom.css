@@ -168,3 +168,22 @@ pre {
 .key {
     color: var(--secondary);
 }
+
+#analysisTable_wrapper label {
+    margin-bottom: unset;
+}
+
+#analysisTable_wrapper #top.clearfix {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 0 0.5rem;
+}
+
+#analysisTable_wrapper #bottom.clearfix {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2rem;
+}
