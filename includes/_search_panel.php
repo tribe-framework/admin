@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-header">Search</div>
 
-        <div id="search_wrapper" class="card-body">
+        <div id="search_wrapper" class="card-body p-0">
             <?php // navigation for search options ?>
             <nav>
                 <div class="nav nav-pills" id="nav-tab" role="tablist">
@@ -28,7 +28,7 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <form id="searchById" class="needs-validation bg-white" method="get" action="/admin" novalidate>
                         <div class="mb-3 input-group">
-                            <input type="number" name="row_id" class="form-control" placeholder="Search record by Id"
+                            <input type="number" name="row_id" class="form-control" value="<?=$_GET['row_id']?>" placeholder="Search record by Id"
                                 required>
                             <button class="btn btn-secondary" type="submit" data-search="id"><i class="far fa-search"></i>
                             </button>
@@ -81,7 +81,7 @@
                 // card list - visible only when a search query is made
                 if ($_GET):
             ?>
-            <?php displayRecordCard($db_record, 'parent', $json_options, $types) ?>
+            <?php displayRecordCard($db_record, 'parent', $json_options, $types, 'show') ?>
             <?php endif ?>
         </div>
         <!-- // div#search-wrapper -->
@@ -90,7 +90,7 @@
 </div>
 
 <?php
-function displayRecordCard ($record, $parent_or_child='child', $json_options='', $types=[]) {
+function displayRecordCard ($record, $parent_or_child='child', $json_options='', $types=[], $tab_default_state='') {
 
     if ($record['id']): //if row_id exists
 
@@ -110,7 +110,7 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
                     <h6 class="font-weight-light mb-0"><?= "<span class=\"badge badge-pill badge-success mr-2\">{$record['id']}</span><span class=\"badge badge-pill badge-primary mr-2\">{$record['type']}".($record['role_slug'] ? " | ".$record['role_slug'] : "")."</span><span class=\"pt-1\">{$record_title}</span>" ?></h6>
                     <i class="fal fa-chevron-down"></i>
                 </a>
-                <div class="collapse" id="output_<?=$record['id']?>">
+                <div class="collapse <?=$tab_default_state?>" id="output_<?=$record['id']?>">
                     <div class="card-body search_output p-0">
                         <pre style="width:50ch;" class="overflow-auto"><?= \json_encode($record, $json_options) ?></pre>
                     </div>
