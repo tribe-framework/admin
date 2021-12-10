@@ -92,6 +92,8 @@
 <?php
 function displayRecordCard ($record, $parent_or_child='child', $json_options='', $types=[]) {
 
+    if ($record['id']): //if row_id exists
+
     //IF THE MODULE HAS A TITLE, USE IT, OR ELSE SHOW SLUG
     $record_type = $record['type'];
     $type_primary_module = $types[$record_type]['primary_module'];
@@ -143,5 +145,6 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
         </td>
     </tr>
     <?php
+    endif; //if row_id exists
 }
 ?>
