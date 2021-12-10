@@ -62,29 +62,37 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 </footer>
 
 <script src="<?= ADMIN_URL ?>/plugins/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/popper/popper.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/moment.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/typeout/typeout.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/clipboard.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/keymaster.js"></script>
-<script src="<?= ADMIN_URL ?>/js/custom.js?v=<?=time();?>"></script>
-<script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
-<script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
 
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<?php // js files to be loaded for specific pages - to reduce network requests ?>
+<?php if ($type == 'admin' && $slug == 'index'): ?>
+	<script src="<?= ADMIN_URL ?>/js/admin-index.js"></script>
+<?php elseif ($slug != "edit"): ?>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+	<script src="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.js"></script>
+	<script src="<?= ADMIN_URL ?>/js/list.js"></script>
+<?php elseif ($slug == "edit"): ?>
+	<script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+	<script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+	<script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
+	<script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
+	<script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
+	<script src="<?= ADMIN_URL ?>/plugins/typeout/typeout.js"></script>
+	<script src="<?= ADMIN_URL ?>/js/edit.js"></script>
+<?php endif ?>
 
-<script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
-<script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script src="<?= ADMIN_URL ?>/js/custom.js?v=<?=time()?>"></script>
 
 <?php if (isset($types['webapp']['admin_confetti'])): ?>
 <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
@@ -94,13 +102,6 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 	});
 </script>
 <?php endif;?>
-
-<?php if ($type == 'admin' && $slug == 'index'): ?>
-<script src="<?= ADMIN_URL ?>/js/admin-index.js"></script>
-<?php endif ?>
-
-<script src="<?= ADMIN_URL ?>/js/list.js"></script>
-<script src="<?= ADMIN_URL ?>/js/edit.js"></script>
 </body>
 
 </html>
