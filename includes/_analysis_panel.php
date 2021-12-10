@@ -8,7 +8,7 @@
                 'type' => $key,
                 'slug' => $value
             ];
-            $db_record_dependency[] = $dash->get_content($search);
+            $db_record_dependency['parent'][] = $dash->get_content($search);
         }
     }
 
@@ -16,38 +16,38 @@
         $sql = new \Wildfire\Core\MySQL;
         $dash = new \Wildfire\Core\Dash;
 
-        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['slug']}'");
+        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['slug']}' LIMIT 1000");
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency[] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->get_content($v['id']);
             }
             unset($q);
         }
 
-        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE FIND_IN_SET(`content`->>'$.{$db_record['type']}_ids', '{$db_record['id']}')");
+        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE FIND_IN_SET(`content`->>'$.{$db_record['type']}_ids', '{$db_record['id']}') LIMIT 1000");
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency[] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->get_content($v['id']);
             }
             unset($q);
         }
 
-        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}'='{$db_record['slug']}'");
+        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}'='{$db_record['slug']}' LIMIT 1000");
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency[] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->get_content($v['id']);
             }
             unset($q);
         }
 
-        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE JSON_CONTAINS(`content`->>'$.{$db_record['type']}', '\"{$db_record['slug']}\"', '$')");
+        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE JSON_CONTAINS(`content`->>'$.{$db_record['type']}', '\"{$db_record['slug']}\"', '$') LIMIT 1000");
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency[] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->get_content($v['id']);
             }
             unset($q);
         }
@@ -58,42 +58,20 @@
     $db_record_dependency = getDbRecord($db_record_dependency, $db_record);
 ?>
 
-<?php if ($_POST): ?>
+<?php if ($_GET): ?>
 <div class="px-0 col-lg-6 border border-light">
     <?php if (\sizeof($db_record_dependency)): ?>
     <table id="analysisTable" class="table table-borderless">
         <thead>
             <tr>
-                <th>Associations</th>
+                <th>Related records</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach($db_record_dependency as $key => $record): ?>
-                <tr class="col-12">
-                    <td>
-                        <div class="card">
-                            <a class="w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none"
-                                data-toggle="collapse" href="#output_<?=$key?>" role="button" aria-expanded="false"
-                                aria-controls="output_<?=$key?>">
-                                <span><?= "{$record['id']} &#8594; {$record['type']} &#8594; {$record['slug']}" ?></span>
-                                <i class="fas fa-plus-square"></i>
-                            </a>
-                            <div class="collapse" id="output_<?=$key?>">
-                                <div class="card-body search_output">
-                                    <pre style="width:50ch;" class="overflow-auto"><?= \json_encode($record, $json_options) ?></pre>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <span class="col-6 border-right border-light">
-                                            Created:<br><?=\date('d-M-Y H:i', $record['created_on'])?>
-                                        </span>
-                                        <span class="col-6">Updated:<br><?=\date('d-M-Y H:i', $record['updated_on'])?></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+            <?php foreach($db_record_dependency as $parent_or_child => $single_record): ?>
+                <?php foreach($single_record as $key => $record): ?>
+                    <?php displayRecordCard($record, $parent_or_child, $json_options, $types) ?>
+                <?php endforeach ?>
             <?php endforeach ?>
         </tbody>
     </table>

@@ -3,13 +3,13 @@ require_once __DIR__ . '/includes/_header.php';
 
 echo $admin->get_admin_menu('dash');
 
-if ($_POST) {
-    if ($_POST['row_id']) {
-        $db_record = $dash->get_content($_POST['row_id']);
-    } else if ($_POST['type'] && $_POST['slug']) {
+if ($_GET) {
+    if ($_GET['row_id']) {
+        $db_record = $dash->get_content($_GET['row_id']);
+    } else if ($_GET['type'] && $_GET['slug']) {
         $search = array(
-            'type' => $_POST['type'],
-            'slug' => $_POST['slug']
+            'type' => $_GET['type'],
+            'slug' => $_GET['slug']
         );
 
         $db_record = $dash->get_content($search);

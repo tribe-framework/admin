@@ -146,9 +146,8 @@ input[type=number] {
 }
 
 pre {
-    outline: 1px solid #ccc;
-    padding: 5px;
-    margin: 5px;
+    padding: 10px;
+    margin: 10px;
 }
 
 .string,
@@ -171,6 +170,14 @@ pre {
 
 #analysisTable_wrapper label {
     margin-bottom: unset;
+}
+
+#analysisTable th {
+    padding: 10px;
+}
+
+#analysisTable td {
+    padding: 2.5px 5px 2.5px 5px;
 }
 
 #analysisTable_wrapper #top.clearfix {
