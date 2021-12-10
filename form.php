@@ -47,6 +47,8 @@ foreach ($types[$type]['modules'] as $module) {
     $module_input_options = $module['input_options'] ?? null;
     $module_input_placeholder = $module['input_placeholder'] ?? null;
     $module_input_step = $module['input_step'] ?? null;
+    $module_input_min = $module['input_min'] ?? null;
+    $module_input_max = $module['input_max'] ?? null;
     $slug_displayed = 0;
 
     $module_input_slug_arr = array();
