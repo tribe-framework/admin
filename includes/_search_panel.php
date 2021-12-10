@@ -97,8 +97,14 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
     //IF THE MODULE HAS A TITLE, USE IT, OR ELSE SHOW SLUG
     $record_type = $record['type'];
     $type_primary_module = $types[$record_type]['primary_module'];
-    if ($type_primary_module && !($record_title = $record[$type_primary_module]))
-        $record_title = $record['slug'];
+    if ($type_primary_module 
+        && !($record_title = $record[$type_primary_module]) 
+        && !($record_title = $record['title']) 
+        && !($record_title = $record['name'])) {
+
+            $record_title = $record['slug'];
+            
+    }
     ?>
 
     <tr class="col-12 <?= $parent_or_child == 'parent' ? 'bg-info' : 'bg-light' ?>">
