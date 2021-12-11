@@ -3,11 +3,13 @@ key('⌘+b, ctrl+b', function(e){$('.typeout-bold').trigger('click'); e.preventD
 key('⌘+i, ctrl+i', function(e){$('.typeout-italic').trigger('click'); e.preventDefault();});
 
 $( document ).ready(function() {
-	$('.multi_drop_select_table').DataTable({
-		"dom": '<"top"f>rt<"bottom">',
-		"pageLength":50,
-		"order": [[ 0, "desc" ]]
-	});
+	if ($('.multi_drop_select_table').length) {
+		$('.multi_drop_select_table').DataTable({
+			"dom": '<"top"f>rt<"bottom">',
+			"pageLength":50,
+			"order": [[ 0, "desc" ]]
+		});
+	}
 
 	$('.typeout-content').each(function() {update_textarea($(this).data('input-slug'));});
 
