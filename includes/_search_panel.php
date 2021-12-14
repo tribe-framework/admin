@@ -27,7 +27,7 @@
                 <?php // search only by row_id in db ?>
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <form id="searchById" class="needs-validation bg-white" method="get" action="/admin" novalidate>
-                        <div class="mb-3 input-group">
+                        <div class="input-group">
                             <input type="number" name="row_id" class="form-control" value="<?=$_GET['row_id']?>" placeholder="Search record by Id"
                                 required>
                             <button class="btn btn-secondary" type="submit" data-search="id"><i class="far fa-search"></i>
@@ -39,7 +39,7 @@
                 <?php // search a user by their slug ?>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <form id="searchByUserSlug" class="bg-white" method="get" action="/admin" novalidate>
-                        <div class="mb-3 input-group">
+                        <div class="input-group">
                             <input type="hidden" name="type" value="user">
                             <input type="text" name="slug" class="form-control" placeholder="Search user by slug" required>
                             <button class="btn btn-secondary" type="submit" data-search="userSlug"><i
@@ -52,7 +52,7 @@
                 <?php // search db based on type & slug ?>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <form id="searchByType" class="bg-white" method="get" action="/admin" novalidate>
-                        <div class="mb-3 input-group">
+                        <div class="input-group">
                             <div class="input-group-prepend col-4 px-0">
                                 <select name="type" id="search_type" class="custom-select">
                                     <option value="" disabled selected hidden>Select Type</option>
@@ -81,7 +81,9 @@
                 // card list - visible only when a search query is made
                 if ($_GET):
             ?>
-            <?php displayRecordCard($db_record, 'parent', $json_options, $types, 'show') ?>
+            <div class="mt-3">
+                <?php displayRecordCard($db_record, 'parent', $json_options, $types, 'show') ?>
+            </div>
             <?php endif ?>
         </div>
         <!-- // div#search-wrapper -->
@@ -97,23 +99,37 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
     //IF THE MODULE HAS A TITLE, USE IT, OR ELSE SHOW SLUG
     $record_type = $record['type'];
     $type_primary_module = $types[$record_type]['primary_module'];
-    if ($type_primary_module 
-        && !($record_title = $record[$type_primary_module]) 
-        && !($record_title = $record['title']) 
+    if ($type_primary_module
+        && !($record_title = $record[$type_primary_module])
+        && !($record_title = $record['title'])
         && !($record_title = $record['name'])) {
 
             $record_title = $record['slug'];
-            
+
     }
     ?>
 
-    <tr class="col-12 <?= $parent_or_child == 'parent' ? 'bg-info' : 'bg-light' ?>">
+    <tr class="col-12">
         <td>
             <div class="card">
-                <a class="p-2 w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none"
-                    data-toggle="collapse" href="#output_<?=$record['id']?>" role="button" aria-expanded="false"
-                    aria-controls="output_<?=$record['id']?>">
-                    <h6 class="font-weight-light mb-0"><?= "<span class=\"badge badge-pill badge-success mr-2\">{$record['id']}</span><span class=\"badge badge-pill badge-primary mr-2\">{$record['type']}".($record['role_slug'] ? " | ".$record['role_slug'] : "")."</span><span class=\"pt-1\">{$record_title}</span>" ?></h6>
+                <a
+                    class="p-2 w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none"
+                    data-toggle="collapse"
+                    href="#output_<?=$record['id']?>"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="output_<?=$record['id']?>"
+                    ><h6 class="font-weight-light mb-0 d-flex align-items-center">
+                        <?php
+                            // parent records are marked with "info" color & children with "secondary" color
+                            $badge_poc = $parent_or_child == 'parent' ? 'badge-info' : 'badge-secondary';
+                        ?>
+                        <span class="badge badge-pill <?= $badge_poc ?> mr-2"><?= $record['id']?></span>
+                        <span class="badge badge-pill badge-primary mr-2">
+                            <?= "{$record['type']}" ?> <?= $record['role_slug'] ? " | ".$record['role_slug'] : "" ?>
+                        </span>
+                        <span class="pt-1"><?=$record_title?></span>
+                    </h6>
                     <i class="fal fa-chevron-down"></i>
                 </a>
                 <div class="collapse <?=$tab_default_state?>" id="output_<?=$record['id']?>">

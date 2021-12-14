@@ -32,6 +32,7 @@ $(document).ready(() => {
 	});
 
 	$('#analysisTable').DataTable({
-		dom: '<"#top.clearfix""fl>rt<"#bottom.clearfix"ip>'
+		dom: '<"#top.clearfix""fl>rt<"#bottom.clearfix"ip>',
+		pageLength: 100
 	});
 });

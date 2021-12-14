@@ -183,9 +183,10 @@ pre {
 #analysisTable_wrapper #top.clearfix {
     display: flex;
     justify-content: space-between;
-    background-color: var(--dark);
-    color: var(--white);
+    background-color: rgba(0,0,0,0.03);
+    color: var(--dark);
     padding: 0 0.5rem;
+    font-size: 1rem;
 }
 
 #analysisTable_wrapper #bottom.clearfix {
