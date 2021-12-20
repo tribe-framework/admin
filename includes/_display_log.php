@@ -2,7 +2,7 @@
 $sql = new \Wildfire\Core\MySQL;
 
 $activity_log = \json_encode($post['mysql_activity_log']);
-$post['mysql_activity_log'] = $sql->jsonDecode($activity_log);
+$activity_log = $sql->jsonDecode($activity_log);
 ?>
 
 <?php if ($types['webapp']['display_activity_log']): ?>
@@ -14,9 +14,9 @@ $post['mysql_activity_log'] = $sql->jsonDecode($activity_log);
         </button>
         <div class="collapse border border-light overflow-auto" id="mysql_log">
             <div class="container">
-                <?php if (count($post['mysql_activity_log'] ?? [])): ?>
+                <?php if (count($activity_log ?? [])): ?>
                     <?php
-                        $access_log = \array_reverse($post['mysql_activity_log'], true);
+                        $access_log = \array_reverse($activity_log, true);
                         foreach ($access_log as $key => $log):
                     ?>
                     <p class="mb-0 small px-2 row <?= $key%2 ? 'bg-light' : 'bg-white' ?>">
