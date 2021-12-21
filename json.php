@@ -2,7 +2,7 @@
 require_once __DIR__ . '/init.php';
 
 $log = null;
-$save_activity_log = isset($types['webapp']['display_activity_log']) && $types['webapp']['display_activity_log'];
+$save_activity_log = $types['webapp']['display_activity_log'] ?? false;
 
 if ($save_activity_log && ($_POST['function'] != 'do_delete')) {
     $log = $dash->get_content_meta($_POST['id'], 'mysql_activity_log');
