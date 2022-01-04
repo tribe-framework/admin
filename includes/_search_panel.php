@@ -112,6 +112,12 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
     <tr class="col-12">
         <td>
             <div class="card">
+                <?php if ($_GET): ?>
+                    <div class="px-2">
+                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-info text-info mr-1">.</span> Parent</span>
+                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-secondary text-secondary mr-1">.</span>Child</span>
+                    </div>
+                <?php endif; ?>
                 <a
                     class="p-2 w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none"
                     data-toggle="collapse"
