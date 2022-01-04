@@ -55,12 +55,14 @@
         return $db_record_dependency;
     }
 
-    $db_record_dependency = getDbRecord($db_record_dependency, $db_record);
+    if ($_GET) {
+        $db_record_dependency = getDbRecord($db_record_dependency, $db_record);
+    }
 ?>
 
 <?php if ($_GET): ?>
 <div class="px-0 col-lg-6 border border-light">
-    <?php if (\sizeof($db_record_dependency)): ?>
+    <?php if ($db_record_dependency && \sizeof($db_record_dependency)): ?>
     <table id="analysisTable" class="table table-borderless">
         <thead>
             <tr>
