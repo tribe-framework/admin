@@ -181,14 +181,23 @@ pre {
 
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
-  background-color: var(--info);
-  border-bottom: 1px solid var(--light)
+  background-color: #99339947;
+}
+
+table.dataTable tbody > tr > td {
+  border-bottom: 1px solid var(--white);
+}
+
+table.dataTable tbody tr.selected,
+table.dataTable tbody th.selected,
+table.dataTable tbody td.selected {
+  color: #000;
 }
 
 table.dataTable tbody tr.selected a,
 table.dataTable tbody th.selected a,
 table.dataTable tbody td.selected a {
-  color: #fff;
+  color: #000;
 }
 
 #analysisTable_wrapper #top.clearfix {
@@ -211,6 +220,10 @@ table.dataTable tbody td.selected a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+#dtList tr td:first-of-type {
+  cursor: default;
 }
 
 #bottom .dt-buttons {

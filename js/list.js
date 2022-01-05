@@ -17,7 +17,6 @@ $(document).ready(() => {
 		pageLength: 50,
 		columnDefs: [
 			{
-				orderable: false,
 				targets: 0,
 				checkboxes: {
 					selectRow: true
@@ -25,7 +24,7 @@ $(document).ready(() => {
 			}
 		],
 		select: {
-			style: 'multi'
+			style: 'multi',
 		},
 		order: [[ 0, "desc" ]],
 		buttons: [{
@@ -51,11 +50,6 @@ $(document).ready(() => {
 		pageLength: 100
 	});
 });
-
-/**
- * append form with id[] for deletion
- *
- */
 
 // multi-select delete action for lists
 function rigDataTableRows() {
@@ -89,3 +83,25 @@ function toggleMultiDeleteButton(e) {
 		visibleDelButton.classList.add('d-none');
 	}
 }
+
+(() => {
+	let delSelectedButton = document.getElementById('deleteSelected');
+	if (!delSelectedButton) return;
+
+	delSelectedButton.addEventListener('click', e => {
+		e.preventDefault();
+		let selectedRows = document.querySelectorAll('tr.selected > td:first-of-type');
+		if (!selectedRows) return;
+
+		let listForm = document.getElementById('dtList');
+
+		let ids = [];
+		selectedRows.forEach(td => ids.push(td.innerText));
+		ids = JSON.stringify(ids);
+
+		let hiddenInputIds = document.querySelector("input[name='ids'][type='hidden']");
+		hiddenInputIds.value = ids;
+
+		listForm.submit();
+	})
+})();

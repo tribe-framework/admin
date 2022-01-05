@@ -1,7 +1,7 @@
 <?php
 $sql = new \Wildfire\Core\MySQL;
 
-$activity_log = $post['mysql_activity_log'];
+$activity_log = $post['mysql_activity_log'] ?? array();
 $activity_log = array_map('json_decode', $activity_log, array_fill(0, sizeof($activity_log), 1));
 ?>
 

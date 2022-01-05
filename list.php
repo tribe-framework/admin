@@ -25,7 +25,7 @@ if (isset($_GET['role'])) {
         List of <?= $types[$type]['plural'] ?>
     </h2>
 
-    <form id="dtList" action="/admin/types?edit=user" method="post">
+    <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
         <div id="deleteConfirm" class="modal" tabindex="-1">
             <div class="modal-dialog">
@@ -41,7 +41,7 @@ if (isset($_GET['role'])) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+                        <button id="deleteSelected" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
                     </div>
                 </div>
             </div>
@@ -49,8 +49,9 @@ if (isset($_GET['role'])) {
         <!-- / delete modal -->
 
         <input type="hidden" name="ids">
-        <table class="my-4 table table-striped table-borderless table-hover datatable border-bottom border-light"
-            data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role']?>">
+        <input type="hidden" name="type" value=<?=$_GET['type']?> >
+
+        <table class="my-4 table table-sm table-striped table-borderless table-hover datatable border-bottom border-light" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role']?>">
             <thead class="thead-black">
                 <tr>
                     <th scope="col">#</th>
