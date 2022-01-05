@@ -1,216 +1,227 @@
 :root {
-    --overflow-height: 20rem;
+  --overflow-height: 20rem;
 }
 
 .copy_btn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .dragula,
 .dragula .input-group-prepend {
-    cursor: grab;
+  cursor: grab;
 }
 
 .bar {
-    height: 18px;
-    background: #993399;
+  height: 18px;
+  background: #993399;
 }
 
 .byline {
-    display: none;
+  display: none;
 }
 
 #map {
-    height: 400px;
-    max-height: 100%;
+  height: 400px;
+  max-height: 100%;
 }
 
 #infowindow-content {
-    display: none;
+  display: none;
 }
 
 #map #infowindow-content {
-    display: inline;
+  display: inline;
 }
 
 .dataTables_filter {
-    float: left;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .dt-buttons {
-    float: left;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .paging_simple_numbers {
-    float: right;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .dataTables_info {
-    float: right;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .dataTables_length {
-    float: left;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .multi_drop {
-    height: 400px;
-    overflow-y: scroll;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .stat-row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .popup-banner {
-    position: fixed;
-    bottom: 1rem;
-    left: 1rem;
-    min-width: 30ch;
-    max-width: 40ch;
-    z-index: 9999;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  min-width: 30ch;
+  max-width: 40ch;
+  z-index: 9999;
 }
 
 .popup-banner .progress {
-    height: 2px;
-    background-color: red;
-    width: 0%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: width 9s linear;
+  height: 2px;
+  background-color: red;
+  width: 0%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 9s linear;
 }
 
 .thumb-preview {
-    max-width: 80px;
-    max-height: 60px;
-    object-fit: contain;
+  max-width: 80px;
+  max-height: 60px;
+  object-fit: contain;
 }
 
 .collapsable-scroll-min {
-    overflow: auto;
-    max-height: 400px;
-    border: 1px solid #eee;
+  overflow: auto;
+  max-height: 400px;
+  border: 1px solid #eee;
 }
 
 .table .thead-black th {
-    background-color: #000;
-    border-color: #000;
-    color: #eee;
+  background-color: #000;
+  border-color: #000;
+  color: #eee;
 }
 
 .typeout-content a {
-    color: #993399;
-    text-decoration: underline !important;
+  color: #993399;
+  text-decoration: underline !important;
 }
 
-#mysql_log>.container {
-    max-height: var(--overflow-height);
+#mysql_log > .container {
+  max-height: var(--overflow-height);
 }
 
 .search_output pre {
-    max-height: calc(1.5 * var(--overflow-height));
+  max-height: calc(1.5 * var(--overflow-height));
 }
 
-#search_output pre+button {
-    display: none;
+#search_output pre + button {
+  display: none;
 }
 
-#search_output pre.clear-btn+button {
-    display: unset;
+#search_output pre.clear-btn + button {
+  display: unset;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0;
-    /* <-- Apparently some margin are still there even though it's hidden */
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
-    /* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
 }
 
 pre {
-    padding: 10px;
-    margin: 10px;
+  padding: 10px;
+  margin: 10px;
 }
 
 .string,
 .number {
-    color: var(--primary);
+  color: var(--primary);
 }
 
-
 .boolean {
-    color: blue;
+  color: blue;
 }
 
 .null {
-    color: gray;
+  color: gray;
 }
 
 .key {
-    color: var(--secondary);
+  color: var(--secondary);
 }
 
 #analysisTable_wrapper label {
-    margin-bottom: unset;
+  margin-bottom: unset;
 }
 
 #analysisTable th {
-    padding: 10px;
+  padding: 10px;
 }
 
 #analysisTable td {
-    padding: 2.5px 5px 2.5px 5px;
+  padding: 2.5px 5px 2.5px 5px;
+}
+
+table.dataTable tbody > tr.selected,
+table.dataTable tbody > tr > .selected {
+  background-color: var(--info);
+  border-bottom: 1px solid var(--light)
+}
+
+table.dataTable tbody tr.selected a,
+table.dataTable tbody th.selected a,
+table.dataTable tbody td.selected a {
+  color: #fff;
 }
 
 #analysisTable_wrapper #top.clearfix {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(0,0,0,0.03);
-    color: var(--dark);
-    padding: 0 0.5rem;
-    font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--dark);
+  padding: 0 0.5rem;
+  font-size: 1rem;
 }
 
 #analysisTable_wrapper #bottom.clearfix {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
 }
 
 #dtList #bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #bottom .dt-buttons {
-    margin: unset;
-    float: unset;
+  margin: unset;
+  float: unset;
 }
 
 #bottom .paging_simple_numbers {
-    float: unset;
+  float: unset;
 }
 
 #bottom .paging_simple_numbers ul {
-    margin: unset;
+  margin: unset;
 }

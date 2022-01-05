@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    new ClipboardJS('.copy_btn');
+	new ClipboardJS('.copy_btn');
 });
 
 function process_json_out (data, btn_html='') {

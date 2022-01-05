@@ -25,9 +25,32 @@ if (isset($_GET['role'])) {
         List of <?= $types[$type]['plural'] ?>
     </h2>
 
-    <div id="dtList">
-        <table class="my-4 table table-striped table-borderless table-hover datatable border-bottom border-light" data-jsonpath="list-json" data-type="<?=$type?>"
-            data-role="<?=$_GET['role']?>">
+    <form id="dtList" action="/admin/types?edit=user" method="post">
+        <!-- delete modal -->
+        <div id="deleteConfirm" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Are you sure?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>This will delete <span id="deleteTally">n</span> item(s)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / delete modal -->
+
+        <input type="hidden" name="ids">
+        <table class="my-4 table table-striped table-borderless table-hover datatable border-bottom border-light"
+            data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role']?>">
             <thead class="thead-black">
                 <tr>
                     <th scope="col">#</th>
@@ -54,7 +77,7 @@ if (isset($_GET['role'])) {
                 </tr>
             </thead>
         </table>
-    </div>
+    </form>
 </div>
 
 <?php require_once __DIR__ . '/includes/_footer.php';?>

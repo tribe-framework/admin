@@ -75,6 +75,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.select.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.js"></script>
 <script src="<?= ADMIN_URL ?>/js/list.js"></script>
