@@ -4,7 +4,7 @@ namespace Wildfire;
 $dash = new Core\Dash();
 $admin = new Admin;
 $theme = new Core\Theme();
-$auth = new Auth\Auth();
+$auth = new Auth();
 
 $types = $dash->getTypes();
 $menus = $dash->getMenus();

@@ -2,7 +2,7 @@
 
 namespace Wildfire;
 
-use \Wildfire\Auth\Auth as Auth;
+use \Wildfire\Auth as Auth;
 use \Wildfire\Core\Dash;
 
 class Admin {
