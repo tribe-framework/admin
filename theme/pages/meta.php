@@ -1,7 +1,7 @@
 <?php require_once __DIR__ . '/../includes/_header.php';?>
 
 <?php
-use Wildfire\Api\Api as Api;
+use Wildfire\Api as Api;
 $api = new Api();
 ?>
 
