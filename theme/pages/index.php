@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/includes/_header.php';
+require_once __DIR__.'/../includes/_header.php';
 
 echo $admin->get_admin_menu('dash');
 
@@ -22,11 +22,11 @@ $json_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPU
 <div class="row">
     <?php
         if ($currentUser['role'] == 'admin') {
-            require_once __DIR__.'/includes/_search_panel.php';
+            require_once ADMIN_THEME.'/includes/_search_panel.php';
         }
 
-        require_once __DIR__.'/includes/_analysis_panel.php';
+        require_once ADMIN_THEME.'/includes/_analysis_panel.php';
     ?>
 </div>
 
-<?php require_once __DIR__ . '/includes/_footer.php' ?>
+<?php require_once ADMIN_THEME.'/includes/_footer.php' ?>

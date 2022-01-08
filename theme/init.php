@@ -10,6 +10,10 @@ $types = $dash->getTypes();
 $menus = $dash->getMenus();
 $currentUser = $auth->getCurrentUser();
 
+if (!defined('ADMIN_THEME')) {
+    define('ADMIN_THEME', __DIR__);
+}
+
 if (!$currentUser['wildfire_dashboard_access'] && $slug!='uploader') {
     header('Location: /user/login');
     die();
