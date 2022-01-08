@@ -9,12 +9,12 @@ if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
 }
 
 if (isset($_GET['role'])) {
-    $role = $types['user']['roles'][$_GET['role']];
+    $role = $types['user']['roles'][$_GET['role']] ?? null;
 }
 ?>
 
 <div class="p-3">
-    <?= $admin->get_admin_menu('list', $type, $role['slug']); ?>
+    <?= $admin->get_admin_menu('list', $type, $role['slug'] ?? null); ?>
 
     <h2 class="mb-4">
         <?php if ($type == 'user'): ?>
@@ -51,7 +51,7 @@ if (isset($_GET['role'])) {
         <input type="hidden" name="ids">
         <input type="hidden" name="type" value=<?=$_GET['type']?> >
 
-        <table class="my-4 table table-sm table-striped table-borderless table-hover datatable border-bottom border-light" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role']?>">
+        <table class="my-4 table table-sm table-striped table-borderless table-hover datatable border-bottom border-light" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>">
             <thead class="thead-black">
                 <tr>
                     <th scope="col">#</th>
