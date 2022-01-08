@@ -3,7 +3,6 @@ require_once __DIR__ . '/../init.php';
 
 $i = 0;
 $or=array();
-header('Content-Type: application/json');
 
 $this_type = $_GET['type'];
 $this_role = $_GET['role'];
@@ -24,8 +23,6 @@ if ($this_type == 'user') {
 }
 
 foreach ($ids as $arr) {
-    //$post = $dash->get_content($arr['id']);
-
     if (
         isset($types['user']['roles_restricted_within_matching_modules']) &&
         $types['user']['roles_restricted_within_matching_modules'] &&
@@ -37,7 +34,7 @@ foreach ($ids as $arr) {
     $post = array();
     $post['id'] = $arr['id'];
     $post['type'] = $this_type;
-    $post['slug'] = $dash->get_content_meta($post['id'], 'slug');
+    $post['slug'] = $dash->getAttribute($post['id'], 'slug');
 
     $or['data'][$i][] = $post['id'];
 
@@ -45,20 +42,20 @@ foreach ($ids as $arr) {
     foreach ($types[$this_type]['modules'] as $module) {
         if (isset($module['list_field']) && $module['list_field']) {
             $module_input_slug_lang = $module['input_slug'] . (isset($module['input_lang']) && is_array($module['input_lang']) ? "_{$module['input_lang'][0]['slug']}" : '');
-            $cont = $dash->get_content_meta($post['id'], $module_input_slug_lang);
+            $cont = $dash->getAttribute($post['id'], $module_input_slug_lang);
 
             //For displaying list_linked_module
-            if ($module['list_linked_module']) {
+            if (isset($module['list_linked_module']) && $module['list_linked_module']) {
                 $cont_json_decoded = json_decode($cont, true);
 
                 if (is_array($cont_json_decoded)) {
                     foreach ($cont_json_decoded as $cont_json) {
-                        $cont_json_decoded_arr[]=$dash->get_content_meta(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont_json), $module['list_linked_module']['display_module']);
+                        $cont_json_decoded_arr[]=$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont_json), $module['list_linked_module']['display_module']);
                     }
 
                     $cont = implode(', ', $cont_json_decoded_arr);
                 } else {
-                    $cont = $dash->get_content_meta(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont), $module['list_linked_module']['display_module']);
+                    $cont = $dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont), $module['list_linked_module']['display_module']);
                 }
             }
 
@@ -71,7 +68,7 @@ foreach ($ids as $arr) {
     }
 
     // edit and view buttons
-    $or['data'][$i][] = '<span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->get_content_meta($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($this_type == 'user' ? '&role=' . $this_role : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span>';
+    $or['data'][$i][] = '<span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->getAttribute($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($this_type == 'user' ? '&role=' . $this_role : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span>';
 
     if ($donotlist) {
         $or['data'][$i]=array();
@@ -88,5 +85,6 @@ else {
     $or['data'][$i][1]='No data in this yet.';
 }
 
-echo json_encode($or);
+$api = new \Wildfire\Api;
+$api->json($or)->send();
 ?>
