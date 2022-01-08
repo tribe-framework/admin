@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/includes/_header.php';
+require_once __DIR__ . '/../includes/_header.php';
 
 // this code is responsible for listing the content in admin dash
 if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
@@ -81,4 +81,4 @@ if (isset($_GET['role'])) {
     </form>
 </div>
 
-<?php require_once __DIR__ . '/includes/_footer.php';?>
+<?php require_once __DIR__ . '/../includes/_footer.php';?>

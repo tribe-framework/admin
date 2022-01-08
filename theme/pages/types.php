@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__."/includes/_header.php";
+require_once __DIR__."/../includes/_header.php";
 
 $json_encode_options = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PARTIAL_OUTPUT_ON_ERROR|JSON_PRETTY_PRINT|JSON_NUMERIC_CHECK;
 $types_location = TRIBE_ROOT . "/config/types.json";
@@ -43,15 +43,15 @@ if ($_POST) {
                 <?php
                     switch ($current_page) {
                         case 'webapp':
-                            include_once __DIR__."/includes/_edit-types-webapp.php";
+                            require_once __DIR__."/../includes/_edit-types-webapp.php";
                             break;
 
                         case 'user':
-                            include_once __DIR__."/includes/_edit-types-user.php";
+                            require_once __DIR__."/../includes/_edit-types-user.php";
                             break;
 
                         default:
-                            include_once __DIR__."/includes/_edit-types-other.php";
+                            require_once __DIR__."/../includes/_edit-types-other.php";
                             break;
                     }
                 ?>
@@ -69,4 +69,4 @@ if ($_POST) {
     </div>
 </div>
 
-<?php require_once __DIR__."/includes/_footer.php" ?>
+<?php require_once __DIR__."/../includes/_footer.php" ?>

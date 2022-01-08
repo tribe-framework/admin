@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/includes/_header.php';?>
+<?php require_once __DIR__ . '/../includes/_header.php';?>
 
 <?php
 /**
@@ -74,7 +74,7 @@ else:
     </h2>
 
     <div class="form-style">
-        <?php include __DIR__ . '/form.php';?>
+        <?php require ADMIN_THEME . '/includes/form/form.php';?>
     </div>
 
     <input type="hidden" name="class" value="dash">
@@ -161,7 +161,7 @@ if (!($post_type = $post['type'])) {
 
     ?>
 
-    <?php require_once __DIR__."/includes/_display_log.php"; ?>
+    <?php require_once __DIR__."/../includes/_display_log.php"; ?>
 
     <?php
     if (count($types[$type]['modules']) > 3) {
@@ -205,4 +205,4 @@ if (!($post_type = $post['type'])) {
 <?php endif?>
 <?php endif?>
 
-<?php require_once __DIR__ . '/includes/_footer.php';?>
+<?php require_once __DIR__ . '/../includes/_footer.php';?>
