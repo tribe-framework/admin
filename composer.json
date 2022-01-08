@@ -14,5 +14,10 @@
     	"wildfire/core": "^3.0.13",
     	"wildfire/auth": "^2.0",
         "wildfire/api": "^0.1.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wildfire\\": "src/"
+        }
     }
 }
