@@ -66,10 +66,10 @@ class Admin {
     public function list_types($type = '') {
         $types = $this->dash->getTypes();
 
-        $list_types = '<div class="btn-group" role="group"><a href="' . BASE_URL . '/admin/" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-tachometer-alt"></span></a>';
+        $list_types = '<div class="btn-group" role="group"><a href="' . BASE_URL . '/admin" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-tachometer-alt"></span></a>';
 
         if ($type) {
-            $list_types .= '<button id="types-admin-dropdown" type="button" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 dropdown-toggle" data-toggle="dropdown">' . (isset($type) ? ucfirst($types[$type]['plural']) : '') . '&nbsp;<span class="sr-only">Content types</span></button><div class="dropdown-menu" aria-labelledby="types-admin-dropdown">';
+            $list_types .= '<button id="types-admin-dropdown" type="button" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 dropdown-toggle" data-toggle="dropdown">' . (isset($type) ? ucfirst($types[$type]['plural'] ?? '') : '') . '&nbsp;<span class="sr-only">Content types</span></button><div class="dropdown-menu" aria-labelledby="types-admin-dropdown">';
             foreach ($types as $key => $value) {
                 if (isset($types[$key]['type']) && $types[$key]['type'] == 'content') {
                     $list_types .= '<a class="dropdown-item" href="' . BASE_URL . '/admin/list?type=' . $types[$key]['slug'] . '">' . ucfirst($types[$key]['plural']) . '</a>';
