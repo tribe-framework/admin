@@ -238,3 +238,16 @@ table.dataTable tbody td.selected a {
 #bottom .paging_simple_numbers ul {
   margin: unset;
 }
+
+/**
+ * css for types.php
+ */
+#edit-role input.borderless:not(:focus) {
+  border-color: transparent !important;
+}
+
+.admin-toast.toast {
+  bottom: 2rem;
+  left: 1rem;
+  right: 1rem;
+}

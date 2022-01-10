@@ -21,6 +21,12 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 	<link rel="stylesheet" href="<?= ADMIN_URL ?>/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.css">
 	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/custom.css">
+
+	<?php if ($_ENV['ENV'] == 'dev'): ?>
+	<script src="<?= ADMIN_URL ?>/js/vue/vue.js"></script>
+	<?php else: ?>
+	<script src="<?= ADMIN_URL ?>/js/vue/vue.min.js"></script>
+	<?php endif; ?>
 </head>
 
 <body>

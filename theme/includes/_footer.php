@@ -68,6 +68,8 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="<?= ADMIN_URL ?>/plugins/clipboard.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/keymaster.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+
 <?php // js files to be loaded for specific pages - to reduce network requests ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -75,7 +77,6 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.select.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.js"></script>
 <script src="<?= ADMIN_URL ?>/js/list.js"></script>
