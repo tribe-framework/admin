@@ -20,7 +20,7 @@ foreach ($_ignoreKeys as $key) {
         <div class="custom-control custom-switch">
             <input type="hidden" name="<?=$key?>" value="0">
             <input type="checkbox" class="custom-control-input" name="<?=$key?>" id="<?=$key?>" value="1" <?=$value ? 'checked' : ''?> >
-            <label class="custom-control-label" for="<?=$key?>"><?=$key?></label>
+            <label class="custom-control-label font-weight-bold" for="<?=$key?>"><?=$key?></label>
         </div>
     <?php endif ?>
 <?php endforeach ?>
