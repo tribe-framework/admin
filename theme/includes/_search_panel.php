@@ -28,7 +28,7 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <form id="searchById" class="needs-validation bg-white" method="get" action="/admin" novalidate>
                         <div class="input-group">
-                            <input type="number" name="row_id" class="form-control" value="<?=$_GET['row_id']?>" placeholder="Search record by Id"
+                            <input type="number" name="row_id" class="form-control" value="<?=$_GET['row_id'] ?? ''?>" placeholder="Search record by Id"
                                 required>
                             <button class="btn btn-secondary" type="submit" data-search="id"><i class="far fa-search"></i>
                             </button>
@@ -58,7 +58,7 @@
                                     <option value="" disabled selected hidden>Select Type</option>
                                     <?php
                                         foreach($types as $t):
-                                            if($t['type'] != 'content') {
+                                            if(($t['type'] ?? null) != 'content') {
                                                 continue;
                                             }
                                     ?>
@@ -98,14 +98,14 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
 
     //IF THE MODULE HAS A TITLE, USE IT, OR ELSE SHOW SLUG
     $record_type = $record['type'];
-    $type_primary_module = $types[$record_type]['primary_module'];
+    $type_primary_module = $types[$record_type]['primary_module'] ?? '';
+
     if ($type_primary_module
         && !($record_title = $record[$type_primary_module])
         && !($record_title = $record['title'])
-        && !($record_title = $record['name'])) {
-
-            $record_title = $record['slug'];
-
+        && !($record_title = $record['name'])
+    ) {
+        $record_title = $record['slug'];
     }
     ?>
 
@@ -134,7 +134,7 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
                         <span class="badge badge-pill badge-primary mr-2">
                             <?= "{$record['type']}" ?> <?= $record['role_slug'] ? " | ".$record['role_slug'] : "" ?>
                         </span>
-                        <span class="pt-1"><?=$record_title?></span>
+                        <span class="pt-1"><?=$record_title ?? ''?></span>
                     </h6>
                     <i class="fal fa-chevron-down"></i>
                 </a>
@@ -153,10 +153,11 @@ function displayRecordCard ($record, $parent_or_child='child', $json_options='',
                             </span>
                             <span class="col-5 border-right border-light small">
                                 <?php
-                                $meta_2[] = ( $record['user_id'] ? 'user_id: '.$record['user_id'] : null );
-                                $meta_2[] = ( $record['created_by'] ? 'created_by: '.$record['created_by'] : null );
-                                $meta_2[] = ( $record['updated_by'] ? 'updated_by: '.$record['updated_by'] : null );
-                                $meta_2[] = ( $record['content_privacy'] ? 'content_privacy: '.$record['content_privacy'] : null );
+                                $meta_2[] = ( $record['user_id'] ? 'user_id: '.$record['user_id'] : '' );
+                                $meta_2[] = ( ($record['created_by'] ?? null) ? 'created_by: '.$record['created_by'] : '' );
+                                $meta_2[] = ( ($record['updated_by'] ?? null) ? 'updated_by: '.$record['updated_by'] : '' );
+                                $meta_2[] = ( ($record['content_privacy'] ?? null) ? 'content_privacy: '.$record['content_privacy'] : '' );
+
                                 echo implode('<br>', array_filter($meta_2,'strlen'));
                                 ?>
                             </span>

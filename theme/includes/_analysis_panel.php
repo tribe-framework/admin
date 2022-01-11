@@ -8,7 +8,7 @@
                 'type' => $key,
                 'slug' => $value
             ];
-            $db_record_dependency['parent'][] = $dash->get_content($search);
+            $db_record_dependency['parent'][] = $dash->getObject($search);
         }
     }
 
@@ -20,7 +20,7 @@
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency['child'][] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->getObject($v['id']);
             }
             unset($q);
         }
@@ -29,7 +29,7 @@
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency['child'][] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->getObject($v['id']);
             }
             unset($q);
         }
@@ -38,7 +38,7 @@
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency['child'][] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->getObject($v['id']);
             }
             unset($q);
         }
@@ -47,7 +47,7 @@
 
         if ($q) {
             foreach($q as $v) {
-                $db_record_dependency['child'][] = $dash->get_content($v['id']);
+                $db_record_dependency['child'][] = $dash->getObject($v['id']);
             }
             unset($q);
         }
@@ -55,14 +55,14 @@
         return $db_record_dependency;
     }
 
-    if ($_GET) {
+    if ($_GET && isset($db_record_dependency)) {
         $db_record_dependency = getDbRecord($db_record_dependency, $db_record);
     }
 ?>
 
 <?php if ($_GET): ?>
 <div class="px-0 col-lg-6 border border-light">
-    <?php if ($db_record_dependency && \sizeof($db_record_dependency)): ?>
+    <?php if (isset($db_record_dependency) && \sizeof($db_record_dependency)): ?>
     <table id="analysisTable" class="table table-borderless">
         <thead>
             <tr>
