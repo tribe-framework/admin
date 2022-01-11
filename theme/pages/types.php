@@ -8,7 +8,7 @@ $types_data = \json_decode($types_data, 1);
 $current_page = $_GET['edit'] ?? 'webapp';
 
 if ($_POST) {
-    $types_data['webapp'] = \array_replace($types_data['webapp'], $_POST);
+    $types_data[$current_page] = \array_replace($types_data[$current_page], $_POST);
     $types_data = \json_encode($types_data, $json_encode_options);
     \file_put_contents($types_location, $types_data);
     $types_data = \json_decode($types_data, 1);

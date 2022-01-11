@@ -33,7 +33,7 @@ foreach ($types_data["webapp"] as $key => $value):
 
             foreach ($types_data_keys as $i => $type_key):
         ?>
-        <div class="custom-control custom-checkbox">
+        <div class="custom-control custom-switch">
             <input type="checkbox" class="custom-control-input" name="searchable_types[]"
                 id="searchable_type_<?=$i?>" value="<?=$type_key?>"
                 <?= \in_array($type_key, $types_data['webapp']['searchable_types']) ? 'checked' : ''?>>
