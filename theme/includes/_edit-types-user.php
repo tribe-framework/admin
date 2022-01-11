@@ -63,7 +63,7 @@
         <button type="button" class="btn btn-outline-primary" @click="newRoleType">New<i
                 class="ml-2 rounded-circle fas fa-plus"></i></button>
         <ul>
-            <li v-for="roleType in roleTypes">{{ roleType }}</li>
+            <li class="badge badge-primary mr-1" v-for="roleType in roleTypes">{{ roleType }}</li>
         </ul>
     </div>
     <div id="edit-role-type" class="modal fade" tabindex="-1">
