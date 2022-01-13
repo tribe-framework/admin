@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/init.php';
 //https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/UploadHandler.php
-require_once __DIR__ . '/plugins/blueimp-jquery-file-upload/UploadHandler.php';
+require_once __DIR__ . '/../assets/plugins/blueimp-jquery-file-upload/UploadHandler.php';
 
 $upload_paths = $dash->get_uploader_path();
 $image_versions = [
