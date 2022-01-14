@@ -102,7 +102,7 @@ if (isset($_GET['role'])) {
     </form>
 </div>
 
-<div id="toast-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+<div id="toast-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-body">
         <span>Changes saved successfully. Refresh to see</span>
         <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
