@@ -24,7 +24,7 @@ class Admin {
             $op .= '
 			<div class="mb-4"><div class="card-body p-0">
 			<div class="btn-toolbar justify-content-between">
-			  ' . $this->list_types($type) ."<button type='button' data-toggle='modal' data-target='#deleteConfirm' data-attr='delete-multi' class='d-none btn btn-outline-danger border-top-0 border-right-0 border-left-0'><i class='fas fa-trash-alt mr-2'></i>Delete</button>". $this->new_and_list($type, $role_slug) . '
+			  ' . $this->list_types($type) ."<div id='edit-btn-group' class='d-none btn-group'><button type='button' data-toggle='modal' data-target='#duplicateConfirm' data-attr='copy-multi' class='btn btn-outline-primary border-top-0 border-right-0 border-left-0'><i class='fas fa-copy mr-2'></i>Copy</button><button type='button' data-toggle='modal' data-target='#deleteConfirm' data-attr='delete-multi' class='btn btn-outline-danger border-top-0 border-right-0 border-left-0'><i class='fas fa-trash-alt mr-2'></i>Delete</button></div>". $this->new_and_list($type, $role_slug) . '
 			</div>
 			</div></div>';
         }

@@ -27,7 +27,7 @@ if (isset($_GET['role'])) {
 
     <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
-        <div id="deleteConfirm" class="modal" tabindex="-1">
+        <div id="deleteConfirm" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -37,7 +37,7 @@ if (isset($_GET['role'])) {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>This will delete <span id="deleteTally">n</span> item(s)</p>
+                        <p>This will delete <span class="selectedListCount">n</span> item(s)</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
@@ -47,6 +47,27 @@ if (isset($_GET['role'])) {
             </div>
         </div>
         <!-- / delete modal -->
+        <!-- duplication modal -->
+        <div id="duplicateConfirm" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Are you sure?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Make a copy <span class="selectedListCount">n</span> item(s)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-copy mr-2"></i>Yes, copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / duplication modal -->
 
         <input type="hidden" name="ids">
         <input type="hidden" name="type" value=<?=$_GET['type']?> >
@@ -79,6 +100,15 @@ if (isset($_GET['role'])) {
             </thead>
         </table>
     </form>
+</div>
+
+<div id="toast-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+    <div class="toast-body">
+        <span>Changes saved successfully. Refresh to see</span>
+        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </div>
 
 <?php require_once __DIR__ . '/../includes/_footer.php';?>

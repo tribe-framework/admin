@@ -68,25 +68,27 @@ function rigDataTableRows() {
 function toggleMultiDeleteButton(e) {
 	let selectedTableRows = document.querySelectorAll('tr.selected');
 
-	document.getElementById('deleteTally').innerText = selectedTableRows.length ?? 0;
+	let selectedListCount = document.querySelectorAll('.selectedListCount')
+	selectedListCount.forEach(sel => sel.innerText = selectedTableRows.length ?? 0);
 
 
 	if (selectedTableRows.length) {
-		let hiddenDelButton = document.querySelector('button[data-attr="delete-multi"].d-none');
-		if (!hiddenDelButton) return;
+		let actionBtnGroup = document.querySelector('div#edit-btn-group.d-none');
+		if (!actionBtnGroup) return;
 
-		hiddenDelButton.classList.remove('d-none');
+		actionBtnGroup.classList.remove('d-none');
 	} else {
-		let visibleDelButton = document.querySelector('button[data-attr="delete-multi"]:not(.d-none)');
-		if (!visibleDelButton) return;
+		let actionBtnGroup = document.querySelector('div#edit-btn-group:not(.d-none)');
+		if (!actionBtnGroup) return;
 
-		visibleDelButton.classList.add('d-none');
+		actionBtnGroup.classList.add('d-none');
 	}
 }
 
 (() => {
 	let delSelectedButton = document.getElementById('deleteSelected');
-	if (!delSelectedButton) return;
+	let duplicateSelectedBtn = document.querySelector("#duplicateConfirm button[type='submit']");
+	if (!delSelectedButton && !duplicateSelectedBtn) return;
 
 	delSelectedButton.addEventListener('click', e => {
 		e.preventDefault();
@@ -103,5 +105,25 @@ function toggleMultiDeleteButton(e) {
 		hiddenInputIds.value = ids;
 
 		listForm.submit();
+	})
+
+	duplicateSelectedBtn.addEventListener('click', e => {
+		e.preventDefault();
+
+		document.querySelector('#duplicateConfirm button[data-dismiss]').click();
+
+		let selectedRows = document.querySelectorAll('tr.selected > td:first-of-type');
+		if (!selectedRows) return;
+
+		let ids = [];
+		selectedRows.forEach(td => ids.push(td.innerText));
+
+		axios.post('/admin/copy-dt-records', {
+			ids
+		}).then(() => {
+			$('#toast-success').toast('show');
+		}).catch(err => {
+			console.log(err);
+		})
 	})
 })();
