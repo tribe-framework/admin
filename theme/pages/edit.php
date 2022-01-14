@@ -11,7 +11,7 @@
 $role = null;
 
 if (isset($_GET['id'])) {
-	$post = $dash->get_content($_GET['id']);
+	$post = $dash->getObject($_GET['id']);
 }
 
 if (
@@ -57,9 +57,7 @@ else:
 <form method="post" class="edit_form" action="/admin/json" autocomplete="off">
     <?=
 		$admin->get_admin_menu(
-			$types[$type]['disallow_editing'] ?
-			'view' :
-			'edit',
+			($types[$type]['disallow_editing'] ?? null) ? 'view' : 'edit',
 			$type,
 			$role['slug'] ?? '',
 			$_GET['id'] ?? ''
@@ -166,9 +164,9 @@ if (!($post_type = $post['type'])) {
     <?php
     if (count($types[$type]['modules']) > 3) {
         echo $admin->get_admin_menu(
-            ($types[$type]['disallow_editing'] ? 'view' : 'edit'),
+            ($types[$type]['disallow_editing'] ?? null) ? 'view' : 'edit',
             $type,
-            $role['slug'],
+            $role['slug'] ?? '',
             $_GET['id']
         );
     }
@@ -204,5 +202,14 @@ if (!($post_type = $post['type'])) {
 
 <?php endif?>
 <?php endif?>
+
+<div id="toast-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1000">
+    <div class="toast-body">
+        <span>Copied</span>
+        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
 
 <?php require_once __DIR__ . '/../includes/_footer.php';?>

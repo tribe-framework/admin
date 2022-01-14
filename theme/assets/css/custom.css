@@ -239,6 +239,10 @@ table.dataTable tbody td.selected a {
   margin: unset;
 }
 
+.toast {
+  z-index: 9999;
+}
+
 /**
  * css for types.php
  */

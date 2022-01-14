@@ -11,8 +11,8 @@
             type="file"
             class="custom-file-input border-top-0 border-left-0 border-right-0 rounded-0"
             id="<?=$module_input_slug_lang?>"
-            data-bunching="<?=json_encode($module['input_bunching'])?>"
-            data-descriptor="<?= $module['input_descriptor'] ? '1' : '' ?>"
+            data-bunching="<?=isset($module['input_bunching']) ? json_encode($module['input_bunching']) : ''?>"
+            data-descriptor="<?= ($module['input_descriptor'] ?? null) ? '1' : '' ?>"
             data-url="/admin/uploader"
             multiple
         >
@@ -58,12 +58,12 @@
 
     <div id="file<?=$module['input_slug']?>" class="dragula-container container collapse show collapsable-scroll-min">
         <?php
-        foreach ($post[$module_input_slug_lang] as $file) {
+        foreach (($post[$module_input_slug_lang] ?? []) as $file) {
             $file_arr = $dash->get_uploaded_file_versions($file);
         ?>
         <div class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0 dragula">
             <span>
-                <?php if (file_arr['url']['thumbnail']): ?>
+                <?php if ($file_arr['url']['thumbnail']): ?>
                 <img
                     src="<?=$file_arr['url']['thumbnail']?>"
                     class="thumb-preview mr-2"
@@ -97,7 +97,7 @@
                     </a>
                 </span>
 
-                <?php if (is_array($module['input_bunching'])): ?>
+                <?php if (is_array($module['input_bunching'] ?? null)): ?>
                 &nbsp;
                 <select class="btn btn-sm btn-outline-primary" name="<?=$module_input_slug_lang?>_bunching[]">
                     <option value="">file option</option>
@@ -115,7 +115,7 @@
                 </select>
                 <?php endif;?>
 
-                <?php if ($module['input_descriptor']): ?>
+                <?php if ($module['input_descriptor'] ?? null): ?>
                 &nbsp;&nbsp;
                 <button type="button" class="btn btn-sm btn-outline-primary text-capitalize" data-toggle="modal"
                     data-target="#<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>">

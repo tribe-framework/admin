@@ -14,7 +14,7 @@ if (!defined('ADMIN_THEME')) {
     define('ADMIN_THEME', __DIR__);
 }
 
-if (!$currentUser['wildfire_dashboard_access'] && $slug!='uploader') {
+if (!($currentUser['wildfire_dashboard_access'] ?? null) && $slug!='uploader') {
     header('Location: /user/login');
     die();
 } else if(isset($_GET['type'])) {

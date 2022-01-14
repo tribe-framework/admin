@@ -1,5 +1,9 @@
 $( document ).ready(function() {
-	new ClipboardJS('.copy_btn');
+	clipboard = new ClipboardJS('.copy_btn');
+
+	clipboard.on('success', (e) => {
+		$('#toast-success').toast('show');
+	});
 });
 
 function process_json_out (data, btn_html='') {
