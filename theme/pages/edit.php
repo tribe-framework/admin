@@ -68,7 +68,7 @@ else:
         <?php if ($type === 'user'): ?>
         <?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
         <?php endif;?>
-        Edit <?=($types[$type]['name'] ?? $type)?><?=($post['id'] ? ' / ID: ' . $post['id'] : ' / New')?>
+        Edit <?=($types[$type]['name'] ?? $type)?><?=(isset($post['id']) ? " / ID:  . {$post['id']}" : ' / New')?>
     </h2>
 
     <div class="form-style">
@@ -141,7 +141,7 @@ if (!($post_type = $post['type'])) {
     <?php endif?>
 
     <input type="hidden" name="function" value="push_content">
-    <input type="hidden" name="id" value="<?=$_GET['id']?>">
+    <input type="hidden" name="id" value="<?=$_GET['id'] ?? ''?>">
     <input type="hidden" name="slug" value="<?=$post['slug']?>">
 
     <?php
@@ -167,14 +167,14 @@ if (!($post_type = $post['type'])) {
             ($types[$type]['disallow_editing'] ?? null) ? 'view' : 'edit',
             $type,
             $role['slug'] ?? '',
-            $_GET['id']
+            $_GET['id'] ?? ''
         );
     }
     ?>
     <p>&nbsp;</p>
 </form>
 
-<div class="modal fade" id="delete_conf_<?=$_GET['id']?>" tabindex="-1" role="dialog">
+<div class="modal fade" id="delete_conf_<?=$_GET['id'] ?? ''?>" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -191,7 +191,7 @@ if (!($post_type = $post['type'])) {
                     <input type="hidden" name="class" value="dash">
                     <input type="hidden" name="function" value="do_delete">
                     <input type="hidden" name="type" value="<?=$type?>">
-                    <input type="hidden" name="id" value="<?=$_GET['id']?>">
+                    <input type="hidden" name="id" value="<?=$_GET['id'] ?? ''?>">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Yes, delete it</button>
                 </form>
