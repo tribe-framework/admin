@@ -161,7 +161,7 @@ $( document ).ready(function() {
 		// this callback gets invoked as soon as a file is added to upload request queue
 		add: function(e, data) {
 			$('#progress').parent().removeClass('d-none');
-		    data.context = $('<p class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
+		    data.context = $('<div class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
 				.append($('<span class="flex-grow-1">').text(data.files[0].name))
 				.appendTo('#'+$(this).attr('id')+'_fileuploads');
 		    data.submit();
