@@ -211,5 +211,13 @@ if (!($post_type = $post['type'])) {
         </button>
     </div>
 </div>
+<div id="save-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
+    <div class="toast-body">
+        <span>Saved successfully</span>
+        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
 
 <?php require_once __DIR__ . '/../includes/_footer.php';?>
