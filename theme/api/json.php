@@ -6,7 +6,7 @@ $save_activity_log = $types['webapp']['display_activity_log'] ?? false;
 
 if ($save_activity_log && ($_POST['function'] != 'do_delete')) {
     if (is_numeric($_POST['id'])) {
-        $log = $dash->get_content_meta($_POST['id'], 'mysql_activity_log');
+        $log = $dash->getAttribute($_POST['id'], 'mysql_activity_log');
         $_POST['mysql_activity_log'] = $log ? json_decode($log, 1) : [];
     } else {
         $_POST['mysql_activity_log'] = array();
@@ -23,4 +23,5 @@ $last_query = [
     'last_redirect' => ${$_POST['class']}->get_last_redirect()
 ];
 
-echo json_encode($last_query);
+$api = new \Wildfire\Api;
+$api->json($last_query)->send();
