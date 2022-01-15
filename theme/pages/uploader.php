@@ -38,7 +38,7 @@ $uploader_param = [
 	'image_versions' => $image_versions
 ];
 
-if (defined['UPLOAD_FILE_TYPES']) { // upload whitelisted files only if defined
+if (defined('UPLOAD_FILE_TYPES')) { // upload whitelisted files only if defined
 	$uploader_param['inline_file_types'] = UPLOAD_FILE_TYPES;
 	$uploader_param['accept_file_types'] = UPLOAD_FILE_TYPES;
 }
