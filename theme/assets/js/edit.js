@@ -153,10 +153,12 @@ $( document ).ready(function() {
 		$(this).closest('div.file').remove();
 	});
 
+	// code to handle file uploads
 	var sli=0;
     $('.edit_form input[type=file]').fileupload({
 		dataType: 'json',
 
+		// this callback gets invoked as soon as a file is added to upload request queue
 		add: function(e, data) {
 			$('#progress').parent().removeClass('d-none');
 		    data.context = $('<p class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
@@ -165,11 +167,13 @@ $( document ).ready(function() {
 		    data.submit();
 		},
 
+		// callback for upload progress events
 		progress: function(e, data) {
 		    var progress = parseInt((data.loaded / data.total) * 100, 10);
 		    $('#progress .bar').css('width', progress + '%');
 		},
 
+		// callback for successful upload requests
 		done: function(e, data) {
 			sli++;
 			slvl='';
