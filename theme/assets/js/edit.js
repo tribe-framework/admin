@@ -2,6 +2,7 @@ key('⌘+s, ctrl+s', function(e){$('.save_btn').trigger('click'); e.preventDefau
 key('⌘+b, ctrl+b', function(e){$('.typeout-bold').trigger('click'); e.preventDefault();});
 key('⌘+i, ctrl+i', function(e){$('.typeout-italic').trigger('click'); e.preventDefault();});
 
+// jquery functions
 $( document ).ready(function() {
 	if ($('.multi_drop_select_table').length) {
 		$('.multi_drop_select_table').DataTable({
@@ -15,56 +16,6 @@ $( document ).ready(function() {
 
 	$(document).on('keyup', '.typeout-content', function() {update_textarea($(this).data('input-slug'));});
 	$(document).on('blur', '.typeout-content', function() {update_textarea($(this).data('input-slug'));});
-
-	$(document).on('submit', '.edit_form', function(e) {
-		e.preventDefault();
-		var btn_html=$('.save_btn').html();
-		$('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
-		$('.save_btn').prop('disabled', true);
-
-		if ($('input[name="type"]').val())
-			var type_val=$('input[name="type"]').val();
-		else
-			var type_val=$('select[name="type"]').val();
-
-		if ($(this).data('redirect-on-save'))
-			var redirect_to=$(this).data('redirect-on-save');
-		else
-			var redirect_to='';
-
-		$.post('/admin/json', $(this).serialize(), function(data) {
-			process_json_out(data, btn_html);
-			// $('#infos')
-			// 	.removeClass('d-none')
-			// 	.html(`Content has been saved.<br/><a href="/admin/list?type=${type_val}" class="alert-link">Click here</a> to go back.`);
-
-			let infos = document.getElementById('infos');
-			if (infos) {
-				infos.classList.remove('d-none');
-				infos.innerHTML = `Content has been saved.<br/><a href="/admin/list?type=${type_val}" class="alert-link">Click here</a> to go back.`;
-
-				let progressDiv = document.createElement('div');
-				progressDiv.className = 'progress';
-
-				progressDiv.style.width = "0%";
-				infos.appendChild(progressDiv);
-
-				setTimeout(() => {
-					infos.classList.add('d-none');
-				}, 10000);
-
-				setTimeout(() => {
-					progressDiv.style.width = "100%";
-				}, 1000);
-			}
-
-
-
-			if (redirect_to) {
-				window.location.href(redirect_to);
-			}
-		}, 'json');
-	});
 
 	$(document).on('click', '.multi_add_btn', function(e) {
 		$(this).closest('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group').first().clone().appendTo('#'+$(this).data('group-class')+'-'+$(this).data('input-slug'));
@@ -251,4 +202,30 @@ $( document ).ready(function() {
 		      .addClass("done");
 		}
     });
+});
+
+// submit form over ajax
+document.querySelector('.edit_form').addEventListener('submit', async function (e) {
+	e.preventDefault();
+
+	let btn_html=$('.save_btn').html();
+    $('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
+    $('.save_btn').prop('disabled', true);
+
+	const redirect_to = $(this).data('redirect-on-save') ? $(this).data('redirect-on-save') : null;
+
+	let response = await fetch(this.action, {
+		method: 'POST',
+		body: new FormData(this)
+	});
+
+	await response.json();
+
+	$('#save-success').toast('show');
+	$('.save_btn').html(btn_html);
+	$('.save_btn').prop('disabled', false);
+
+	if (redirect_to) {
+		window.location.href(redirect_to);
+	}
 });
