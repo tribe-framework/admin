@@ -60,6 +60,17 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 		</div>
 	</div>
 </footer>
+<?php if ('dev' == strtolower($_ENV['ENV'])): ?>
+<script>
+	console.info('Running in dev mode');
+</script>
+<?php else: ?>
+<script>
+	window.onerror = function () {
+		return true;
+	}
+</script>
+<?php endif ?>
 
 <script src="<?= ADMIN_URL ?>/plugins/jquery.min.js"></script>
 <script src="<?= ADMIN_URL ?>/plugins/popper/popper.min.js"></script>
