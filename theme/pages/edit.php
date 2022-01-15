@@ -137,12 +137,12 @@ if (!($post_type = $post['type'])) {
     <?php endif?>
 
     <?php if ($types[$type]['type'] == 'content'): ?>
-    <input type="hidden" name="user_id" value="<?=$post['user_id'] ?: $currentUser['user_id']?>">
+    <input type="hidden" name="user_id" value="<?=$post['user_id'] ?? $currentUser['user_id']?>">
     <?php endif?>
 
     <input type="hidden" name="function" value="push_content">
     <input type="hidden" name="id" value="<?=$_GET['id'] ?? ''?>">
-    <input type="hidden" name="slug" value="<?=$post['slug']?>">
+    <input type="hidden" name="slug" value="<?=$post['slug'] ?? ''?>">
 
     <?php
     if ($post) {

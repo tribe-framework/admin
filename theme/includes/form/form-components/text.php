@@ -107,7 +107,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 				<div class="input-group">
 					<div
 						id="slug_update_div"
-						class="custom-control custom-switch <?=$_GET['id'] ? 'd-block' : 'd-none'?>"
+						class="custom-control custom-switch <?=($_GET['id'] ?? false) ? 'd-block' : 'd-none'?>"
 						>
 						<input
 							type="checkbox"
@@ -118,7 +118,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 						<label class="custom-control-label" for="slug_update">
 							Update the URL slug based on title (will change the link)
 							<span id="title-slug" class="text-muted ml-4">
-								<em>/<?=$post['slug']?></em>
+								<em>/<?=$post['slug'] ?? ''?></em>
 							</span>
 						</label>
 					</div>
