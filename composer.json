@@ -8,6 +8,10 @@
         "wildfire/auth": {
             "type": "git",
             "url": "https://github.com/wil-ldf-ire/auth.git"
+        },
+        "wildfire/api": {
+            "type": "git",
+            "url": "https://github.com/wil-ldf-ire/api.git"
         }
     },
     "require": {
