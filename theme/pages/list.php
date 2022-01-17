@@ -13,7 +13,7 @@ if (isset($_GET['role'])) {
 }
 ?>
 
-<div class="p-3">
+<div>
     <?= $admin->get_admin_menu('list', $type, $role['slug'] ?? null); ?>
 
     <h2 class="mb-4">
