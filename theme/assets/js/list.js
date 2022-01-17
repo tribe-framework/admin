@@ -15,16 +15,12 @@ $(document).ready(() => {
 		},
 		dom: '<"#top.clearfix"ifl>rt<"#bottom"Bp>',
 		pageLength: 50,
-		columnDefs: [
-			{
-				targets: 0,
-				checkboxes: {
-					selectRow: true
-				}
-			}
-		],
+		columnDefs: [{
+			targets: 0,
+		}],
 		select: {
 			style: 'multi',
+			selector: 'td:first-child'
 		},
 		order: [[ 0, "desc" ]],
 		buttons: [{

@@ -181,7 +181,7 @@ pre {
 
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
-  background-color: #99339947;
+  background-color: #333;
 }
 
 table.dataTable tbody > tr > td {
@@ -191,13 +191,13 @@ table.dataTable tbody > tr > td {
 table.dataTable tbody tr.selected,
 table.dataTable tbody th.selected,
 table.dataTable tbody td.selected {
-  color: #000;
+  color: #fff;
 }
 
 table.dataTable tbody tr.selected a,
 table.dataTable tbody th.selected a,
 table.dataTable tbody td.selected a {
-  color: #000;
+  color: #fff;
 }
 
 #analysisTable_wrapper #top.clearfix {

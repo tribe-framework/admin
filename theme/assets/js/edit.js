@@ -204,28 +204,33 @@ $( document ).ready(function() {
     });
 });
 
-// submit form over ajax
-document.querySelector('.edit_form').addEventListener('submit', async function (e) {
-	e.preventDefault();
+// submit form over ajax - used in edit.php
+(() => {
+	let editForm = document.querySelector('.edit_form');
+	if (!editForm) return;
 
-	let btn_html=$('.save_btn').html();
-    $('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
-    $('.save_btn').prop('disabled', true);
+	editForm.addEventListener('submit', async function (e) {
+		e.preventDefault();
 
-	const redirect_to = $(this).data('redirect-on-save') ? $(this).data('redirect-on-save') : null;
+		let btn_html=$('.save_btn').html();
+		$('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
+		$('.save_btn').prop('disabled', true);
 
-	let response = await fetch(this.action, {
-		method: 'POST',
-		body: new FormData(this)
+		const redirect_to = $(this).data('redirect-on-save') ? $(this).data('redirect-on-save') : null;
+
+		let response = await fetch(this.action, {
+			method: 'POST',
+			body: new FormData(this)
+		});
+
+		await response.json();
+
+		$('#save-success').toast('show');
+		$('.save_btn').html(btn_html);
+		$('.save_btn').prop('disabled', false);
+
+		if (redirect_to) {
+			window.location.href(redirect_to);
+		}
 	});
-
-	await response.json();
-
-	$('#save-success').toast('show');
-	$('.save_btn').html(btn_html);
-	$('.save_btn').prop('disabled', false);
-
-	if (redirect_to) {
-		window.location.href(redirect_to);
-	}
-});
+})()
