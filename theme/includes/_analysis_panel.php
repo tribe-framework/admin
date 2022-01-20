@@ -16,7 +16,7 @@
         $sql = new \Wildfire\Core\MySQL;
         $dash = new \Wildfire\Core\Dash;
 
-        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['slug']}' LIMIT 1000");
+        $q = $sql->executeSQL("SELECT `id` FROM `data` WHERE `content`->>'$.{$db_record['type']}_id'='{$db_record['id']}' LIMIT 1000");
 
         if ($q) {
             foreach($q as $v) {
