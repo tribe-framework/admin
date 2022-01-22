@@ -1,74 +1,95 @@
 <?php
 require_once __DIR__ . '/../init.php';
 
+$dash = new \Wildfire\Core\Dash;
+$sql = new \Wildfire\Core\MySQL;
+$api = new \Wildfire\Api;
+
 $i = 0;
 $or=array();
 
-$this_type = $_GET['type'];
-$this_role = $_GET['role'];
+$_type = $_GET['type'];
+$_role = $_GET['role'];
 
-if (
-    isset($types['user']['roles_restricted_within_matching_modules']) &&
-    $types['user']['roles_restricted_within_matching_modules']
-) {
+if ($types['user']['roles_restricted_within_matching_modules'] ?? false) {
     $user_restricted_to_input_modules = array_intersect(array_keys($currentUser), array_keys($types));
 }
 
-if ($this_type == 'user') {
-    $ids = $dash->get_all_ids(array('type' => $this_type, 'role_slug' => $this_role));
-} else if ($types[$this_type]['type']=='user') {
-    $ids = $dash->get_all_ids(array('type' => 'user', 'role_slug' => $this_type));
+if ($_type == 'user') {
+    $ids = $dash->get_all_ids(['type' => $_type, 'role_slug' => $_role]);
+} else if ($types[$_type]['type']=='user') {
+    $ids = $dash->get_all_ids(['type' => 'user', 'role_slug' => $_type]);
 } else {
-    $ids = $dash->get_all_ids($this_type);
+    $ids = $dash->get_all_ids($_type);
 }
 
-foreach ($ids as $arr) {
+$_dbObjects = $dash->getObjects($ids);
+
+foreach ($_dbObjects as $_object) {
     if (
-        isset($types['user']['roles_restricted_within_matching_modules']) &&
-        $types['user']['roles_restricted_within_matching_modules'] &&
-        !$admin->is_access_allowed($arr['id'], $user_restricted_to_input_modules)
+        ($types['user']['roles_restricted_within_matching_modules'] ?? false) &&
+        !$admin->is_access_allowed($_object['id'], $user_restricted_to_input_modules)
     ) {
         continue;
     }
 
     $post = array();
-    $post['id'] = $arr['id'];
-    $post['type'] = $this_type;
-    $post['slug'] = $dash->getAttribute($post['id'], 'slug');
+    $post['id'] = $_object['id'];
+    $post['type'] = $_type;
+    $post['slug'] = $_object['slug'];
 
     $or['data'][$i][] = $post['id'];
 
     $donotlist = 0;
-    foreach ($types[$this_type]['modules'] as $module) {
-        if (isset($module['list_field']) && $module['list_field']) {
-            $module_input_slug_lang = $module['input_slug'] . (isset($module['input_lang']) && is_array($module['input_lang']) ? "_{$module['input_lang'][0]['slug']}" : '');
-            $cont = $dash->getAttribute($post['id'], $module_input_slug_lang);
+    foreach ($types[$_type]['modules'] as $module) {
+        // skip if 'list_field' is set to false on module
+        if (!($module['list_field'] ?? false)) {
+            continue;
+        }
 
-            //For displaying list_linked_module
-            if (isset($module['list_linked_module']) && $module['list_linked_module']) {
-                $cont_json_decoded = json_decode($cont, true);
+        $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
 
-                if (is_array($cont_json_decoded)) {
-                    foreach ($cont_json_decoded as $cont_json) {
-                        $cont_json_decoded_arr[]=$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont_json), $module['list_linked_module']['display_module']);
-                    }
+        $cont = $_object[$module_input_slug_lang];
 
-                    $cont = implode(', ', $cont_json_decoded_arr);
-                } else {
-                    $cont = $dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont), $module['list_linked_module']['display_module']);
+        //For displaying list_linked_module
+        if ($module['list_linked_module'] ?? false) {
+            $cont_json_decoded = json_decode($cont, true);
+
+            if (is_array($cont_json_decoded)) {
+                foreach ($cont_json_decoded as $cont_json) {
+                    $cont_json_decoded_arr[]=$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont_json), $module['list_linked_module']['display_module']);
                 }
-            }
 
-            if (isset($module['list_non_empty_only']) && $module['list_non_empty_only'] && !trim($cont)) {
-                $donotlist = 1;
+                $cont = implode(', ', $cont_json_decoded_arr);
             } else {
-                $or['data'][$i][] = $cont;
+                $cont = $dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont), $module['list_linked_module']['display_module']);
             }
+        }
+
+        if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
+            $donotlist = 1;
+        } else {
+            $or['data'][$i][] = trim($cont);
         }
     }
 
+    $_viewCount = '';
+    if ($types[$_type]['display_prism_stat'] ?? false) {
+        $_viewCount = $sql->executeSQL("select visit->>'$.url' as url, count(*) as count from trac where visit->'$.url' like '%{$_object['slug']}%' group by url order by count desc")[0]['count'] ?? 0;
+        $_viewCount = "<span class='text-muted small mr-1' title='Visits'>{$_viewCount}</span>";
+    }
+
     // edit and view buttons
-    $or['data'][$i][] = '<span class="d-flex">' . (($currentUser['role'] == 'admin' || $currentUser['user_id'] == $dash->getAttribute($post['id'], 'user_id')) ? '<a class="mr-1" title="Edit" href="/admin/edit?type=' . $post['type'] . '&id=' . $post['id'] . ($this_type == 'user' ? '&role=' . $this_role : '') . '"><i class="fas fa-edit"></i></a>&nbsp;' : '') . '<a title="View" target="new" href="/' . $post['type'] . '/' . $post['slug'] . '"><i class="fas fa-external-link-alt"></i></a></span>';
+    $_editBtn = '';
+    if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
+        $_editRole = $_type == 'user' ? '&role=' . $_role : '';
+        $_editBtn = "<a class='mr-1' title='Edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit'></i></a>";
+    }
+
+    $_viewBtn = "<a title='View' class='mr-2' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fas fa-external-link-alt'></i></a>";
+
+    // button controls for this single post
+    $or['data'][$i][] = "<span class='d-flex align-items-center justify-content-end'>{$_viewCount} {$_editBtn} {$_viewBtn}</span>";
 
     if ($donotlist) {
         $or['data'][$i]=array();
@@ -85,6 +106,4 @@ else {
     $or['data'][$i][1]='No data in this yet.';
 }
 
-$api = new \Wildfire\Api;
 $api->json($or)->send();
-?>
