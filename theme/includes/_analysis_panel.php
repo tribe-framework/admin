@@ -1,14 +1,22 @@
 <?php
     $types_keys = array_keys($types);
 
+    $db_record_dependency = array();
+
     // $db_record is mentioned in /admin/index.php
     foreach($db_record as $key => $value) {
         if (in_array($key, $types_keys)) {
-            $search = [
-                'type' => $key,
-                'slug' => $value
-            ];
-            $db_record_dependency['parent'][] = $dash->getObject($search);
+            $_parent = $dash->getObject(['type' => $key, 'slug' => $value]);
+
+            if (!$_parent && is_numeric($value)) {
+                $_parent = $dash->getObject($value);
+            }
+
+            if ($_parent && $_parent['type'] == $key) {
+                $db_record_dependency['parent'][] = $_parent;
+            }
+
+            unset($_parent);
         }
     }
 
@@ -55,9 +63,7 @@
         return $db_record_dependency;
     }
 
-    if ($_GET && isset($db_record_dependency)) {
-        $db_record_dependency = getDbRecord($db_record_dependency, $db_record);
-    }
+    $db_record_dependency = getDbRecord($db_record_dependency, $db_record);
 ?>
 
 <?php if ($_GET): ?>
