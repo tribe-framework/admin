@@ -20,16 +20,6 @@
             >To keep the password unchanged, leave this field empty
         </small>
     <?php endif ?>
-
-    <?php //important step for password_md5, connected with $dash->push_content?>
-    <input
-        type="hidden"
-        name="<?= $module_input_slug_lang; ?>_md5"
-        value="<?= $post[$module_input_slug_lang] ?
-            $post[$module_input_slug_lang] :
-            $module_input_default_value
-        ?>"
-    >
 </div>
 
 <?php if($module_input_placeholder): ?>
