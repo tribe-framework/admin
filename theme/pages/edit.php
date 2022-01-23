@@ -75,6 +75,9 @@ else:
         <?php require ADMIN_THEME . '/includes/form/form.php';?>
     </div>
 
+    <?php if (($_GET['type'] ?? null) == 'user' && isset($_GET['role'])) : ?>
+        <input type="hidden" name="role_slug" value="<?= $_GET['role'] ?>">
+    <?php endif ?>
     <input type="hidden" name="class" value="dash">
 
     <?php
