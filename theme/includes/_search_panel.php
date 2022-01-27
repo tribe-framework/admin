@@ -1,11 +1,13 @@
 <?php
+$fn = new \Wildfire\Admin\Functions;
+
 /**
  * doc
  * $db_record is mentioned in /admin/index.php
  */
 ?>
 
-<div class="col-lg-6">
+<div class="col-lg-6 mb-2 mb-lg-0">
     <div class="card">
         <div class="card-header">Search</div>
 
@@ -77,12 +79,9 @@
                 </div>
             </div>
 
-            <?php
-                // card list - visible only when a search query is made
-                if ($_GET):
-            ?>
+            <?php if ($_GET): // card list - visible only when a search query is made ?>
             <div class="mt-3">
-                <?php displayRecordCard($db_record, 'parent', $json_options, $types, 'show') ?>
+                <?php $fn->displayRecordCard(['record' => $db_record, 'parent_or_child' => 'parent', 'types' => $types, 'tab_default_state' => 'show', 'display_legend' => true]) ?>
             </div>
             <?php endif ?>
         </div>
@@ -90,90 +89,3 @@
     </div>
     <!-- // div card -->
 </div>
-
-<?php
-function displayRecordCard ($record, $parent_or_child='child', $json_options='', $types=[], $tab_default_state='') {
-
-    if ($record['id']): //if row_id exists
-
-    //IF THE MODULE HAS A TITLE, USE IT, OR ELSE SHOW SLUG
-    $record_type = $record['type'];
-    $type_primary_module = $types[$record_type]['primary_module'] ?? '';
-
-    if ($type_primary_module
-        && !($record_title = $record[$type_primary_module])
-        && !($record_title = $record['title'])
-        && !($record_title = $record['name'])
-    ) {
-        $record_title = $record['slug'];
-    }
-    ?>
-
-    <tr class="col-12">
-        <td>
-            <div class="card">
-                <?php if ($_GET): ?>
-                    <div class="px-2">
-                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-info text-info mr-1">.</span> Parent</span>
-                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-secondary text-secondary mr-1">.</span>Child</span>
-                    </div>
-                <?php endif; ?>
-                <a
-                    class="p-2 w-100 text-left card-header d-flex justify-content-between align-items-center text-decoration-none"
-                    data-toggle="collapse"
-                    href="#output_<?=$record['id']?>"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="output_<?=$record['id']?>"
-                    ><h6 class="font-weight-light mb-0 d-flex align-items-center">
-                        <?php
-                            // parent records are marked with "info" color & children with "secondary" color
-                            $badge_poc = $parent_or_child == 'parent' ? 'badge-info' : 'badge-secondary';
-                        ?>
-                        <span class="badge badge-pill <?= $badge_poc ?> mr-2"><?= $record['id']?></span>
-                        <span class="badge badge-pill badge-primary mr-2">
-                            <?= "{$record['type']}" ?> <?= $record['role_slug'] ? " | ".$record['role_slug'] : "" ?>
-                        </span>
-                        <span class="pt-1"><?=$record_title ?? ''?></span>
-                    </h6>
-                    <i class="fal fa-chevron-down"></i>
-                </a>
-                <div class="collapse <?=$tab_default_state?>" id="output_<?=$record['id']?>">
-                    <div class="card-body search_output p-0">
-                        <pre style="width:50ch;" class="overflow-auto"><?= \json_encode($record, $json_options) ?></pre>
-                    </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <span class="col-6 border-right border-light small">
-                                <?php
-                                $meta_1[] = ( $record['created_on'] ? 'created_on: '.\date('d-M-Y H:i', $record['created_on']) : null );
-                                $meta_1[] = ( $record['updated_on'] ? 'updated_on: '.\date('d-M-Y H:i', $record['updated_on']) : null );
-                                echo implode('<br>', array_filter($meta_1,'strlen'));
-                                ?>
-                            </span>
-                            <span class="col-5 border-right border-light small">
-                                <?php
-                                $meta_2[] = ( $record['user_id'] ? 'user_id: '.$record['user_id'] : '' );
-                                $meta_2[] = ( ($record['created_by'] ?? null) ? 'created_by: '.$record['created_by'] : '' );
-                                $meta_2[] = ( ($record['updated_by'] ?? null) ? 'updated_by: '.$record['updated_by'] : '' );
-                                $meta_2[] = ( ($record['content_privacy'] ?? null) ? 'content_privacy: '.$record['content_privacy'] : '' );
-
-                                echo implode('<br>', array_filter($meta_2,'strlen'));
-                                ?>
-                            </span>
-                            <span class="col-1">
-                                <?php
-                                $meta_3[] = '<a href="/admin/?row_id='.$record['id'].'"><span class="fas fa-external-link-alt"></span></a>';
-                                echo implode('<br>', array_filter($meta_3,'strlen'));
-                                ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </td>
-    </tr>
-    <?php
-    endif; //if row_id exists
-}
-?>
