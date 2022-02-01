@@ -12,7 +12,7 @@
                     $_selected = '';
 
                     if (isset($post) && isset($opt)) {
-                        $_selected = ($post[$module_input_slug_lang] ?? null == $opt['slug']) ? 'selected="selected"' : '';
+                        $_selected = (($post[$module_input_slug_lang] ?? null) == $opt['slug']) ? 'selected="selected"' : '';
                     }
 
                     echo "<option value='$_slug' $_selected>$_title</option>";
