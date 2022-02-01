@@ -49,7 +49,7 @@ foreach ($_dbObjects as $_object) {
 
         $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
 
-        $cont = $_object[$module_input_slug_lang];
+        $cont = $_object[$module_input_slug_lang] ?? '';
 
         //For displaying list_linked_module
         if ($module['list_linked_module'] ?? false) {
