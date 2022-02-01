@@ -74,7 +74,7 @@ class Functions {
                     </a>
                     <div class="collapse <?=$options['tab_default_state']?>" id="output_<?=$options['record']['id']?>">
                         <div class="card-body search_output p-0">
-                            <pre style="width:50ch;" class="overflow-auto"><?= \json_encode($options['record'], $json_options) ?></pre>
+                            <pre style="white-space:pre-wrap" class="overflow-auto"><?= \json_encode($options['record'], $json_options) ?></pre>
                         </div>
                         <div class="card-footer">
                             <div class="row">
