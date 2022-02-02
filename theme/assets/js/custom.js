@@ -58,3 +58,23 @@ function scroll_to_anchor (aid) {
     var aTag = $("a[name='"+ aid +"']");
     $('html,body').animate({scrollTop: aTag.offset().top},'slow');
 }
+
+async function deleteRecord(e) {
+	e.preventDefault();
+	e.target.disable = true;
+	e.target.classList.add('disabled');
+
+	let params = new URLSearchParams(window.location.search);
+
+	if (!params.has('id') || !params.has('type')) return;
+
+	let res =  await fetch(`/admin/delete-record?id=${params.get('id')}`, {
+		method: "DELETE",
+	}).catch(data => console.log(data));
+
+	res = await res.json();
+
+	if (res.status === 'ok') {
+		location.replace(`/admin/list?type=${params.get('type')}`);
+	}
+}

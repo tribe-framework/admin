@@ -190,14 +190,8 @@ if (!($post_type = $post['type'])) {
                 <span>Are you sure you wish to delete this content?</span>
             </div>
             <div class="modal-footer">
-                <form method="post" class="edit_form" action="/admin/json">
-                    <input type="hidden" name="class" value="dash">
-                    <input type="hidden" name="function" value="do_delete">
-                    <input type="hidden" name="type" value="<?=$type?>">
-                    <input type="hidden" name="id" value="<?=$_GET['id'] ?? ''?>">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Yes, delete it</button>
-                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" onclick="deleteRecord(event)" class="btn btn-danger">Yes, delete it</button>
             </div>
         </div>
     </div>
