@@ -1,6 +1,6 @@
 {
     "name": "wildfire/admin",
-    "description": "Admin for Tribe (v2.0.44)",
+    "description": "Admin for Tribe (v2.0.45)",
     "repositories": {
         "wildfire/core": {
             "type": "git",
