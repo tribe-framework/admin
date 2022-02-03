@@ -72,7 +72,7 @@ if ($api->method('get')) {
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;
             } else {
-                $or['data'][$i][] = trim($cont);
+                $or['data'][$i][] = is_array($cont) ? $cont : trim($cont);
             }
         }
 
