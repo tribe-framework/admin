@@ -8,7 +8,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 
 	<div class="container my-5">
 		<div class="row">
-			<?php if (!$types['webapp']['hide_wildfire_logo'] ?? false): ?>
+			<?php if (!($types['webapp']['hide_wildfire_logo'] ?? false)): ?>
 			<div class="col-md">
 				<a href="https://wildfire.world">
 					<img class="w-40" src="<?= ADMIN_URL ?>/img/logo.png">

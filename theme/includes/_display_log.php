@@ -1,11 +1,10 @@
-<?php
-$sql = new \Wildfire\Core\MySQL;
+<?php if ($types['webapp']['display_activity_log'] ?? false): ?>
+    <?php
+        $sql = new \Wildfire\Core\MySQL;
 
-$activity_log = $post['mysql_activity_log'] ?? array();
-$activity_log = array_map('json_decode', $activity_log, array_fill(0, sizeof($activity_log), 1));
-?>
-
-<?php if ($types['webapp']['display_activity_log']): ?>
+        $activity_log = $post['mysql_activity_log'] ?? array();
+        $activity_log = array_map('json_decode', $activity_log, array_fill(0, sizeof($activity_log), 1));
+    ?>
     <div class="form-group">
         <button class="btn btn-light w-100 text-left d-flex justify-content-between align-items-center" type="button" data-toggle="collapse" data-target="#mysql_log"
             aria-expanded="false" aria-controls="mysql_log">
