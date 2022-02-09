@@ -23,7 +23,7 @@
                         $i=0;
                         foreach ($options as $opt) {
                             $i++;
-                            $option=$dash->get_content($opt['id']);
+                            $option=$dash->getObject($opt['id']);
                             $titler=$dash->get_type_title_data($option);
                             $title_slug=$titler['slug'];
                             echo '
