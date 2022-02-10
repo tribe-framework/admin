@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/init.php';
+require_once __DIR__ . '/../_init.php';
 
 set_time_limit(600);
 

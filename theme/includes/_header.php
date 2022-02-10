@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../init.php';
+require_once __DIR__ . '/../_init.php';
 
 $app_title = $types['webapp']['headmeta_title'] ?? false;
 ?>

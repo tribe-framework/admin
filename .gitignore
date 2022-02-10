@@ -1,2 +1,12 @@
-/vendor/
-.php_cs.cache
+/.vscode
+/.env
+/uploads/*
+!/uploads/.gitkeep
+/node_modules
+/vendor
+/composer.phar
+/config/vars.php
+.nuxt
+*.code-workspace
+sftp-config.json
+/theme/dist
