@@ -24,7 +24,11 @@ if (isset($_GET['role'])) {
 
         List of <?= $types[$type]['plural'] ?>
     </h2>
+</div>
 
+</div> <!--closing container from includes/_header -->
+
+<div class="px-3">
     <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
         <div id="deleteConfirm" class="modal fade" tabindex="-1">
@@ -72,7 +76,7 @@ if (isset($_GET['role'])) {
         <input type="hidden" name="ids">
         <input type="hidden" name="type" value=<?=$_GET['type']?> >
 
-        <table class="my-4 table table-sm table-striped table-borderless table-hover datatable border-bottom border-light" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>">
+        <table class="my-4 table table-sm table-striped table-hover datatable border-bottom border-dark" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>">
             <thead class="thead-black">
                 <tr>
                     <th scope="col">#</th>
@@ -83,10 +87,10 @@ if (isset($_GET['role'])) {
                             if (!in_array($module['input_slug'], $displayed_field_slugs)):
                                 if (isset($module['list_field']) && $module['list_field']):
                     ?>
-                    <th scope="col" class="pl-2"
+                    <th scope="col" class="pl-0"
                         data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>"
                         data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>"
-                        style="<?=(isset($module['input_primary']) && $module['input_primary']) ? 'max-width:50%' : ''?>">
+                        style="<?=(isset($module['input_primary']) && $module['input_primary']) ? 'min-width:25%; max-width:50%' : ''?>">
                         <?=$module['input_slug']?>
                     </th>
                     <?php
@@ -95,7 +99,6 @@ if (isset($_GET['role'])) {
                             endif;
                         endforeach;
                     ?>
-                    <th scope="col" data-orderable="false" data-searchable="false"></th>
                 </tr>
             </thead>
         </table>
@@ -110,5 +113,7 @@ if (isset($_GET['role'])) {
         </button>
     </div>
 </div>
+
+<div class="p-3 container">
 
 <?php require_once __DIR__ . '/../includes/_footer.php';?>

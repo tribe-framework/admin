@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../init.php';
+require_once __DIR__ . '/../_init.php';
 //https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/UploadHandler.php
 require_once __DIR__ . '/../assets/plugins/blueimp-jquery-file-upload/UploadHandler.php';
 

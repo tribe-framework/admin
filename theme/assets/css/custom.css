@@ -33,33 +33,8 @@
   display: inline;
 }
 
-.dataTables_filter {
-  float: left;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
 .dt-buttons {
   float: left;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.paging_simple_numbers {
-  float: right;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.dataTables_info {
-  float: right;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.dataTables_length {
-  float: left;
-  margin-left: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -200,44 +175,93 @@ table.dataTable tbody td.selected a {
   color: #fff;
 }
 
-#analysisTable_wrapper #top.clearfix {
+table.dataTable tbody > tr {
+  font-size: 0.75em;
+  font-weight: 300;
+}
+
+table.dataTable tbody tr {
+  border-bottom: 1px solid #161616;
+}
+
+table.dataTable tbody tr td, table.dataTable tbody tr th {
+  padding: 0;
+}
+
+table.dataTable thead tr th {
+  font-size: 0.9rem;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.dataTables_info, .dataTables_filter, .dataTables_length, .dataTables_paginate {
+  display: flex;
+  align-items: center;
+}
+
+.dataTables_info {
+  padding-top: 0;
+}
+
+#top label, #bottom1 label {
+  margin: 0 !important;
+}
+
+#top, #bottom1 {
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#top .custom-select-sm, #bottom1 .custom-select-sm {
+  padding-top: 0;
+}
+
+#top .form-control-sm, #bottom1 .form-control-sm, div.dtsp-searchPane .input-group .form-control-sm {
+  height: calc(1.2em + .5rem + 2px);
+}
+
+div.dtsp-searchPane .input-group .input-group-append {
+  display: flex;
+  border-left: #333 1px solid;
+}
+div.dtsp-panes {
+  padding: 0;
+  border: none;
+  margin: 0;
+  border-radius: 0;
+}
+div.dtsp-searchPanes {
+  justify-content: space-between;
+}
+div.dtsp-searchPane div.dataTables_scrollBody {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+div.dtsp-searchPane div.dataTables_scrollBody:hover {
+  border-width: 0 !important;
+}
+
+div.dtsp-searchPane td.dtsp-nameColumn {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.03);
-  color: var(--dark);
-  padding: 0 0.5rem;
-  font-size: 1rem;
-}
-
-#analysisTable_wrapper #bottom.clearfix {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  padding-bottom: 2rem;
+  padding: 0 3px 0 3px;
 }
 
-#dtList #bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+td.sorting_1 { cursor: pointer; padding-left: 3px !important; }
+td.sorting_1:hover {background: #333; color: #fff;}
+
+span.text-ellipsis {
+  overflow: hidden;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-#dtList tr td:first-of-type {
-  cursor: default;
-}
-
-#bottom .dt-buttons {
-  margin: unset;
-  float: unset;
-}
-
-#bottom .paging_simple_numbers {
-  float: unset;
-}
-
-#bottom .paging_simple_numbers ul {
-  margin: unset;
-}
 
 .toast {
   z-index: 9999;

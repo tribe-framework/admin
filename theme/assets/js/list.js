@@ -10,10 +10,14 @@ $(document).ready(() => {
 		},
 		deferRender: true,
 		fixedHeader: true,
+		searchPanes: {
+	        layout: 'columns-6'
+	    },
 		language: {
 			loadingRecords: '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>'
 		},
-		dom: '<"#top.clearfix"ifl>rt<"#bottom"Bp>',
+		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
+		lengthMenu: [ [10, 25, 50, 100, 250, 500, -1], [10, 25, 50, 100, 250, 500, "All records"] ],
 		pageLength: 50,
 		columnDefs: [{
 			targets: 0,
@@ -40,6 +44,8 @@ $(document).ready(() => {
 			]
 		}]
 	});
+
+	$('.datatable').columns.adjust().draw();
 
 	$('#analysisTable').DataTable({
 		dom: '<"#top.clearfix"fl>rt<"#bottom.clearfix"ip>',

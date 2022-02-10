@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../init.php';
+require_once __DIR__ . '/../_init.php';
 
 $log = null;
 $save_activity_log = $types['webapp']['display_activity_log'] ?? false;
