@@ -87,10 +87,10 @@ if (isset($_GET['role'])) {
                             if (!in_array($module['input_slug'], $displayed_field_slugs)):
                                 if (isset($module['list_field']) && $module['list_field']):
                     ?>
-                    <th scope="col" class="pl-0"
+                    <th scope="col"
                         data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>"
                         data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>"
-                        style="<?=(isset($module['input_primary']) && $module['input_primary']) ? 'min-width:25%; max-width:50%' : ''?>">
+                        style="<?=(isset($module['input_primary']) && $module['input_primary']) ? 'min-width:25%;' : ''?>">
                         <?=$module['input_slug']?>
                     </th>
                     <?php

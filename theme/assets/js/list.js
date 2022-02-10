@@ -17,7 +17,7 @@ $(document).ready(() => {
 			loadingRecords: '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>'
 		},
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
-		lengthMenu: [ [10, 25, 50, 100, 250, 500, -1], [10, 25, 50, 100, 250, 500, "All records"] ],
+		lengthMenu: [ [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 20000], [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 20000] ],
 		pageLength: 50,
 		columnDefs: [{
 			targets: 0,

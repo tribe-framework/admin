@@ -86,7 +86,7 @@ if ($api->method('get')) {
             }
 
             if (isset($module['input_primary']) ?? false)
-                $cont .= "<span class='ml-3 badge font-weight-light border border-success'>".$dash->getAttribute($post['id'], 'content_privacy')."</span><span class='ml-3'>{$_editBtn} {$_viewBtn} {$_viewCount}</span>";
+                $cont .= "&nbsp;&nbsp;&nbsp;<span class='badge font-weight-light border border-success'>".$_object['content_privacy']."</span>&nbsp;&nbsp;&nbsp;<span>{$_editBtn} {$_viewBtn} {$_viewCount}</span>";
 
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;
