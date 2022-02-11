@@ -54,10 +54,23 @@ if ($api->method('get')) {
 
         $_viewBtn = "<a title='View' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fal fa-external-link-alt'></i>&nbsp;View</a>";
 
-        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase'><span class='fal fa-megaphone'></span> ".$_object['content_privacy']."</span>";
+        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase'><span class='fal fa-".(
+                $_object['type'] == 'user' ? 'user' : (
+                    $_object['content_privacy'] == 'public' ? 'megaphone' : (
+                        $_object['content_privacy'] == 'private' ? 'link' : (
+                            $_object['content_privacy'] == 'pending' ? 'hourglass-half' : 'paragraph'
+                        )
+                    )
+                )
+            )."'></span> ".( 
+                $_object['type'] == 'user' ? 'user' : 
+                ($_object['content_privacy'] ?? "draft")
+            )."</span>";
+
+        $_slugLine = '<span class="d-none d-md-inline-block"><span class="ml-1 small text-muted slug-ellipsis">'.$post['slug'].'</span></span>';
 
         // button controls for this single post
-        $or['data'][$i][] = $post['id'];
+        $or['data'][$i][] = '<span>'.$post['id'].'</span>';
 
         $donotlist = 0;
         foreach ($types[$_type]['modules'] as $module) {
@@ -88,7 +101,14 @@ if ($api->method('get')) {
             }
 
             if (isset($module['input_primary']) ?? false)
-                $cont .= "<div class='w-100 small'>{$_contentPrivacy} {$_viewCount} <span class='btn-options float-right'>{$_editBtn} {$_viewBtn}</span></div>";
+                $cont .= "<div class='w-100 small'>
+                            <span class='btn-options float-left'>
+                                {$_contentPrivacy} {$_viewCount} {$_slugLine}
+                            </span>
+                            <span class='btn-options float-left float-md-right'>
+                                {$_editBtn} {$_viewBtn}
+                            </span>
+                        </div>";
 
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;

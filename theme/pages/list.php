@@ -16,20 +16,20 @@ if (isset($_GET['role'])) {
 <div>
     <?= $admin->get_admin_menu('list', $type, $role['slug'] ?? null); ?>
 
-    <h2 class="mb-4">
-        <?php if ($type == 'user'): ?>
-        <?= $role['title'] ?>
-        <small><i class="fas fa-angle-double-right"></i></small>
-        <?php endif ?>
-
-        List of <?= $types[$type]['plural'] ?>
-    </h2>
+    <?php if ($type == 'user'): ?>
+    <h5 class="mb-4">
+    <?= $role['title'] ?>
+    <small><i class="fas fa-angle-double-right"></i></small>
+    List of <?= $types[$type]['plural'] ?>
+    </h5>
+    <?php endif ?>
+    
 </div>
 
 
 
 <?php
-// limit table width to container size if there are fewer than 6 colummns
+// count the number of display columns, to limit table width to container size if there are fewer than 6 colummns
 $listed_fields_number = 0 ;
 foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  { 
     if (isset($is_listed)) 
@@ -37,11 +37,11 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 }
 ?>
 
-<?php if ($listed_fields_number>6) { ?>
-    </div> <!--closing container from includes/_header -->
+<?php if ($listed_fields_number>=6) { ?>
+    </div><div class="px-lg-3"><!--closing container from includes/_header -->
 <?php } ?>
 
-<div class="px-0">
+
     <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
         <div id="deleteConfirm" class="modal fade" tabindex="-1">
@@ -128,8 +128,8 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 </div>
 
 
-<?php if ($listed_fields_number>6) { ?>
-    <div class="p-3 container"> <!--opening container from includes/_header -->
+<?php if ($listed_fields_number>=6) { ?>
+    </div><div class="p-3 container"> <!--opening container from includes/_header -->
 <?php } ?>
 
 
