@@ -74,7 +74,7 @@ if ($api->method('get')) {
 
             //For displaying list_linked_module
             if ($module['list_linked_module'] ?? false) {
-                $cont_json_decoded = json_decode($cont, true);
+                $cont_json_decoded = json_decode($_object[$module_input_slug_lang], true);
 
                 if (is_array($cont_json_decoded)) {
                     foreach ($cont_json_decoded as $cont_json) {
@@ -83,7 +83,7 @@ if ($api->method('get')) {
 
                     $cont = '<span class="text-ellipsis">'.implode(', ', $cont_json_decoded_arr).'</span>';
                 } else {
-                    $cont = '<span class="text-ellipsis">'.$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont), $module['list_linked_module']['display_module']).'</span>';
+                    $cont = '<span class="text-ellipsis">'.$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$_object[$module_input_slug_lang]), $module['list_linked_module']['display_module']).'</span>';
                 }
             }
 
