@@ -1,6 +1,6 @@
 {
     "name": "wildfire/admin",
-    "description": "Admin for Tribe (v2.0.45)",
+    "description": "Admin for Tribe (v2.1)",
     "repositories": {
         "wildfire/core": {
             "type": "git",
@@ -16,9 +16,9 @@
         }
     },
     "require": {
-    	"wildfire/core": "^3.0.13",
+    	"wildfire/core": "^3.1",
     	"wildfire/auth": "^2.0",
-        "wildfire/api": "^0.1.12"
+        "wildfire/api": "^0.1"
     },
     "autoload": {
         "psr-4": {
