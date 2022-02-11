@@ -1,5 +1,5 @@
 <?php
-$is_multi_text = $module_input_type == 'multi-text' ?? false;
+$is_multi_text = (($module_input_type == 'multi_text' || $module_input_type == 'multi-text') ?? false);
 ?>
 
 <div id="text-group-<?= $module_input_slug_lang ?>" class="text-group">
@@ -49,10 +49,10 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 			<?php endif ?>
 
 			<?php if ($i < 1 || trim($type_name_value)): // if: $i?>
-				<div class="input-group <?= $module_input_type == 'multi-text' ? 'mt-2' : 'mt-5' ?>">
+				<div class="input-group <?= ($module_input_type == 'multi-text' || $module_input_type == 'multi_text') ? 'mt-2' : 'mt-5' ?>">
 					<div
 						class="input-group-prepend border-right"
-						<?php if ($module_input_type == 'multi-text'): ?>
+						<?php if ($module_input_type == 'multi-text' || $module_input_type == 'multi_text'): ?>
 						title="Drag to re-order"
 						<?php endif ?>
 						>
@@ -62,7 +62,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 							style="min-width: 3rem;"
 							>
 							<?php
-								if ($module_input_type == 'multi-text'):
+								if ($module_input_type == 'multi-text' || $module_input_type == 'multi_text'):
 									echo $i+1;
 								else:
 							?>
@@ -73,7 +73,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 
 					<input
 						type="text"
-						name="<?=$module_input_slug_lang . ($module_input_type == 'multi-text' ? '[]' : '');?>"
+						name="<?=$module_input_slug_lang . (($module_input_type == 'multi-text' || $module_input_type == 'multi_text') ? '[]' : '');?>"
 						class="form-control m-0 border-top-0 border-right-0 border-left-0"
 						data-child="text-group"
 						placeholder="<?=$module_input_placeholder ?:
@@ -101,7 +101,7 @@ $is_multi_text = $module_input_type == 'multi-text' ?? false;
 
 				<?php
 				// if: slug_displayed
-				if ($module_input_primary && $module_input_type != 'multi-text' && !$slug_displayed):
+				if ($module_input_primary && $module_input_type != 'multi-text' && $module_input_type != 'multi_text' && !$slug_displayed):
 					$slug_displayed = 1;
 				?>
 				<div class="input-group">

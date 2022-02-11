@@ -31,7 +31,7 @@
 
         <input
             type="url"
-            name="<?= $module_input_slug_lang.($module_input_type=='multi_url' ? '[]' : '') ?>"
+            name="<?= $module_input_slug_lang.(($module_input_type=='multi-url' || $module_input_type=='multi_url') ? '[]' : '') ?>"
             class="form-control border-top-0 border-left-0 border-right-0 rounded-0 m-0"
             placeholder="<?=
                 isset($module_input_placeholder) ?
@@ -40,7 +40,7 @@
             ?>"
             value="<?= $type_name_value ?>">
 
-            <?php if ($module_input_type == 'multi_url'): ?>
+            <?php if (($module_input_type=='multi-url' || $module_input_type=='multi_url')): ?>
                 <div
                     class="input-group-append multi_add_btn"
                     data-group-class="url-group"

@@ -14,7 +14,7 @@
         if ($i < 1 || trim($type_name_value)):
     ?>
         <?php
-            $textarea_name = $module_input_slug_lang . ($module_input_type == 'multi-textarea' ? '[]' : '');
+            $textarea_name = $module_input_slug_lang . (($module_input_type == 'multi-textarea' || $module_input_type == 'multi_textarea') ? '[]' : '');
             $placeholder = $module_input_placeholder ?: ucfirst($types[$type]['name']) . " $module_input_slug_lang";
         ?>
         <div class="input-group mt-5">
@@ -37,7 +37,7 @@
                 </div>
             <?php endif ?>
 
-            <?php if ($module_input_type == 'multi-textarea'): ?>
+            <?php if ($module_input_type == 'multi-textarea' || $module_input_type == 'multi_textarea'): ?>
                 <div
                     class="input-group-append multi_add_btn"
                     data-group-class="textarea-group"
