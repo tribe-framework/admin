@@ -26,9 +26,22 @@ if (isset($_GET['role'])) {
     </h2>
 </div>
 
-</div> <!--closing container from includes/_header -->
 
-<div class="px-3">
+
+<?php
+// limit table width to container size if there are fewer than 6 colummns
+$listed_fields_number = 0 ;
+foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  { 
+    if (isset($is_listed)) 
+        $listed_fields_number++; 
+}
+?>
+
+<?php if ($listed_fields_number>6) { ?>
+    </div> <!--closing container from includes/_header -->
+<?php } ?>
+
+<div class="px-0">
     <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
         <div id="deleteConfirm" class="modal fade" tabindex="-1">
@@ -90,7 +103,7 @@ if (isset($_GET['role'])) {
                     <th scope="col"
                         data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>"
                         data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>"
-                        style="<?=(isset($module['input_primary']) && $module['input_primary']) ? 'min-width:25%;' : ''?>">
+                        >
                         <?=$module['input_slug']?>
                     </th>
                     <?php
@@ -114,6 +127,10 @@ if (isset($_GET['role'])) {
     </div>
 </div>
 
-<div class="p-3 container">
+
+<?php if ($listed_fields_number>6) { ?>
+    <div class="p-3 container"> <!--opening container from includes/_header -->
+<?php } ?>
+
 
 <?php require_once __DIR__ . '/../includes/_footer.php';?>
