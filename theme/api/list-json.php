@@ -70,7 +70,7 @@ if ($api->method('get')) {
 
             $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
 
-            $cont = '<span class="text-ellipsis">'.($_object[$module_input_slug_lang] ?? '').'</span>';
+            $cont = '<span class="text-ellipsis">'.($_object[$module_input_slug_lang] ? (is_array($_object[$module_input_slug_lang]) ? implode(', ', $_object[$module_input_slug_lang]) : $_object[$module_input_slug_lang]) : '').'</span>';
 
             //For displaying list_linked_module
             if ($module['list_linked_module'] ?? false) {
