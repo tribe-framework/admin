@@ -46,6 +46,7 @@ $(document).ready(() => {
 		dom: '<"#top.clearfix"fl>rt<"#bottom.clearfix"ip>',
 		pageLength: 100
 	});
+
 });
 
 // multi-select delete action for lists

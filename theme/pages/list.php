@@ -89,10 +89,10 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
         <input type="hidden" name="ids">
         <input type="hidden" name="type" value=<?=$_GET['type']?> >
 
-        <table class="my-4 table table-sm table-striped table-hover datatable border-bottom border-dark" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>">
+        <table class="my-4 list table table-sm table-striped table-hover datatable border-bottom border-dark" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>">
             <thead class="thead-black">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID&nbsp;&nbsp;&nbsp;<span class="position-absolute mr-0" data-toggle="tooltip" data-placement="top" title="ID of a record is unique across the system. Slug is unique within the content type."><i class="fal fa-info-circle"></i></span></th>
                     <?php
                         $displayed_field_slugs = array();
 

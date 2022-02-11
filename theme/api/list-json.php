@@ -42,17 +42,19 @@ if ($api->method('get')) {
         $_viewCount = '';
         if ($types[$_type]['display_prism_stat'] ?? false) {
             $_viewCount = $sql->executeSQL("select visit->>'$.url' as url, count(*) as count from trac where visit->'$.url' like '%{$_object['slug']}%' group by url order by count desc")[0]['count'] ?? 0;
-            $_viewCount = "<span class='text-muted small mr-1' title='Visits'>{$_viewCount}</span>";
+            $_viewCount = "<span class='text-muted small mx-1' title='Visits'>{$_viewCount}</span>";
         }
 
         // edit and view buttons
         $_editBtn = '';
         if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
             $_editRole = $_type == 'user' ? '&role=' . $_role : '';
-            $_editBtn = "<a class='mr-1' title='Edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit'></i></a>";
+            $_editBtn = "<a class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fal fa-edit'></i>&nbsp;Edit</a>";
         }
 
-        $_viewBtn = "<a title='View' class='mr-2' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fas fa-external-link-alt'></i></a>";
+        $_viewBtn = "<a title='View' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fal fa-external-link-alt'></i>&nbsp;View</a>";
+
+        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase'><span class='fal fa-megaphone'></span> ".$_object['content_privacy']."</span>";
 
         // button controls for this single post
         $or['data'][$i][] = $post['id'];
@@ -86,7 +88,7 @@ if ($api->method('get')) {
             }
 
             if (isset($module['input_primary']) ?? false)
-                $cont .= "&nbsp;&nbsp;&nbsp;<span class='badge font-weight-light border border-success'>".$_object['content_privacy']."</span>&nbsp;&nbsp;&nbsp;<span>{$_editBtn} {$_viewBtn} {$_viewCount}</span>";
+                $cont .= "<div class='w-100 small'>{$_contentPrivacy} {$_viewCount} <span class='btn-options float-right'>{$_editBtn} {$_viewBtn}</span></div>";
 
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;
