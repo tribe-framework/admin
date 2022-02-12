@@ -46,12 +46,12 @@ if ($api->method('get')) {
         $user_restricted_to_input_modules = array_intersect(array_keys($currentUser), array_keys($types));
     }
 
-    //create search_array for $dash->get_ids
+    //create search_var for $dash->get_all_ids
     //if type is user, use role as well
     if ($_type=='user')
-        $search_array = ['type' => $_type, 'role_slug' => $_role];
+        $search_var = ['type' => $_type, 'role_slug' => $_role];
     else
-        $search_array = ['type' => $_type];
+        $search_var = $_type;
 
     //if more than 25k records, use SQL directly
     if ($unfiltered_ids_number>25000) {
@@ -72,10 +72,10 @@ if ($api->method('get')) {
             'recordsFiltered' => $filterable_ids_number
         ];
     }
-    //if less than 25k records, simply use $dash->get_ids
+    //if less than 25k records, simply use $dash->get_all_ids
     else {
         $filterable_ids_number = $unfiltered_ids_number;
-        $ids = $dash->get_ids($search_array, '=', 'AND', $_search_column,  $_search_direction);
+        $ids = $dash->get_all_ids($search_var, $_search_column,  $_search_direction);
 
         //count is important for datatables to function properly
         $or = [
