@@ -1,18 +1,26 @@
 'use strict';
 
 $(document).ready(() => {
+
+	let isProcessing = false;
+	let isServerSide = false;
+
+	if ($('.datatable').data('lazyload')) {
+		isProcessing = true;
+		isServerSide = true;
+	}
+
 	let datatableAjaxUrl = `/admin/${$('.datatable').data('jsonpath')}?type=${$('.datatable').data('type')}&role=${$('.datatable').data('role')}`;
 
-	$('.datatable').DataTable({
+	let datatableOptions = {
+        processing: isProcessing,
+        serverSide: isServerSide,
 		ajax: datatableAjaxUrl,
 		fnInitComplete: function () {
 			rigDataTableRows();
 		},
 		deferRender: true,
 		fixedHeader: true,
-		language: {
-			loadingRecords: '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>'
-		},
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
 		lengthMenu: [ [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000], [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000] ],
 		pageLength: 50,
@@ -39,8 +47,30 @@ $(document).ready(() => {
 					"title": 'data'
 				}
 			]
-		}]
-	});
+		}],
+		"language": {
+			"info": "_START_ to _END_ of _TOTAL_",
+			"emptyTable": "No records found",
+    		"infoEmpty":      "0 to 0 of 0",
+    		"infoFiltered":   "(from _MAX_)",
+    		"infoPostFix":    "",
+    		"thousands":      ",",
+    		"lengthMenu":     "_MENU_ / page",
+    		"loadingRecords": '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>',
+    		"processing":     '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>',
+    		"search":         "_INPUT_",
+    		"searchPlaceholder": "Search...",
+    		"zeroRecords":    "No records found",
+		    "paginate": {
+		        "first":      "&#8656;",
+		        "last":       "&#8658;",
+		        "next":       "&gt;",
+		        "previous":   "&lt;"
+		    }
+		}
+	};
+
+	$('.datatable').DataTable(datatableOptions);
 
 	$('#analysisTable').DataTable({
 		dom: '<"#top.clearfix"fl>rt<"#bottom.clearfix"ip>',

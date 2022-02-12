@@ -11,6 +11,9 @@ if ($_GET['type'] == 'key_value_pair' || $_GET['type'] == 'api_key_secret') {
 if (isset($_GET['role'])) {
     $role = $types['user']['roles'][$_GET['role']] ?? null;
 }
+
+$_type = $_GET['type'] ?? false;
+$_role = $_GET['role'] ?? false;
 ?>
 
 <div>
@@ -29,6 +32,13 @@ if (isset($_GET['role'])) {
 
 
 <?php
+// count number of records, if number of records are more than 25k, use ajax method with datatables
+if ($_type == 'user') {
+    $ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type' AND `role_slug`='$_role'")[0]['total'];
+} else {
+    $ids_number = $sql->executeSQL("SELECT COUNT(*) AS `total` FROM `data` WHERE `type`='$_type'")[0]['total'];
+}
+
 // count the number of display columns, to limit table width to container size if there are fewer than 6 colummns
 $listed_fields_number = 0 ;
 foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  { 
@@ -40,7 +50,6 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 <?php if ($listed_fields_number>=6) { ?>
     </div><div class="px-lg-3"><!--closing container from includes/_header -->
 <?php } ?>
-
 
     <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
@@ -89,7 +98,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
         <input type="hidden" name="ids">
         <input type="hidden" name="type" value=<?=$_GET['type']?> >
 
-        <table class="my-4 list table table-sm table-striped table-hover datatable border-bottom border-dark" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>">
+        <table class="my-4 list table table-sm table-striped table-hover datatable border-bottom border-dark" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>" data-lazyload=<?=($ids_number>25000 ? "true" : "false")?> >
             <thead class="thead-black">
                 <tr>
                     <th scope="col">ID&nbsp;&nbsp;&nbsp;<span class="position-absolute mr-0" data-toggle="tooltip" data-placement="top" title="ID of a record is unique across the system. Slug is unique within the content type."><i class="fal fa-info-circle"></i></span></th>

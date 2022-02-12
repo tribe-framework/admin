@@ -11,17 +11,68 @@ $or=array();
 $_type = $_GET['type'];
 $_role = $_GET['role'];
 
+// count number of records, if number of records are more than 25k, use ajax method with datatables
+if ($_type == 'user') {
+    $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type' AND `role_slug`='$_role'")[0]['total'];
+} else {
+    $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type'")[0]['total'];
+}
+
+if ($unfiltered_ids_number>25000) {
+    //load the search query
+    $_search_query = strtolower($_GET['search']['value']);
+
+    // loading all list-able columns for the type
+    foreach ($types[$_type]['modules'] as $module)  { 
+        if (isset($module['list_field'])) {
+            $columns[]=$module['input_slug'];
+        }
+
+        //searchable columns, marry it to search query - SQL
+        if (isset($module['list_searchable']) && trim($_search_query)) {
+            $columns[]=$module['input_slug'];
+            $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+        }
+    }
+}
+
+//remaining parts of the SQL statement
+$_search_length = $_GET['length'] ?? 50;
+$_search_start = $_GET['start'] ?? 0;
+$_search_direction = $_GET['order'][0]['dir'] ?? 'DESC';
+$_search_column = ($_GET['order'][0]['column'] ? $columns[$_GET['order'][0]['column']] : 'id');
+
 if ($api->method('get')) {
     if ($types['user']['roles_restricted_within_matching_modules'] ?? false) {
         $user_restricted_to_input_modules = array_intersect(array_keys($currentUser), array_keys($types));
     }
 
-    if ($_type == 'user') {
-        $ids = $dash->get_all_ids(['type' => $_type, 'role_slug' => $_role]);
-    } elseif ($types[$_type]['type']=='user') {
-        $ids = $dash->get_all_ids(['type' => 'user', 'role_slug' => $_type]);
-    } else {
-        $ids = $dash->get_all_ids($_type);
+    if ($_type=='user')
+        $search_array = ['type' => $_type, 'role_slug' => $_role];
+    else
+        $search_array = ['type' => $_type];
+
+    if ($unfiltered_ids_number>25000) {
+        $filterable_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}")[0]['total'];
+
+        $ids = $sql->executeSQL("SELECT `id` FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction} LIMIT {$_search_start}, {$_search_length}");
+
+        $or = [
+            'draw' => $_GET['draw'],
+            'recordsTotal' => $unfiltered_ids_number,
+            'recordsFiltered' => $filterable_ids_number
+        ];
+    }
+
+    else {
+        $filterable_ids_number = $unfiltered_ids_number;
+        $ids = $dash->get_ids($search_array, '=', 'AND', $_search_column,  $_search_direction);
+
+        $or = [
+            'draw' => 1,
+            'recordsTotal' => $unfiltered_ids_number,
+            'recordsFiltered' => $unfiltered_ids_number
+        ];
     }
 
     $_dbObjects = $dash->getObjects($ids);
@@ -180,6 +231,6 @@ if ($api->method('get')) {
             'data' => []
         ];
     }
-
+    
     $api->json($or)->send();
 }
