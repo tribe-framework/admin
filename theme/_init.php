@@ -2,6 +2,7 @@
 namespace Wildfire;
 
 $dash = new Core\Dash();
+$sql = new Core\MySQL();
 $admin = new Admin;
 $theme = new Core\Theme();
 $auth = new Auth();
