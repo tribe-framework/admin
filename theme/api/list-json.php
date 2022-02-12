@@ -110,23 +110,23 @@ if ($api->method('get')) {
         $_editBtn = '';
         if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
             $_editRole = $_type == 'user' ? '&role=' . $_role : '';
-            $_editBtn = "<a class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fal fa-edit'></i>&nbsp;Edit</a>";
+            $_editBtn = "<a class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit text-success'></i>&nbsp;Edit</a>";
         }
 
         //view button
-        $_viewBtn = "<a title='Click here to view this record' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fal fa-external-link-alt'></i>&nbsp;View</a>";
+        $_viewBtn = "<a title='Click here to view this record' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fas fa-external-link-alt text-success'></i>&nbsp;View</a>";
 
         //privacy label
-        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Content privacy set to ".($_object['content_privacy'] ?? '')."'><span class='fal fa-".(
+        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Content privacy set to ".($_object['content_privacy'] ?? '')."'><span class='fas fa-".(
                 $_object['type'] == 'user' ? 'user' : (
-                    $_object['content_privacy'] == 'public' ? 'megaphone' : (
-                        $_object['content_privacy'] == 'private' ? 'link' : (
-                            $_object['content_privacy'] == 'pending' ? 'hourglass-half' : 'paragraph'
+                    $_object['content_privacy'] == 'public' ? 'megaphone text-green' : (
+                        $_object['content_privacy'] == 'private' ? 'link text-red' : (
+                            $_object['content_privacy'] == 'pending' ? 'hourglass-half text-yellow' : 'paragraph'
                         )
                     )
                 )
             )."'></span> ".( 
-                $_object['type'] == 'user' ? 'user' : 
+                $_object['type'] == 'user' ? 'user text-dark' : 
                 ($_object['content_privacy'] ?? "draft")
             )."</span>";
 

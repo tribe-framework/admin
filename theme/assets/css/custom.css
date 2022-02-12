@@ -20,6 +20,18 @@
   display: none;
 }
 
+.text-red {
+  color: #ff3300;
+}
+
+.text-green {
+  color: #009900;
+}
+
+.text-yellow {
+  color: #eeaa00;
+}
+
 #map {
   height: 400px;
   max-height: 100%;
