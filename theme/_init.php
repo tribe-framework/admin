@@ -1,10 +1,10 @@
 <?php
 namespace Wildfire;
 
-$dash = new Core\Dash();
-$sql = new Core\MySQL();
+$dash = new \Wildfire\Core\Dash();
+$sql = new \Wildfire\Core\MySQL();
 $admin = new Admin;
-$theme = new Core\Theme();
+$theme = new \Wildfire\Core\Theme();
 $auth = new Auth();
 
 $types = $dash->getTypes();

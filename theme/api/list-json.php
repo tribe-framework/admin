@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/../_init.php';
 
-$dash = new \Wildfire\Core\Dash;
-$sql = new \Wildfire\Core\MySQL;
 $api = new \Wildfire\Api;
 
 $i = 0;
@@ -18,6 +16,7 @@ if ($_type == 'user') {
     $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type'")[0]['total'];
 }
 
+// if number is 25k build SQL query to fetch what user has typed in filter search
 if ($unfiltered_ids_number>25000) {
     //load the search query
     $_search_query = strtolower($_GET['search']['value']);
@@ -36,7 +35,7 @@ if ($unfiltered_ids_number>25000) {
     }
 }
 
-//remaining parts of the SQL statement
+//remaining parts of the SQL statement, params sent by datatables
 $_search_length = $_GET['length'] ?? 50;
 $_search_start = $_GET['start'] ?? 0;
 $_search_direction = $_GET['order'][0]['dir'] ?? 'DESC';
@@ -47,27 +46,38 @@ if ($api->method('get')) {
         $user_restricted_to_input_modules = array_intersect(array_keys($currentUser), array_keys($types));
     }
 
+    //create search_array for $dash->get_ids
+    //if type is user, use role as well
     if ($_type=='user')
         $search_array = ['type' => $_type, 'role_slug' => $_role];
     else
         $search_array = ['type' => $_type];
 
+    //if more than 25k records, use SQL directly
     if ($unfiltered_ids_number>25000) {
-        $filterable_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}")[0]['total'];
 
-        $ids = $sql->executeSQL("SELECT `id` FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction} LIMIT {$_search_start}, {$_search_length}");
+        //part of query that fetches the correct results, takes care of sort order
+        $_final_query = "FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}";
 
+        //count the records, with $_final_query
+        $filterable_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` {$_final_query}")[0]['total'];
+
+        //get ids, with $_final_query
+        $ids = $sql->executeSQL("SELECT `id` {$_final_query} LIMIT {$_search_start}, {$_search_length}");
+
+        //count is important for datatables to function properly
         $or = [
             'draw' => $_GET['draw'],
             'recordsTotal' => $unfiltered_ids_number,
             'recordsFiltered' => $filterable_ids_number
         ];
     }
-
+    //if less than 25k records, simply use $dash->get_ids
     else {
         $filterable_ids_number = $unfiltered_ids_number;
         $ids = $dash->get_ids($search_array, '=', 'AND', $_search_column,  $_search_direction);
 
+        //count is important for datatables to function properly
         $or = [
             'draw' => 1,
             'recordsTotal' => $unfiltered_ids_number,
@@ -96,16 +106,18 @@ if ($api->method('get')) {
             $_viewCount = "<span class='text-muted small mx-1' title='Visits'>{$_viewCount}</span>";
         }
 
-        // edit and view buttons
+        // edit button
         $_editBtn = '';
         if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
             $_editRole = $_type == 'user' ? '&role=' . $_role : '';
             $_editBtn = "<a class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fal fa-edit'></i>&nbsp;Edit</a>";
         }
 
+        //view button
         $_viewBtn = "<a title='Click here to view this record' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fal fa-external-link-alt'></i>&nbsp;View</a>";
 
-        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Content privacy set to ".(isset($_object['content_privacy']) ?? '')."'><span class='fal fa-".(
+        //privacy label
+        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Content privacy set to ".($_object['content_privacy'] ?? '')."'><span class='fal fa-".(
                 $_object['type'] == 'user' ? 'user' : (
                     $_object['content_privacy'] == 'public' ? 'megaphone' : (
                         $_object['content_privacy'] == 'private' ? 'link' : (
@@ -118,6 +130,7 @@ if ($api->method('get')) {
                 ($_object['content_privacy'] ?? "draft")
             )."</span>";
 
+        //slug with ellipsis, shows full on hover
         $_slugLine = '<span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="'.$post['slug'].'"><span class="ml-1 small text-muted slug-ellipsis">'.$post['slug'].'</span></span>';
 
         // button controls for this single post
@@ -132,14 +145,20 @@ if ($api->method('get')) {
 
             $_template[] = "";
 
+            /* start: MODULE TEXT VALUE TO DISPLAY IN LIST FIELD (CELL) */
+
+            //value of module as saved in database
+            //if language is defined in types.json, it uses _lang
             $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
 
             if ($_object[$module_input_slug_lang]) {
 
+                //if module value is an array
                 if (is_array($_object[$module_input_slug_lang])) {
 
                     $the_module_texts=array();
 
+                    //if module value has linked data, and is also an array
                     if ($module['list_linked_module'] ?? false) {
 
                         foreach ($_object[$module_input_slug_lang] as $obj_value) {
@@ -161,12 +180,14 @@ if ($api->method('get')) {
 
                         $the_module_text = implode(', ', $the_module_texts);
                     }
+                    //if module value is an array, without linked data
                     else {
                         $the_module_text = implode(', ', $_object[$module_input_slug_lang]);
                     }
 
                 } else {
 
+                    //if module value is not an array, but has linked data
                     if ($module['list_linked_module'] ?? false) {
                         $pointerSpan = '<span 
                             data-linked_type="'.$module['list_linked_module']['linked_type'].'" 
@@ -179,7 +200,9 @@ if ($api->method('get')) {
                             data-placement="bottom" 
                             data-content="'.$_object[$module_input_slug_lang].'"
                         >';
-                    } else {
+                    }
+                    //if module value is not an array, and does not have linked data
+                    else {
                         $pointerSpan = '<span 
                             data-toggle="tooltip" 
                             data-placement="bottom" 
@@ -194,9 +217,10 @@ if ($api->method('get')) {
                 $the_module_text = '';
             }
 
+            //display the module value
             $cont = '<span class="text-ellipsis record_module">'.$the_module_text.'</span>';
-                    
-
+            
+            //display the second cell of each row (primary)
             if (isset($module['input_primary']) ?? false) {
                 $cont .= "<div class='w-100 small'>
                             <span class='btn-options float-left'>
@@ -207,6 +231,8 @@ if ($api->method('get')) {
                             </span>
                         </div>";
             }
+
+            /* ends : MODULE TEXT VALUE TO DISPLAY IN LIST FIELD (CELL) */
 
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;
