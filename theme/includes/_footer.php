@@ -11,7 +11,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 			<?php if (!($types['webapp']['hide_wildfire_logo'] ?? false)): ?>
 			<div class="col-md">
 				<a href="https://wildfire.world">
-					<img class="w-40" src="<?= ADMIN_URL ?>/img/logo.png">
+					<img class="w-40" src="/vendor/wildfire/admin/theme/assets/img/logo.png">
 				</a>
 
 				<p class="text-muted small mb-3 mt-4 pr-5">
@@ -72,12 +72,12 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 </script>
 <?php endif ?>
 
-<script src="<?= ADMIN_URL ?>/plugins/jquery.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/popper/popper.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/moment.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/clipboard.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/keymaster.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/jquery.min.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/popper/popper.min.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/moment.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/clipboard.min.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/keymaster.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
@@ -89,8 +89,8 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.js"></script>
-<script src="<?= ADMIN_URL ?>/js/list.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/datatables/datatables.min.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/js/list.js"></script>
 
 <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
 <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
@@ -98,10 +98,10 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
 <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
-<script src="<?= ADMIN_URL ?>/plugins/typeout/typeout.js"></script>
-<script src="<?= ADMIN_URL ?>/js/edit.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/js/edit.js"></script>
 
-<script src="<?= ADMIN_URL ?>/js/custom.js?v=<?=time()?>"></script>
+<script src="/vendor/wildfire/admin/theme/assets/js/custom.js?v=<?=time()?>"></script>
 
 <?php if (isset($types['webapp']['admin_confetti'])): ?>
 <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>

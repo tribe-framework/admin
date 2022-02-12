@@ -16,16 +16,16 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 	>
 	<title>Wildfire Dashboard <?= $app_title ? "&raquo; $app_title" : '' ?></title>
 	<link rel="stylesheet" href="https://use.typekit.net/xkh7dxd.css">
-	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/wildfire.css">
-	<link rel="stylesheet" href="<?= ADMIN_URL ?>/plugins/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="<?= ADMIN_URL ?>/plugins/datatables/datatables.min.css">
-	<link rel="stylesheet" href="<?= ADMIN_URL ?>/css/custom.css">
+	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/wildfire.css">
+	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/custom.css">
 
 	<?php if ($_ENV['ENV'] == 'dev'): ?>
-	<script src="<?= ADMIN_URL ?>/js/vue/vue.js"></script>
+	<script src="/vendor/wildfire/admin/theme/assets/js/vue/vue.js"></script>
 	<?php else: ?>
-	<script src="<?= ADMIN_URL ?>/js/vue/vue.min.js"></script>
+	<script src="/vendor/wildfire/admin/theme/assets/js/vue/vue.min.js"></script>
 	<?php endif; ?>
 </head>
 
