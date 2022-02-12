@@ -49,12 +49,12 @@ if ($api->method('get')) {
         $_editBtn = '';
         if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
             $_editRole = $_type == 'user' ? '&role=' . $_role : '';
-            $_editBtn = "<a class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fal fa-edit'></i>&nbsp;Edit</a>";
+            $_editBtn = "<a class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fal fa-edit'></i>&nbsp;Edit</a>";
         }
 
-        $_viewBtn = "<a title='View' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fal fa-external-link-alt'></i>&nbsp;View</a>";
+        $_viewBtn = "<a title='Click here to view this record' class='badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fal fa-external-link-alt'></i>&nbsp;View</a>";
 
-        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase'><span class='fal fa-".(
+        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Content privacy set to ".(isset($_object['content_privacy']) ?? '')."'><span class='fal fa-".(
                 $_object['type'] == 'user' ? 'user' : (
                     $_object['content_privacy'] == 'public' ? 'megaphone' : (
                         $_object['content_privacy'] == 'private' ? 'link' : (
@@ -67,7 +67,7 @@ if ($api->method('get')) {
                 ($_object['content_privacy'] ?? "draft")
             )."</span>";
 
-        $_slugLine = '<span class="d-none d-md-inline-block"><span class="ml-1 small text-muted slug-ellipsis">'.$post['slug'].'</span></span>';
+        $_slugLine = '<span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="'.$post['slug'].'"><span class="ml-1 small text-muted slug-ellipsis">'.$post['slug'].'</span></span>';
 
         // button controls for this single post
         $or['data'][$i][] = '<span>'.$post['id'].'</span>';
@@ -83,24 +83,70 @@ if ($api->method('get')) {
 
             $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
 
-            $cont = '<span class="text-ellipsis">'.($_object[$module_input_slug_lang] ? (is_array($_object[$module_input_slug_lang]) ? implode(', ', $_object[$module_input_slug_lang]) : $_object[$module_input_slug_lang]) : '').'</span>';
+            if ($_object[$module_input_slug_lang]) {
 
-            //For displaying list_linked_module
-            if ($module['list_linked_module'] ?? false) {
-                $cont_json_decoded = json_decode($_object[$module_input_slug_lang], true);
+                if (is_array($_object[$module_input_slug_lang])) {
 
-                if (is_array($cont_json_decoded)) {
-                    foreach ($cont_json_decoded as $cont_json) {
-                        $cont_json_decoded_arr[]=$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$cont_json), $module['list_linked_module']['display_module']);
+                    $the_module_texts=array();
+
+                    if ($module['list_linked_module'] ?? false) {
+
+                        foreach ($_object[$module_input_slug_lang] as $obj_value) {
+
+                            $pointerSpan = '<span 
+                                data-linked_type="'.$module['list_linked_module']['linked_type'].'" 
+                                data-linked_slug="'.$obj_value.'" 
+                                data-linked_display_module="'.$module['list_linked_module']['display_module'].'" 
+                                tabindex="0" 
+                                data-container="body" 
+                                data-toggle="popover" 
+                                data-trigger="hover" 
+                                data-placement="bottom" 
+                                data-content="'.$obj_value.'"
+                            >';
+
+                            $the_module_texts[] = $pointerSpan.$obj_value.'</span>';
+                        }
+
+                        $the_module_text = implode(', ', $the_module_texts);
+                    }
+                    else {
+                        $the_module_text = implode(', ', $_object[$module_input_slug_lang]);
                     }
 
-                    $cont = '<span class="text-ellipsis">'.implode(', ', $cont_json_decoded_arr).'</span>';
                 } else {
-                    $cont = '<span class="text-ellipsis">'.$dash->getAttribute(array('type'=>$module['list_linked_module']['linked_type'], 'slug'=>$_object[$module_input_slug_lang]), $module['list_linked_module']['display_module']).'</span>';
+
+                    if ($module['list_linked_module'] ?? false) {
+                        $pointerSpan = '<span 
+                            data-linked_type="'.$module['list_linked_module']['linked_type'].'" 
+                            data-linked_slug="'.$_object[$module_input_slug_lang].'" 
+                            data-linked_display_module="'.$module['list_linked_module']['display_module'].'" 
+                            tabindex="0" 
+                            data-container="body" 
+                            data-toggle="popover" 
+                            data-trigger="hover" 
+                            data-placement="bottom" 
+                            data-content="'.$_object[$module_input_slug_lang].'"
+                        >';
+                    } else {
+                        $pointerSpan = '<span 
+                            data-toggle="tooltip" 
+                            data-placement="bottom" 
+                            title="'.$_object[$module_input_slug_lang].'"
+                        >';
+                    }
+
+                    $the_module_text = $pointerSpan.$_object[$module_input_slug_lang].'</span>';
                 }
+
+            } else {
+                $the_module_text = '';
             }
 
-            if (isset($module['input_primary']) ?? false)
+            $cont = '<span class="text-ellipsis record_module">'.$the_module_text.'</span>';
+                    
+
+            if (isset($module['input_primary']) ?? false) {
                 $cont .= "<div class='w-100 small'>
                             <span class='btn-options float-left'>
                                 {$_contentPrivacy} {$_viewCount} {$_slugLine}
@@ -109,6 +155,7 @@ if ($api->method('get')) {
                                 {$_editBtn} {$_viewBtn}
                             </span>
                         </div>";
+            }
 
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;

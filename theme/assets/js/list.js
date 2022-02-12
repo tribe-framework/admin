@@ -61,6 +61,9 @@ function rigDataTableRows() {
 			}, 0);
 		});
 	});
+
+	popoverActivate();
+
 }
 
 function toggleMultiDeleteButton(e) {
@@ -81,6 +84,22 @@ function toggleMultiDeleteButton(e) {
 
 		actionBtnGroup.classList.add('d-none');
 	}
+}
+
+function popoverActivate() {
+
+	//Popover to show linked data
+	$('[data-toggle="popover"]').popover();
+	$('.popover-dismiss').popover({
+	  trigger: 'focus'
+	});
+	$('[data-toggle="popover"]').on('inserted.bs.popover', function () {
+		$('.popover-body').html('<div class="spinner-grow spinner-border-sm text-dark" role="status"><span class="sr-only">Loading...</span></div>');
+        $.post('/admin/linked-data-json', {"type": $(this).data('linked_type'), "slug": $(this).data('linked_slug'), "field": $(this).data('linked_display_module')}, function(data) {
+            $('.popover-body').html(data.html);
+        }, 'json');
+	});
+
 }
 
 (() => {
