@@ -47,8 +47,9 @@ class Functions {
             <td>
                 <?php if ($options['display_legend']): ?>
                     <div class="px-2 mb-3">
-                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-info text-info mr-1">.</span> Parent</span>
-                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-secondary text-secondary mr-1">.</span>Child</span>
+                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-dark text-dark mr-1">.</span> The record</span>
+                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-info text-info mr-1">.</span> Parent records</span>
+                        <span class="badge badge-pill badge-light"><span class="badge badge-pill badge-secondary text-secondary mr-1">.</span>Child records</span>
                     </div>
                 <?php endif; ?>
                 <div class="card">
@@ -61,8 +62,11 @@ class Functions {
                         aria-controls="output_<?=$options['record']['id']?>"
                         ><h6 class="font-weight-light mb-0 d-flex align-items-center">
                             <?php
-                                // parent records are marked with "info" color & children with "secondary" color
-                                $badge_poc = $options['parent_or_child'] == 'parent' ? 'badge-info' : 'badge-secondary';
+                                // parent records are marked with "info" color & children with "secondary" color, the record itself with dark
+                                if ($options['record']['id'] == $_GET['row_id'])
+                                    $badge_poc = 'badge-dark';
+                                else
+                                    $badge_poc = $options['parent_or_child'] == 'parent' ? 'badge-info' : 'badge-secondary';
                             ?>
                             <span class="badge badge-pill <?= $badge_poc ?> mr-2"><?= $options['record']['id']?></span>
                             <span class="badge badge-pill badge-primary mr-2">
