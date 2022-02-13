@@ -98,7 +98,6 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
 <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
-<script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/js/edit.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/js/custom.js"></script>
 

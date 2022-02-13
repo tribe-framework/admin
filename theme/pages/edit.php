@@ -209,3 +209,5 @@ if (!($post_type = $post['type'])) {
         </button>
     </div>
 </div>
+
+<script type="text/javascript" src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
