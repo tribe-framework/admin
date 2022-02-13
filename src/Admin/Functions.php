@@ -3,6 +3,7 @@ namespace Wildfire\Admin;
 
 use \Wildfire\Core\Dash;
 use \Wildfire\Core\MySQL as SQL;
+use \Wildfire\Auth;
 
 class Functions {
     public $json_options;
@@ -156,5 +157,172 @@ class Functions {
         }
 
         return $db_record_dependency;
+    }
+
+    public function getDatatableRowArray($_object, $row_number=0) {
+        
+        $sql = new SQL;
+        $auth = new Auth();
+        $dash = new Dash;
+
+        $currentUser = $auth->getCurrentUser();
+        $types = $dash->getTypes();
+
+        $post = array();
+
+        //little messy right now, too many overlapping variables
+        //using everything to reduce number of variables in the function
+        $_type = $_object['type'];
+        $_role = ($_object['role_slug'] ?? '');
+        $post['id'] = $_object['id'];
+        $post['type'] = $_object['type'];
+        $post['role'] = ($_object['role_slug'] ?? '');
+        $post['slug'] = $_object['slug'];
+
+        $_viewCount = '';
+        if ($types[$_type]['display_prism_stat'] ?? false) {
+            $_viewCount = $sql->executeSQL("select visit->>'$.url' as url, count(*) as count from trac where visit->'$.url' like '%{$_object['slug']}%' group by url order by count desc")[0]['count'] ?? 0;
+            $_viewCount = "<span class='text-muted small mx-1' title='Visits'>{$_viewCount}</span>";
+        }
+
+        // edit button
+        $_editBtn = '';
+        if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
+            $_editRole = $_type == 'user' ? '&role=' . $_role : '';
+            $_editBtn = "<a class='edit_button badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' data-type='{$post['type']}' data-role='{$post['role']}' data-slug='{$post['slug']}' data-row_number='{$row_number}' data-id='{$post['id']}' href='#editModal' data-toggle='modal' data-href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit text-success'></i>&nbsp;Edit</a>";
+        }
+
+        //view button
+        $_viewBtn = "<a title='Click here to view this record' class='".($post['type']=='user'?'d-none':'')." badge badge-sm border border-dark font-weight-bold text-uppercase' target='new' href='/{$post['type']}/{$post['slug']}'><i class='fas fa-external-link-alt text-success'></i>&nbsp;View</a>";
+
+        //privacy label
+        $_contentPrivacy = "<span class='badge badge-sm border border-dark font-weight-bold text-uppercase' title='Content privacy set to ".($_object['content_privacy'] ?? '')."'><span class='fas fa-".(
+                $_object['type'] == 'user' ? 'user' : (
+                    $_object['content_privacy'] == 'public' ? 'megaphone text-green' : (
+                        $_object['content_privacy'] == 'private' ? 'link text-red' : (
+                            $_object['content_privacy'] == 'pending' ? 'hourglass-half text-yellow' : 'paragraph text-dark'
+                        )
+                    )
+                )
+            )."'></span> ".( 
+                $_object['type'] == 'user' ? 'user' : 
+                (trim($_object['content_privacy']) ?? "draft")
+            )."</span>";
+
+        //slug with ellipsis, shows full on hover
+        $_slugLine = '<span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="'.$post['slug'].'"><span class="ml-1 small text-muted slug-ellipsis">'.$post['slug'].'</span></span>';
+
+        // button controls for this single post
+        $data[] = '<span>'.$post['id'].'</span>';
+
+        $donotlist = 0;
+        foreach ($types[$_type]['modules'] as $module) {
+            // skip if 'list_field' is set to false on module
+            if (!($module['list_field'] ?? false)) {
+                continue;
+            }
+
+            $_template[] = "";
+
+            /* start: MODULE TEXT VALUE TO DISPLAY IN LIST FIELD (CELL) */
+
+            //value of module as saved in database
+            //if language is defined in types.json, it uses _lang
+            $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
+
+            if ($_object[$module_input_slug_lang]) {
+
+                //if module value is an array
+                if (is_array($_object[$module_input_slug_lang])) {
+
+                    $the_module_texts=array();
+
+                    //if module value has linked data, and is also an array
+                    if ($module['list_linked_module'] ?? false) {
+
+                        foreach ($_object[$module_input_slug_lang] as $obj_value) {
+
+                            $pointerSpan = '<span 
+                                data-linked_type="'.$module['list_linked_module']['linked_type'].'" 
+                                data-linked_slug="'.$obj_value.'" 
+                                data-linked_display_module="'.$module['list_linked_module']['display_module'].'" 
+                                tabindex="0" 
+                                data-container="body" 
+                                data-toggle="popover" 
+                                data-trigger="hover" 
+                                data-placement="bottom" 
+                                data-content="'.$obj_value.'"
+                            >';
+
+                            $the_module_texts[] = $pointerSpan.$obj_value.'</span>';
+                        }
+
+                        $the_module_text = implode(', ', $the_module_texts);
+                    }
+                    //if module value is an array, without linked data
+                    else {
+                        $the_module_text = implode(', ', $_object[$module_input_slug_lang]);
+                    }
+
+                } else {
+
+                    //if module value is not an array, but has linked data
+                    if ($module['list_linked_module'] ?? false) {
+                        $pointerSpan = '<span 
+                            data-linked_type="'.$module['list_linked_module']['linked_type'].'" 
+                            data-linked_slug="'.$_object[$module_input_slug_lang].'" 
+                            data-linked_display_module="'.$module['list_linked_module']['display_module'].'" 
+                            tabindex="0" 
+                            data-container="body" 
+                            data-toggle="popover" 
+                            data-trigger="hover" 
+                            data-placement="bottom" 
+                            data-content="'.$_object[$module_input_slug_lang].'"
+                        >';
+                    }
+                    //if module value is not an array, and does not have linked data
+                    else {
+                        $pointerSpan = '<span 
+                            data-toggle="tooltip" 
+                            data-placement="bottom" 
+                            title="'.$_object[$module_input_slug_lang].'"
+                        >';
+                    }
+
+                    $the_module_text = $pointerSpan.$_object[$module_input_slug_lang].'</span>';
+                }
+
+            } else {
+                $the_module_text = '';
+            }
+
+            //display the module value
+            $cont = '<span class="text-ellipsis record_module">'.$the_module_text.'</span>';
+            
+            //display the second cell of each row (primary)
+            if (isset($module['input_primary']) ?? false) {
+                $cont .= "<div class='w-100 small'>
+                            <span class='btn-options float-left'>
+                                {$_contentPrivacy} {$_viewCount} {$_slugLine}
+                            </span>
+                            <span class='btn-options float-left float-md-right'>
+                                {$_editBtn} {$_viewBtn}
+                            </span>
+                        </div>";
+            }
+
+            /* ends : MODULE TEXT VALUE TO DISPLAY IN LIST FIELD (CELL) */
+
+            if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
+                $donotlist = 1;
+            } else {
+                $data[] = is_array($cont) ? $cont : trim($cont);
+            }
+        }
+
+        if ($post['id'] && !$donotlist)
+            return $data;
+        else
+            return false;
     }
 }
