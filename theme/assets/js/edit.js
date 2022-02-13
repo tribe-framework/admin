@@ -249,4 +249,13 @@ function refreshEditForm() {
         });
     })()
 
+
+	var clipboard = new ClipboardJS('.copy_btn');
+	clipboard.destroy();
+}
+
+function dropMultiFormField(e) {
+	e.preventDefault();
+
+	e.target.closest('.dragula').remove();
 }

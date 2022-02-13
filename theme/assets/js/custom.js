@@ -1,11 +1,3 @@
-$( document ).ready(function() {
-	clipboard = new ClipboardJS('.copy_btn');
-
-	clipboard.on('success', (e) => {
-		$('#toast-success').toast('show');
-	});
-});
-
 function process_json_out (data, btn_html='') {
 	if (data.last_error) {
 		$('#errors').removeClass('d-none').addClass('d-block').html(data.last_error);
