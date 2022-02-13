@@ -22,6 +22,22 @@ $( document ).ready(function() {
 		$('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group:last input').val('');
 	});
 
+	$(document).on('click', '.edit_button', function(e) {
+		if ($(this).data('id')) {
+			$('#editModal .modal-title').text('#'+$(this).data('id'));
+			$('.editModalClose').attr('data-is_new', '');
+		}
+		else {
+			$('#editModal .modal-title').text('New '+$(this).data('type')+' '+$(this).data('role'));
+			$('.editModalClose').attr('data-is_new', '1');
+		}
+		
+		$('.editModalClose').attr('data-id', $(this).data('id'));
+		$('.editModalClose').attr('data-row_number', $(this).data('row_number'));
+
+		$('#editModal .modal-body').html('<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>').load($(this).data('href'), {}, function() {refreshEditForm()});
+	});
+
 	let multiAddBtn = document.querySelectorAll('.btn.multi_add');
 
 	if (multiAddBtn) {
@@ -204,33 +220,41 @@ $( document ).ready(function() {
     });
 });
 
-// submit form over ajax - used in edit.php
-(() => {
-	let editForm = document.querySelector('.edit_form');
-	if (!editForm) return;
+function refreshEditForm() {
+    // submit form over ajax - used in edit.php
+    (() => {
+        let editForm = document.querySelector('.edit_form');
+        if (!editForm) return;
 
-	editForm.addEventListener('submit', async function (e) {
-		e.preventDefault();
+        editForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-		let btn_html=$('.save_btn').html();
-		$('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
-		$('.save_btn').prop('disabled', true);
+            $('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
+            $('.save_btn').prop('disabled', true);
 
-		const redirect_to = $(this).data('redirect-on-save') ? $(this).data('redirect-on-save') : null;
+            let response = await fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                $('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
+                $('.save_btn').prop('disabled', false);
+                $('#save-success').toast('show');
+                $('input[name=id]').val(data.last_data[0].id);
+                $('input[name=slug]').val(data.last_data[0].slug);
+                $('.object_slug').text(data.last_data[0].slug);
+                $('.editModalClose').attr('data-id', data.last_data[0].id);
+                $('#editModal .modal-title').text('#'+data.last_data[0].id);
+                $('#slug_update').prop('checked', false);
+                $('#slug_update_div').removeClass('d-none');
+                if ($('.editModalClose').attr('data-is_new') == '1')
+	                $('.editModalClose').trigger('click');
+            });
 
-		let response = await fetch(this.action, {
-			method: 'POST',
-			body: new FormData(this)
-		});
+        });
+    })()
 
-		await response.json();
-
-		$('#save-success').toast('show');
-		$('.save_btn').html(btn_html);
-		$('.save_btn').prop('disabled', false);
-
-		if (redirect_to) {
-			window.location.href(redirect_to);
-		}
-	});
-})()
+}
