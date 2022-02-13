@@ -9,18 +9,18 @@ $fn = new \Wildfire\Admin\Functions;
 
 <div class="col-lg-6 mb-2 mb-lg-0">
     <div class="card">
-        <div class="card-header">Search</div>
+        <div class="card-header font-weight-bold text-uppercase small px-3 py-1"><em><span class="fal fa-search"></span>&nbsp;Search</em></div>
 
         <div id="search_wrapper" class="card-body p-0">
             <?php // navigation for search options ?>
             <nav>
                 <div class="nav nav-pills" id="nav-tab" role="tablist">
-                    <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    <a class="small font-weight-light nav-link text-uppercase active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                         aria-controls="nav-home" aria-selected="true">By ID</a>
-                    <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    <a class="small font-weight-light nav-link text-uppercase" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
                         aria-controls="nav-profile" aria-selected="false">By User Slug</a>
-                    <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-                        aria-controls="nav-contact" aria-selected="false">Type and Slug</a>
+                    <a class="small font-weight-light nav-link text-uppercase" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                        aria-controls="nav-contact" aria-selected="false">By Type &amp; Slug</a>
                 </div>
             </nav>
             <?php // navigation for search options ?>
@@ -30,7 +30,7 @@ $fn = new \Wildfire\Admin\Functions;
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <form id="searchById" class="needs-validation bg-white" method="get" action="/admin" novalidate>
                         <div class="input-group">
-                            <input type="number" name="row_id" class="form-control" value="<?=$_GET['row_id'] ?? ''?>" placeholder="Search record by Id"
+                            <input type="number" name="row_id" class="form-control" value="<?=$_GET['row_id'] ?? ''?>" placeholder="Enter ID"
                                 required>
                             <button class="btn btn-secondary" type="submit" data-search="id"><i class="far fa-search"></i>
                             </button>
@@ -43,7 +43,7 @@ $fn = new \Wildfire\Admin\Functions;
                     <form id="searchByUserSlug" class="bg-white" method="get" action="/admin" novalidate>
                         <div class="input-group">
                             <input type="hidden" name="type" value="user">
-                            <input type="text" name="slug" class="form-control" placeholder="Search user by slug" required>
+                            <input type="text" name="slug" class="form-control" placeholder="Enter user slug" required>
                             <button class="btn btn-secondary" type="submit" data-search="userSlug"><i
                                     class="far fa-search"></i>
                             </button>
@@ -68,7 +68,7 @@ $fn = new \Wildfire\Admin\Functions;
                                     <?php endforeach ?>
                                 </select>
                             </div>
-                            <input type="text" name="slug" class="form-control" placeholder="Search type by slug" required>
+                            <input type="text" name="slug" class="form-control" placeholder="Enter slug" required>
                             <div class="input-group-append">
                                 <button class="btn btn-secondary" type="submit" data-search="typeSlug">
                                     <i class="far fa-search"></i>
