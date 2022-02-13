@@ -100,17 +100,8 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/js/edit.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/js/custom.js"></script>
 
-<script src="/vendor/wildfire/admin/theme/assets/js/custom.js?v=<?=time()?>"></script>
-
-<?php if (isset($types['webapp']['admin_confetti'])): ?>
-<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
-<script>
-	$(document).on('click', '.save_btn', function(e) {
-		confetti.start(1000);
-	});
-</script>
-<?php endif;?>
 </body>
 
 </html>
