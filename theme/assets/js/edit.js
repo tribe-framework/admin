@@ -250,8 +250,6 @@ function refreshEditForm() {
                 $('#editModal .modal-title').text('#'+data.last_data[0].id);
                 $('#slug_update').prop('checked', false);
                 $('#slug_update_div').removeClass('d-none');
-                if ($('.editModalClose').attr('data-is_new') == '1')
-	                $('.editModalClose').trigger('click');
             });
 
         });
