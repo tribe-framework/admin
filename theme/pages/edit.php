@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../includes/_header.php';?>
+<?php require_once __DIR__ . '/../_init.php';?>
 
 <?php
 /**
@@ -64,13 +64,6 @@ else:
 		);
 		?>
 
-    <h2 class="form_title">
-        <?php if ($type === 'user'): ?>
-        <?=$role['title']?>&nbsp;<small><span class="fas fa-angle-double-right"></span></small>&nbsp;
-        <?php endif;?>
-        Edit <?=($types[$type]['name'] ?? $type)?><?=(isset($post['id']) ? " / ID:  . {$post['id']}" : ' / New')?>
-    </h2>
-
     <div class="form-style">
         <?php require ADMIN_THEME . '/includes/form/form.php';?>
     </div>
@@ -115,10 +108,10 @@ if (!($post_type = $post['type'])) {
         <select class="form-control pl-0 border-top-0 border-left-0 border-right-0 rounded-0 mt-1" id="select_type"
             name="role_slug">
             <?php foreach ($types['user']['roles'] as $key => $value): ?>
-            <option value="<?=$key?>" <?=$key === $post['role_slug'] ? 'selected="selected"' : ''?>>
+            <option value="<?=$key?>" <?= ($key === $post['role_slug'] || $key === $_GET['role']) ? 'selected="selected"' : '' ?>>
                 <?=ucfirst($value['title'])?>
             </option>
-            <?php endforeach?>
+            <?php endforeach; ?>
         </select>
 
         <div class="col-12 row text-muted small m-0">
@@ -216,5 +209,3 @@ if (!($post_type = $post['type'])) {
         </button>
     </div>
 </div>
-
-<?php require_once __DIR__ . '/../includes/_footer.php';?>
