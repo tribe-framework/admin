@@ -118,7 +118,7 @@ $is_multi_text = (($module_input_type == 'multi_text' || $module_input_type == '
 						<label class="custom-control-label" for="slug_update">
 							Update the URL slug based on title (will change the link)
 							<span id="title-slug" class="text-muted ml-4">
-								<em>/<?=$post['slug'] ?? ''?></em>
+								<em><?=$post['type'] ?? ''?> / <span class="object_slug"><?=$post['slug'] ?? ''?></span></em>
 							</span>
 						</label>
 					</div>
