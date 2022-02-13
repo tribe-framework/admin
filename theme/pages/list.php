@@ -137,6 +137,23 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade editModal" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl my-0">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">...</h5>
+        <button type="button" class="close editModalClose" data-id="" data-row_number="" data-is_new="" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><span class="fal fa-lg fa-times"></span></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php if ($listed_fields_number>=6) { ?>
     </div><div class="p-3 container"> <!--opening container from includes/_header -->
 <?php } ?>
