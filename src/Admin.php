@@ -31,16 +31,8 @@ class Admin {
         if ($page == 'edit') {
             $op .= '
 			<div class="mb-4"><div class="card-body p-0">
-			<div class="btn-toolbar justify-content-between">
-			' . $this->list_types($type) . $this->edit_options($type, $id) . $this->new_and_list($type, $role_slug) . '
-			</div>
-			</div></div>';
-        }
-        if ($page == 'view') {
-            $op .= '
-			<div class="mb-4"><div class="card-body p-0">
-			<div class="btn-toolbar justify-content-between">
-			' . $this->list_types($type) . $this->new_and_list($type, $role_slug) . '
+			<div class="btn-toolbar justify-content-center">
+			' . $this->edit_options($type, $id) . '
 			</div>
 			</div></div>';
         }
@@ -49,16 +41,15 @@ class Admin {
 
     public function edit_options($type, $id = 0) {
         return '<div class="btn-group">
-					<button type="submit" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 save_btn"><span class="fa fa-save"></span>&nbsp;Save</button>
-					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fa fa-external-link-alt"></span>&nbsp;View</a>
-					<button type="button" data-toggle="modal" data-target="#delete_conf_' . $id . '" class="btn btn-outline-danger border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-trash-alt"></span>&nbsp;Delete</button>
+					<button type="submit" class="btn px-5 btn-success rounded-0 save_btn"><span class="fa fa-save"></span>&nbsp;Save</button>
+					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn px-5 btn-primary rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fa fa-external-link-alt"></span>&nbsp;View</a>
 				</div>';
     }
 
     public function new_and_list($type, $role_slug = '') {
         return '
 		<div class="btn-group">
-			<a href="' . BASE_URL . '/admin/edit?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-edit"></span>&nbsp;New</a>
+			<a class="edit_button btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0" data-type="'.$type.'"  data-role="'.$role_slug.'"href="#editModal" data-toggle="modal" data-href="/admin/edit?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '"><span class="fa fa-edit"></span>&nbsp;New</a>
 			<a href="' . BASE_URL . '/admin/list?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-list"></span>&nbsp;List</a>
 		</div>';
     }
@@ -66,9 +57,10 @@ class Admin {
     public function list_types($type = '') {
         $types = $this->dash->getTypes();
 
-        $list_types = '<div class="btn-group" role="group"><a href="' . BASE_URL . '/admin" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-tachometer-alt"></span></a>';
-
         if ($type) {
+
+            $list_types = '<div class="btn-group" role="group"><a href="' . BASE_URL . '/admin" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-tachometer-alt"></span></a>';
+
             $list_types .= '<button id="types-admin-dropdown" type="button" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 dropdown-toggle" data-toggle="dropdown">' . (isset($type) ? ucfirst($types[$type]['plural'] ?? '') : '') . '&nbsp;<span class="sr-only">Content types</span></button><div class="dropdown-menu" aria-labelledby="types-admin-dropdown">';
             foreach ($types as $key => $value) {
                 if (isset($types[$key]['type']) && $types[$key]['type'] == 'content') {
@@ -77,6 +69,9 @@ class Admin {
             }
             $list_types .= '</div></div>';
         } else {
+
+            $list_types = '<div class="btn-group" role="group">';
+
             $list_types .= '<button id="types-admin-dropdown" type="button" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 dropdown-toggle d-md-none" data-toggle="dropdown">' . (isset($types[$type]) ? ucfirst($types[$type]['plural']) : '') . '&nbsp;Content types</button><div class="dropdown-menu" aria-labelledby="types-admin-dropdown">';
             foreach ($types as $key => $value) {
                 if (isset($types[$key]['type']) && $types[$key]['type'] == 'content') {
