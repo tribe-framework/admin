@@ -82,12 +82,6 @@ $( document ).ready(function() {
 		});
 	}
 
-	function dropMultiFormField(e) {
-		e.preventDefault();
-
-		e.target.closest('.dragula').remove();
-	}
-
 	$(document).on('click', '.remove_multi_drop_option', function(e) {
 		e.preventDefault();
 		$(this).closest('.grid-item').remove();
@@ -116,6 +110,10 @@ $( document ).ready(function() {
 	$(document).on('click', '.delete_btn', function(e) {
 		$(this).closest('div.file').remove();
 	});
+
+});
+
+function refreshEditForm() {
 
 	// code to handle file uploads
 	var sli=0;
@@ -213,11 +211,10 @@ $( document ).ready(function() {
 		    data.context
 		      .append(`<div class="btn-group"><span class="delete_btn btn btn-sm btn-outline-danger px-3"><span class="fas fa-trash-alt"></span></span><input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}"><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><span class="fas fa-copy mr-1"></span>&nbsp;copy URL</span><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><span class="fas fa-copy mr-1"></span>&nbsp;copy shortcode</span><a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><span class="fas fa-external-link-alt mr-1"></span>&nbsp;view</a></div>${slvl}`)
 		      .addClass("done");
+
 		}
     });
-});
 
-function refreshEditForm() {
     // submit form over ajax - used in edit.php
     (() => {
         let editForm = document.querySelector('.edit_form');
