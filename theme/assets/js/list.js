@@ -73,7 +73,23 @@ $(document).ready(() => {
 		}
 	};
 
-	$('.datatable').DataTable(datatableOptions);
+	let listDatatable = $('.datatable').DataTable(datatableOptions);
+
+	$(document).on('click', '.editModalClose', function(e) {
+		let id = $(this).attr('data-id');
+		let row_number = $(this).attr('data-row_number');
+		let is_new = $(this).attr('data-is_new');
+
+		if (is_new == '1' && id) {
+	        location.reload();
+		}
+		else if (id && row_number) {
+	        $.post('/admin/single-datatable-json', {"id": id}, function(data) {
+	        	//REPLACE RECORD AT ROW NUMBER
+				listDatatable.row(row_number).data(data).draw();
+	        }, 'json');
+		}
+	});
 
 	$('#analysisTable').DataTable({
 		dom: '<"#top.clearfix"fl>rt<"#bottom.clearfix"ip>',
