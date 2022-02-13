@@ -31,9 +31,6 @@ $( document ).ready(function() {
 			$('#editModal .modal-title').text('New '+$(this).data('type')+' '+$(this).data('role'));
 			$('.editModalClose').attr('data-is_new', '1');
 		}
-		
-		$('.editModalClose').attr('data-id', $(this).data('id'));
-		$('.editModalClose').attr('data-row_number', $(this).data('row_number'));
 
 		$('#editModal .modal-body').html('<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>').load($(this).data('href'), {}, function() {refreshEditForm()});
 	});

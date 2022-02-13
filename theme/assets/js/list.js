@@ -22,6 +22,7 @@ $(document).ready(() => {
 		drawCallback: function () {
 			popoverActivate()
 		},
+		rowId: [0],
 		deferRender: true,
 		fixedHeader: true,
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
@@ -74,19 +75,23 @@ $(document).ready(() => {
 	};
 
 	let listDatatable = $('.datatable').DataTable(datatableOptions);
+	
+
+	$('.datatable').on( 'click', 'tr', function () {
+	    $('.editModalClose').attr('data-id', listDatatable.row($(this)).id());
+	} );
 
 	$(document).on('click', '.editModalClose', function(e) {
 		let id = $(this).attr('data-id');
-		let row_number = $(this).attr('data-row_number');
 		let is_new = $(this).attr('data-is_new');
 
 		if (is_new == '1' && id) {
 	        location.reload();
 		}
-		else if (id && row_number) {
+		else if (id) {
 	        $.post('/admin/single-datatable-json', {"id": id}, function(data) {
 	        	//REPLACE RECORD AT ROW NUMBER
-				listDatatable.row(row_number).data(data).draw();
+				listDatatable.row('#'+id).data(data).draw();
 	        }, 'json');
 		}
 	});

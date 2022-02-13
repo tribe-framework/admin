@@ -159,7 +159,7 @@ class Functions {
         return $db_record_dependency;
     }
 
-    public function getDatatableRowArray($_object, $row_number=0) {
+    public function getDatatableRowArray($_object) {
         
         $sql = new SQL;
         $auth = new Auth();
@@ -189,7 +189,7 @@ class Functions {
         $_editBtn = '';
         if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
             $_editRole = $_type == 'user' ? '&role=' . $_role : '';
-            $_editBtn = "<a class='edit_button badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' data-type='{$post['type']}' data-role='{$post['role']}' data-slug='{$post['slug']}' data-row_number='{$row_number}' data-id='{$post['id']}' href='#editModal' data-toggle='modal' data-href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit text-success'></i>&nbsp;Edit</a>";
+            $_editBtn = "<a class='edit_button badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' data-type='{$post['type']}' data-role='{$post['role']}' data-slug='{$post['slug']}' data-id='{$post['id']}' href='#editModal' data-toggle='modal' data-href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit text-success'></i>&nbsp;Edit</a>";
         }
 
         //view button
@@ -213,7 +213,7 @@ class Functions {
         $_slugLine = '<span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="'.$post['slug'].'"><span class="ml-1 small text-muted slug-ellipsis">'.$post['slug'].'</span></span>';
 
         // button controls for this single post
-        $data[] = '<span>'.$post['id'].'</span>';
+        $data[] = $post['id'];
 
         $donotlist = 0;
         foreach ($types[$_type]['modules'] as $module) {
