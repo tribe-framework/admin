@@ -19,6 +19,9 @@ $(document).ready(() => {
 		fnInitComplete: function () {
 			rigDataTableRows();
 		},
+		drawCallback: function () {
+			popoverActivate()
+		},
 		deferRender: true,
 		fixedHeader: true,
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
@@ -91,8 +94,6 @@ function rigDataTableRows() {
 			}, 0);
 		});
 	});
-
-	popoverActivate();
 
 }
 
