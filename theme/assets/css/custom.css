@@ -16,6 +16,10 @@
   background: #993399;
 }
 
+.object_slug {
+  font-weight: bold;
+}
+
 .byline {
   display: none;
 }
