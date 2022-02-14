@@ -1,9 +1,26 @@
-key('⌘+s, ctrl+s', function(e){$('.save_btn').trigger('click'); e.preventDefault();});
-key('⌘+b, ctrl+b', function(e){$('.typeout-bold').trigger('click'); e.preventDefault();});
-key('⌘+i, ctrl+i', function(e){$('.typeout-italic').trigger('click'); e.preventDefault();});
-
-// jquery functions
 $( document ).ready(function() {
+
+	$(document).on('click', '.edit_button', function(e) {
+		if ($(this).data('id')) {
+			$('#editModal .modal-title').text('#'+$(this).data('id'));
+			$('.editModalClose').attr('data-is_new', '');
+		}
+		else {
+			$('#editModal .modal-title').text('New '+$(this).data('type')+' '+$(this).data('role'));
+			$('.editModalClose').attr('data-is_new', '1');
+		}
+
+		$('#editModal .modal-body').html('<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>').load($(this).data('href'), {}, function() {refreshEditForm()});
+	});
+
+});
+
+function refreshEditForm() {
+	
+	key('⌘+s, ctrl+s', function(e){$('.save_btn').trigger('click'); e.preventDefault();});
+	key('⌘+b, ctrl+b', function(e){$('.typeout-bold').trigger('click'); e.preventDefault();});
+	key('⌘+i, ctrl+i', function(e){$('.typeout-italic').trigger('click'); e.preventDefault();});
+
 	if ($('.multi_drop_select_table').length) {
 		$('.multi_drop_select_table').DataTable({
 			"dom": '<"top"f>rt<"bottom">',
@@ -20,19 +37,6 @@ $( document ).ready(function() {
 	$(document).on('click', '.multi_add_btn', function(e) {
 		$(this).closest('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group').first().clone().appendTo('#'+$(this).data('group-class')+'-'+$(this).data('input-slug'));
 		$('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group:last input').val('');
-	});
-
-	$(document).on('click', '.edit_button', function(e) {
-		if ($(this).data('id')) {
-			$('#editModal .modal-title').text('#'+$(this).data('id'));
-			$('.editModalClose').attr('data-is_new', '');
-		}
-		else {
-			$('#editModal .modal-title').text('New '+$(this).data('type')+' '+$(this).data('role'));
-			$('.editModalClose').attr('data-is_new', '1');
-		}
-
-		$('#editModal .modal-body').html('<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>').load($(this).data('href'), {}, function() {refreshEditForm()});
 	});
 
 	let multiAddBtn = document.querySelectorAll('.btn.multi_add');
@@ -110,10 +114,6 @@ $( document ).ready(function() {
 	$(document).on('click', '.delete_btn', function(e) {
 		$(this).closest('div.file').remove();
 	});
-
-});
-
-function refreshEditForm() {
 
 	// code to handle file uploads
 	var sli=0;
