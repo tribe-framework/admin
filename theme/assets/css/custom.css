@@ -11,10 +11,18 @@
   cursor: grab;
 }
 
-.sticky-bottom {
+.sticky-bottom,
+.sticky-top {
   position: sticky;
-  bottom: 0;
   z-index: 99;
+}
+
+.sticky-bottom {
+  bottom: 0;
+}
+
+.sticky-top {
+  top: 0;
 }
 
 .bar {
