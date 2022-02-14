@@ -9,7 +9,7 @@ $fn = new \Wildfire\Admin\Functions;
 
 <div class="col-lg-6 mb-2 mb-lg-0">
     <div class="card">
-        <div class="card-header font-weight-bold text-uppercase small px-3 py-1"><em><span class="fal fa-search"></span>&nbsp;Search</em></div>
+        <div class="card-header font-weight-bold text-uppercase small px-3 py-1"><em><span class="fad fa-project-diagram"></span>&nbsp;&nbsp;&nbsp;Find linked records</em></div>
 
         <div id="search_wrapper" class="card-body p-0">
             <?php // navigation for search options ?>
