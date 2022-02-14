@@ -55,15 +55,6 @@ else:
 
 
 <form method="post" class="edit_form" action="/admin/json" autocomplete="off">
-    <?=
-		$admin->get_admin_menu(
-			($types[$type]['disallow_editing'] ?? null) ? 'view' : 'edit',
-			$type,
-			$role['slug'] ?? '',
-			$_GET['id'] ?? ''
-		);
-		?>
-
     <div class="form-style">
         <?php require ADMIN_THEME . '/includes/form/form.php';?>
     </div>
