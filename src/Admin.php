@@ -42,7 +42,8 @@ class Admin {
     public function edit_options($type, $id = 0) {
         return '<div class="btn-group">
 					<button type="submit" class="btn px-5 btn-success rounded-0 save_btn"><span class="fas fa-save"></span>&nbsp;Save</button>
-					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn px-5 btn-primary rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fas fa-external-link-alt"></span>&nbsp;View</a>
+					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn px-5 btn-outline-primary rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fas fa-external-link-alt"></span>&nbsp;View</a>
+                    <button type="button" class="btn px-5 btn-outline-primary rounded-0 close_btn"><span class="fas fa-times"></span>&nbsp;Close</button>
 				</div>';
     }
 

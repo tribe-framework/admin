@@ -13,6 +13,10 @@ $( document ).ready(function() {
 		$('#editModal .modal-body').html('<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>').load($(this).data('href'), {}, function() {refreshEditForm()});
 	});
 
+	$(document).on('click', '.close_btn', function(e) {
+		$('.editModalClose').trigger('click');
+	});
+
 });
 
 function refreshEditForm() {
