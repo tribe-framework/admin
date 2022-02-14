@@ -170,6 +170,10 @@ pre {
   padding: 2.5px 5px 2.5px 5px;
 }
 
+form#dtList {
+  overflow-x: scroll;
+}
+
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
   background-color: #333;
@@ -204,6 +208,10 @@ table.dataTable tbody tr td, table.dataTable tbody tr th, table.dataTable thead 
   padding: 5px;
   border-right: 1px #ccc solid;
   position: relative;
+}
+
+table.cols-6-or-more tbody tr td:nth-child(2), table.cols-6-or-more thead tr th:nth-child(2) {
+  min-width: 25% !important;
 }
 
 table.dataTable thead tr th {
