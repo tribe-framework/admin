@@ -41,16 +41,16 @@ class Admin {
 
     public function edit_options($type, $id = 0) {
         return '<div class="btn-group">
-					<button type="submit" class="btn px-5 btn-success rounded-0 save_btn"><span class="fa fa-save"></span>&nbsp;Save</button>
-					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn px-5 btn-primary rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fa fa-external-link-alt"></span>&nbsp;View</a>
+					<button type="submit" class="btn px-5 btn-success rounded-0 save_btn"><span class="fas fa-save"></span>&nbsp;Save</button>
+					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn px-5 btn-primary rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fas fa-external-link-alt"></span>&nbsp;View</a>
 				</div>';
     }
 
     public function new_and_list($type, $role_slug = '') {
         return '
 		<div class="btn-group">
-			<a class="edit_button btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0" data-type="'.$type.'"  data-role="'.$role_slug.'"href="#editModal" data-toggle="modal" data-href="/admin/edit?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '"><span class="fa fa-edit"></span>&nbsp;New</a>
-			<a href="' . BASE_URL . '/admin/list?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-list"></span>&nbsp;List</a>
+			<a class="edit_button btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0" data-type="'.$type.'"  data-role="'.$role_slug.'"href="#editModal" data-toggle="modal" data-href="/admin/edit?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '"><span class="fas fa-edit"></span>&nbsp;New</a>
+			<a href="' . BASE_URL . '/admin/list?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fas fa-list"></span>&nbsp;List</a>
 		</div>';
     }
 
@@ -59,7 +59,7 @@ class Admin {
 
         if ($type) {
 
-            $list_types = '<div class="btn-group" role="group"><a href="' . BASE_URL . '/admin" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fa fa-tachometer-alt"></span></a>';
+            $list_types = '<div class="btn-group" role="group"><a href="' . BASE_URL . '/admin" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fas fa-tachometer-alt"></span></a>';
 
             $list_types .= '<button id="types-admin-dropdown" type="button" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0 dropdown-toggle" data-toggle="dropdown">' . (isset($type) ? ucfirst($types[$type]['plural'] ?? '') : '') . '&nbsp;<span class="sr-only">Content types</span></button><div class="dropdown-menu" aria-labelledby="types-admin-dropdown">';
             foreach ($types as $key => $value) {
