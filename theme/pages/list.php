@@ -143,7 +143,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">...</h5>
-        <button type="button" class="close editModalClose" data-id="" data-row_number="" data-is_new="" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close editModalClose" data-id="" data-is_new="" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"><span class="fal fa-lg fa-times"></span></span>
         </button>
       </div>

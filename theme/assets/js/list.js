@@ -75,24 +75,20 @@ $(document).ready(() => {
 	};
 
 	let listDatatable = $('.datatable').DataTable(datatableOptions);
-	
-
-	$('.datatable').on( 'click', 'tr', function () {
-	    $('.editModalClose').attr('data-id', listDatatable.row($(this)).id());
-	} );
 
 	$(document).on('click', '.editModalClose', function(e) {
 		let id = $(this).attr('data-id');
 		let is_new = $(this).attr('data-is_new');
 
-		if (is_new == '1' && id) {
-	        location.reload();
-		}
-		else if (id) {
-	        $.post('/admin/single-datatable-json', {"id": id}, function(data) {
-	        	//REPLACE RECORD AT ROW NUMBER
-				listDatatable.row('#'+id).data(data).draw();
-	        }, 'json');
+		if (id) {
+			if (is_new)
+				location.reload();
+			else {
+		        $.post('/admin/single-datatable-json', {"id": id}, function(data) {
+		        	//REPLACE RECORD AT ROW NUMBER
+					listDatatable.row('#'+id).data(data).draw();
+		        }, 'json');
+		    }
 		}
 	});
 
