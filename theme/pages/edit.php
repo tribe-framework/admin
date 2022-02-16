@@ -1,4 +1,19 @@
-<?php require_once __DIR__ . '/../_init.php';?>
+<?php
+/**
+ * @var object $dash
+ * @var object $admin
+ * @var array $currentUser
+ * @var array $post
+ * @var array $types
+ * @var string $type
+ */
+
+require_once __DIR__ . '/../_init.php';
+
+if (($_GET['edit_form'] ?? null) == 'true') {
+    require_once __DIR__ .'/../includes/_header.php';
+}
+?>
 
 <?php
 /**
@@ -30,7 +45,7 @@ else:
 	}
 
 	if ((isset($_GET['id']) && $post['type'] == $type) || !isset($_GET['id'])):
-		//for testing resticted min and max ids for archive format changes
+		//for testing restricted min and max ids for archive format changes
 		if (isset($_GET['id']) && !($pid = $_GET['id'])) {
 			$pid = $dash->get_next_id();
 		}
@@ -199,3 +214,9 @@ if (!($post_type = $post['type'])) {
 </div>
 
 <script type="text/javascript" src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
+
+<?php
+if (($_GET['edit_form'] ?? null) == 'true') {
+    require_once __DIR__ .'/../includes/_footer.php';
+}
+?>

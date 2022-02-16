@@ -44,7 +44,7 @@
     if (isset($post)):
     ?>
 
-    <button class="btn btn-light w-100 ex-area position-sticky mb-1" style="top: 0; z-index: 999;" type="button"
+    <button class="btn btn-light w-100 ex-area position-sticky mb-1" style="top: 0; z-index: 98;" type="button"
         data-toggle="collapse" data-target="#file<?=$module['input_slug']?>" aria-expanded="false"
         aria-controls="file<?=$module['input_slug']?>">
         <span class="d-flex justify-content-between align-items-center">
