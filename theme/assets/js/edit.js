@@ -17,6 +17,7 @@ $( document ).ready(function() {
 		$('.editModalClose').trigger('click');
 	});
 
+	refreshEditForm();
 });
 
 function refreshEditForm() {

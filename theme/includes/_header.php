@@ -22,6 +22,9 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/plugins/datatables/datatables.min.css">
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/custom.css">
 
+<!--    jquery -->
+    <script src="/vendor/wildfire/admin/theme/assets/plugins/jquery.min.js"></script>
+
 	<?php if ($_ENV['ENV'] == 'dev'): ?>
 	<script src="/vendor/wildfire/admin/theme/assets/js/vue/vue.js"></script>
 	<?php else: ?>

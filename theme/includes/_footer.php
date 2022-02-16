@@ -72,7 +72,6 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 </script>
 <?php endif ?>
 
-<script src="/vendor/wildfire/admin/theme/assets/plugins/jquery.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/popper/popper.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/moment.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
