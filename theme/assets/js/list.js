@@ -16,11 +16,9 @@ $(document).ready(() => {
         processing: isProcessing,
         serverSide: isServerSide,
 		ajax: datatableAjaxUrl,
-		fnInitComplete: function () {
-			rigDataTableRows();
-		},
 		drawCallback: function () {
-			popoverActivate()
+			popoverActivate();
+			rigDataTableRows();
 		},
 		rowId: [0],
 		deferRender: true,
