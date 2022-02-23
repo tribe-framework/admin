@@ -17,7 +17,7 @@ $session_user = $dash->getSessionUser();
 <nav class="navbar navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0">
     <!--  logo  -->
     <div>
-        <a href="/admin" class="navbar-brand">
+        <a href="/admin" class="navbar-brand cs-hover">
             <?php
             if (isset($items['logo']['name'])) :
                 echo $items['logo']['name'];
@@ -31,7 +31,7 @@ $session_user = $dash->getSessionUser();
             endif;
             ?>
         </a>
-        <a id="preview" href="<?= $items['logo']['href'] ?? '#' ?>" class="text-white text-decoration-none px-2" title="Go to site" target="_blank" style="font-size: 1.2rem">
+        <a href="<?= $items['logo']['href'] ?? '#' ?>" class="text-white text-decoration-none px-2 cs-hover" target="_blank" style="font-size: 1.2rem">
             <?php if (isset($items['logo']['src']) && trim($items['logo']['src'])): ?>
                 <img <?= isset($items['logo']['height']) ? "height='{$items['logo']['height']}'" : '' ?> src="<?= $items['logo']['src'] ?>" alt="">
             <?php else: ?>
