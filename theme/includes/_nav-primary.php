@@ -17,25 +17,25 @@ $session_user = $dash->getSessionUser();
 <nav class="navbar navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0">
     <!--  logo  -->
     <div>
-        <a href="/admin" class="navbar-brand cs-hover">
-            <?php
-            if (isset($items['logo']['name'])) :
-                echo $items['logo']['name'];
-                ?>
-                <?php if (isset($items['logo']['byline'])): ?>
-                <span class="small byline"><?= $items['logo']['byline'] ?></span>
-            <?php endif; ?>
-            <?php
-            else:
-                echo 'Wildfire';
-            endif;
-            ?>
+        <a href="/admin" class="navbar-brand cs-hover" title="Dashboard">
+            <i class="fas fa-tachometer-alt"></i>
         </a>
-        <a href="<?= $items['logo']['href'] ?? '#' ?>" class="text-white text-decoration-none px-2 cs-hover" target="_blank" style="font-size: 1.2rem">
+        <a href="<?= $items['logo']['href'] ?? '#' ?>" class="navbar-brand text-white text-decoration-none cs-hover" title="Preview" target="_blank">
             <?php if (isset($items['logo']['src']) && trim($items['logo']['src'])): ?>
                 <img <?= isset($items['logo']['height']) ? "height='{$items['logo']['height']}'" : '' ?> src="<?= $items['logo']['src'] ?>" alt="">
             <?php else: ?>
-                <i class="fas fa-eye mr-2"></i>Preview
+                <?php
+                if (isset($items['logo']['name'])) :
+                    echo $items['logo']['name'];
+                    ?>
+                    <?php if (isset($items['logo']['byline'])): ?>
+                    <span class="small byline"><?= $items['logo']['byline'] ?></span>
+                <?php endif; ?>
+                <?php
+                else:
+                    echo 'Wildfire';
+                endif;
+                ?>
             <?php endif; ?>
         </a>
     </div>
