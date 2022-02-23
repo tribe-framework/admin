@@ -11,6 +11,11 @@
   cursor: grab;
 }
 
+nav#navPrimary {
+  top: 0;
+  z-index: 10;
+}
+
 nav a:hover:not(.cs-hover) {
   background-color: var(--secondary);
   color: var(--white);

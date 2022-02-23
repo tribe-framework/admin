@@ -14,7 +14,7 @@ $admin_menus['admin_menu']['logo']['name'] = "{$menus['admin_menu']['logo']['nam
 $items = $admin_menus['admin_menu'];
 $session_user = $dash->getSessionUser();
 ?>
-<nav class="navbar navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0">
+<nav id="navPrimary" class="navbar navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0 position-sticky">
     <!--  logo  -->
     <div>
         <a href="/admin" class="navbar-brand cs-hover" title="Dashboard">

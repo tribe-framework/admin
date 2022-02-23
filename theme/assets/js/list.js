@@ -1,16 +1,16 @@
 'use strict';
 
 $(document).ready(() => {
-
 	let isProcessing = false;
 	let isServerSide = false;
+	let table = $('.datatable');
 
-	if ($('.datatable').data('lazyload')) {
+	if (table.data('lazyload')) {
 		isProcessing = true;
 		isServerSide = true;
 	}
 
-	let datatableAjaxUrl = `/admin/${$('.datatable').data('jsonpath')}?type=${$('.datatable').data('type')}&role=${$('.datatable').data('role')}`;
+	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}&role=${table.data('role')}`;
 
 	let datatableOptions = {
         processing: isProcessing,
@@ -22,7 +22,9 @@ $(document).ready(() => {
 		},
 		rowId: [0],
 		deferRender: true,
-		fixedHeader: true,
+		fixedHeader: {
+        	headerOffset: document.querySelector('#navPrimary').clientHeight
+		},
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
 		lengthMenu: [ [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000], [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000] ],
 		pageLength: 50,
@@ -72,7 +74,7 @@ $(document).ready(() => {
 		}
 	};
 
-	let listDatatable = $('.datatable').DataTable(datatableOptions);
+	let listDatatable = table.DataTable(datatableOptions);
 
 	$(document).on('click', '.editModalClose', function(e) {
 		let id = $(this).attr('data-id');
