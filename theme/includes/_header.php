@@ -25,39 +25,17 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <!--    jquery -->
     <script src="/vendor/wildfire/admin/theme/assets/plugins/jquery.min.js"></script>
 
-	<?php if ($_ENV['ENV'] == 'dev'): ?>
-	<script src="/vendor/wildfire/admin/theme/assets/js/vue/vue.js"></script>
-	<?php else: ?>
-	<script src="/vendor/wildfire/admin/theme/assets/js/vue/vue.min.js"></script>
-	<?php endif; ?>
+	<?php
+    $vue = $_ENV['ENV'] == 'dev' ?
+        "/vendor/wildfire/admin/theme/assets/js/vue/vue.js" :
+        '/vendor/wildfire/admin/theme/assets/js/vue/vue.min.js';
+    ?>
+	<script src="<?= $vue ?>"></script>
 </head>
 
 <body>
-<hr class="hr fixed-top" style="margin:0 !important;">
-<?php
-if ($menus['admin_menu'] ?? false) {
-	$admin_menus['admin_menu'] = $menus['admin_menu'];
-	$admin_menus['admin_footer_1'] = $menus['admin_footer_1'];
-	$admin_menus['admin_footer_2'] = $menus['admin_footer_2'];
-	$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['admin_menu']['logo']['name'];
-} else {
-	$admin_menus = json_decode(file_get_contents(__DIR__.'/config/admin_menus.json'), true);
+    <hr class="hr fixed-top" style="margin:0 !important;">
 
-	if ($menus['main']['logo']['name']) {
-		$admin_menus['admin_menu']['logo']['name'] = '<span class="fas fa-angle-double-left"></span>&nbsp;' . $menus['main']['logo']['name'];
-	}
-}
+    <?php include_once __DIR__.'/_nav-primary.php'; ?>
 
-$css_classes = [
-	'navbar' => 'navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0',
-	'ul' => 'navbar-nav ml-auto mr-0',
-	'li' => 'nav-item',
-	'a' => 'nav-link text-white',
-	'toggler' => 'navbar-toggler text-white',
-];
-$hamburger_bars = '<span class="fas fa-bars"></span>';
-
-echo $theme->get_navbar_menu($admin_menus['admin_menu'], $css_classes, $hamburger_bars);
-?>
-
-<div class="p-3 container">
+    <div class="p-3 container">

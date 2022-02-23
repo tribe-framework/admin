@@ -11,6 +11,14 @@
   cursor: grab;
 }
 
+nav a:hover:not(#preview) {
+  background-color: var(--secondary);
+}
+
+nav a#preview:hover {
+  color: var(--info) !important;
+}
+
 .sticky-bottom,
 .sticky-top {
   position: sticky;
