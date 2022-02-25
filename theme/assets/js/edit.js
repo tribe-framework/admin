@@ -1,16 +1,20 @@
-$( document ).ready(function() {
+$(document).ready(function() {
 
 	$(document).on('click', '.edit_button', function(e) {
-		if ($(this).data('id')) {
-			$('#editModal .modal-title').text('#'+$(this).data('id'));
-			$('.editModalClose').attr('data-is_new', '');
-		}
-		else {
-			$('#editModal .modal-title').text('New '+$(this).data('type')+' '+$(this).data('role'));
-			$('.editModalClose').attr('data-is_new', '1');
+		// setting data attributes on modal for form submission
+		if (this.dataset.id) {
+			document.querySelector('#editModal .modal-title').innerText = `#${this.dataset.id}`;
+			document.querySelector('.editModalClose').dataset.is_new = '';
+		} else {
+			document.querySelector('#editModal .modal-title').innerText = `New ${this.dataset.type} ${this.dataset.role}`;
+			document.querySelector('.editModalClose').dataset.is_new = '1';
 		}
 
-		$('#editModal .modal-body').html('<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>').load($(this).data('href'), {}, function() {refreshEditForm()});
+		// form loading spinner
+		$('#editModal .modal-body')
+			.html('<div class="d-flex justify-content-center py-4"><div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div></div>')
+			.load($(this)
+			.data('href'), {}, refreshEditForm);
 	});
 
 	$(document).on('click', '.close_btn', function(e) {
@@ -257,6 +261,14 @@ function refreshEditForm() {
 
 	var clipboard = new ClipboardJS('.copy_btn');
 	clipboard.destroy();
+}
+
+function handleDescriptorClose(e) {
+	e.preventDefault();
+	$(e.target.closest('button').dataset.target).modal('hide');
+	setTimeout(() => {
+		document.querySelector('body').classList.add('modal-open')
+	}, 1000);
 }
 
 function dropMultiFormField(e) {

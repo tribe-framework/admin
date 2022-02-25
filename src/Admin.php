@@ -30,7 +30,7 @@ class Admin {
         }
         if ($page == 'edit') {
             $op .= '
-			<div class="mb-4 bg-white sticky-top"><div class="card-body p-0">
+			<div class="mb-4 bg-white sticky-top" style="z-index: 100"><div class="card-body p-0">
 			<div class="btn-toolbar justify-content-center">
 			' . $this->edit_options($type, $id) . '
 			</div>

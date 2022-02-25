@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var string $module_input_slug_lang
+ * @var string $module_input_placeholder
+ * @var object $dash
+ */
+?>
 <!-- uploader UI -->
 <div class="input-group mt-5">
     <div class="input-group-prepend">
@@ -39,10 +46,7 @@
 
 <!-- uploaded files list -->
 <div class="col-12 p-0 mb-4 d-block">
-    <?php
-    $i = 0;
-    if (isset($post)):
-    ?>
+    <?php if (isset($post)): ?>
 
     <button class="btn btn-light w-100 ex-area position-sticky mb-1" style="top: 0; z-index: 98;" type="button"
         data-toggle="collapse" data-target="#file<?=$module['input_slug']?>" aria-expanded="false"
@@ -58,7 +62,7 @@
 
     <div id="file<?=$module['input_slug']?>" class="dragula-container container collapse show collapsable-scroll-min">
         <?php
-        foreach (($post[$module_input_slug_lang] ?? []) as $file) {
+        foreach (($post[$module_input_slug_lang] ?? []) as $i => $file) :
             $file_arr = $dash->get_uploaded_file_versions($file);
         ?>
         <div class="file done d-flex justify-content-between align-items-center pb-2 pt-2 mb-0 dragula">
@@ -116,18 +120,18 @@
                 <?php endif;?>
 
                 <?php if ($module['input_descriptor'] ?? null): ?>
-                &nbsp;&nbsp;
                 <button type="button" class="btn btn-sm btn-outline-primary text-capitalize" data-toggle="modal"
                     data-target="#<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>">
                     <i class="fas fa-align-left m-1"></i>
                     descriptor
                 </button>
-                <div class="modal fade" id="<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                <div class="modal fade" id="<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>" data-keyboard="false" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content shadow-lg">
                             <div class="modal-header">
                                 <h5 class="modal-title">add file descriptor</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                                <button type="button" onclick="handleDescriptorClose(event)" class="close" data-target="#<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>"
+                                        aria-label="close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
@@ -138,7 +142,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">save</button>
+                                <button type="button" class="btn btn-sm btn-primary" data-target="#<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>" onclick="handleDescriptorClose(event)">save</button>
                             </div>
                         </div>
                     </div>
@@ -146,10 +150,7 @@
                 <?php endif?>
             </span>
         </div>
-        <?php
-            $i++;
-        }
-        ?>
+        <?php endforeach; ?>
     </div> <!-- !.collapse -->
     <?php endif?>
 </div>

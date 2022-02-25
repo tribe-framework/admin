@@ -25,7 +25,7 @@ $is_multi_text = (($module_input_type == 'multi_text' || $module_input_type == '
 	<?php if ($is_multi_text): ?>
 	<button
 		class="btn btn-light w-100 ex-area position-sticky mt-3"
-		style="top: 0; z-index: 999;"
+		style="top: 0; z-index: 98;"
 		type="button"
 		data-toggle="collapse"
 		data-target="#module<?=$module['input_slug']?>"
