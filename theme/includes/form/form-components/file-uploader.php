@@ -80,24 +80,24 @@
             <span class="d-flex">
                 <span class="btn-group">
                     <span class="delete_btn btn btn-sm btn-outline-danger px-3">
-                        <span class="fas fa-trash-alt"></span>
+                        <i class="fas fa-trash-alt"></i>
                     </span>
 
                     <input type="hidden" name="<?=$module_input_slug_lang?>[]" value="<?=$file?>">
 
                     <span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize"
                         data-clipboard-text="<?=$file?>">
-                        <span class="fas fa-copy mr-1"></span>copy URL
+                        <i class="fas fa-copy mr-1"></i>copy URL
                     </span>
 
                     <span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize"
                         data-clipboard-text="[[<?=$file?>]]">
-                        <span class="fas fa-copy mr-1"></span>copy shortcode
+                        <i class="fas fa-copy mr-1"></i>copy shortcode
                     </span>
 
                     <a style="display: inline-block;" class="btn btn-sm btn-outline-primary text-capitalize px-3"
                         href="<?=$file?>" target="new">
-                        <span class="fas fa-external-link-alt mr-1"></span>view
+                        <i class="fas fa-external-link-alt mr-1"></i>view
                     </a>
                 </span>
 

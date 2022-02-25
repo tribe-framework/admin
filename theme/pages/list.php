@@ -136,6 +136,15 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
     </div>
 </div>
 
+<div id="copy-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="1000">
+    <div class="toast-body">
+        <span>Copied</span>
+        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade editModal" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

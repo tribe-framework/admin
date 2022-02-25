@@ -19,6 +19,7 @@ $(document).ready(() => {
 		drawCallback: function () {
 			popoverActivate();
 			rigDataTableRows();
+			activateTableButtons();
 		},
 		rowId: [0],
 		deferRender: true,

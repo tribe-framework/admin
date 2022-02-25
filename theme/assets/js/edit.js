@@ -1,28 +1,53 @@
-$(document).ready(function() {
+'use strict';
 
-	$(document).on('click', '.edit_button', function(e) {
-		// setting data attributes on modal for form submission
-		if (this.dataset.id) {
-			document.querySelector('#editModal .modal-title').innerText = `#${this.dataset.id}`;
-			document.querySelector('.editModalClose').dataset.is_new = '';
-		} else {
-			document.querySelector('#editModal .modal-title').innerText = `New ${this.dataset.type} ${this.dataset.role}`;
-			document.querySelector('.editModalClose').dataset.is_new = '1';
-		}
+function activateTableButtons () {
+	let editButtons = document.querySelectorAll('.edit_button');
+	if (!editButtons) return;
 
-		// form loading spinner
-		$('#editModal .modal-body')
-			.html('<div class="d-flex justify-content-center py-4"><div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div></div>')
-			.load($(this)
-			.data('href'), {}, refreshEditForm);
-	});
+	editButtons.forEach(btn => {
+		btn.addEventListener('click', async e => await loadEditForm(e));
+	})
+}
 
-	$(document).on('click', '.close_btn', function(e) {
-		$('.editModalClose').trigger('click');
-	});
+async function loadEditForm (e) {
+	e.preventDefault();
+
+	let btn = e.target.closest('a.edit_button');
+	if (!btn) return;
+
+	if (btn.dataset.id) {
+		document.querySelector('#editModal .modal-title').innerText = `#${btn.dataset.id}`;
+		document.querySelector('.editModalClose').dataset.is_new = '';
+	} else {
+		document.querySelector('#editModal .modal-title').innerText = `New ${btn.dataset.type} ${btn.dataset.role}`;
+		document.querySelector('.editModalClose').dataset.is_new = '1';
+	}
+
+	let modalBody = document.querySelector('#editModal .modal-body');
+	modalBody.innerHTML = '<div class="d-flex justify-content-center py-4"><div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div></div>';
+
+	modalBody.innerHTML = await loadEditFormContent(btn.dataset.href);
 
 	refreshEditForm();
-});
+	enableEditFormButtons();
+}
+
+function enableEditFormButtons () {
+	enableCopyButton();
+
+	let closeButton = document.querySelector('button.close_btn');
+	if (!closeButton) return;
+
+	closeButton.addEventListener('click', () => {
+		document.querySelector('.editModalClose').click();
+	});
+}
+
+async function loadEditFormContent (link) {
+	let response = await fetch(link);
+	response = await response.text();
+	return response;
+}
 
 // adds functionality to form buttons once they're loaded
 function refreshEditForm() {
@@ -126,7 +151,7 @@ function refreshEditForm() {
 	});
 
 	// code to handle file uploads
-	var sli=0;
+	let sli=0;
     $('.edit_form input[type=file]').fileupload({
 		dataType: 'json',
 
@@ -148,7 +173,7 @@ function refreshEditForm() {
 		// callback for successful upload requests
 		done: function(e, data) {
 			sli++;
-			slvl='';
+			let slvl='';
 
 			if ($(this).data('bunching')) {
 				slvl+='&nbsp;&nbsp;<select class="btn btn-sm btn-outline-primary" name="'+$(this).attr('id')+'_bunching[]'+'">';
@@ -214,7 +239,13 @@ function refreshEditForm() {
 			}
 
 		    data.context
-		      .append(`<div class="btn-group"><span class="delete_btn btn btn-sm btn-outline-danger px-3"><span class="fas fa-trash-alt"></span></span><input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}"><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><span class="fas fa-copy mr-1"></span>&nbsp;copy URL</span><span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><span class="fas fa-copy mr-1"></span>&nbsp;copy shortcode</span><a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><span class="fas fa-external-link-alt mr-1"></span>&nbsp;view</a></div>${slvl}`)
+		      .append(`<div class="btn-group">
+					<span class="delete_btn btn btn-sm btn-outline-danger px-3"><i class="fas fa-trash-alt"></i></span>
+					<input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}">
+					<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><i class="fas fa-copy mr-1"></i>&nbsp;copy URL</span>
+					<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><i class="fas fa-copy mr-1"></i>&nbsp;copy shortcode</span>
+					<a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><i class="fas fa-external-link-alt mr-1"></i>&nbsp;view</a>
+					</div>${slvl}`)
 		      .addClass("done");
 
 		}
@@ -253,10 +284,23 @@ function refreshEditForm() {
 
         });
     })()
+}
 
+window.clipboard = null;
 
-	var clipboard = new ClipboardJS('.copy_btn');
-	clipboard.destroy();
+function enableCopyButton() {
+	// destroy old clipboard
+	if (window.clipboard) {
+		window.clipboard.destroy();
+	}
+
+	// create new clipboard
+	window.clipboard = new ClipboardJS('.copy_btn', {
+		container: document.getElementById('editModal')
+	});
+	window.clipboard.on('success', function (e) {
+		$('#copy-success').toast('show');
+	})
 }
 
 // close file descriptor and add modal-open to body so that form modal keeps scroll
