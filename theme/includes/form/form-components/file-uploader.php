@@ -102,7 +102,6 @@
                 </span>
 
                 <?php if (is_array($module['input_bunching'] ?? null)): ?>
-                &nbsp;
                 <select class="btn btn-sm btn-outline-primary" name="<?=$module_input_slug_lang?>_bunching[]">
                     <option value="">file option</option>
                     <?php foreach ($module['input_bunching'] as $opt): ?>
@@ -119,6 +118,7 @@
                 </select>
                 <?php endif;?>
 
+                <!-- file descriptor field -->
                 <?php if ($module['input_descriptor'] ?? null): ?>
                 <button type="button" class="btn btn-sm btn-outline-primary text-capitalize" data-toggle="modal"
                     data-target="#<?=$module_input_slug_lang?>_descriptor_m_<?=$i?>">

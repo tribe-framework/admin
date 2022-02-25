@@ -24,8 +24,9 @@ $(document).ready(function() {
 	refreshEditForm();
 });
 
+// adds functionality to form buttons once they're loaded
 function refreshEditForm() {
-	
+	// assign key shortcuts
 	key('⌘+s, ctrl+s', function(e){$('.save_btn').trigger('click'); e.preventDefault();});
 	key('⌘+b, ctrl+b', function(e){$('.typeout-bold').trigger('click'); e.preventDefault();});
 	key('⌘+i, ctrl+i', function(e){$('.typeout-italic').trigger('click'); e.preventDefault();});
@@ -166,13 +167,13 @@ function refreshEditForm() {
 						data-target="#${$(this).attr('id')}_descriptor_${sli}"
 						><i class="fas fa-align-left mr-1"></i>descriptor
 					</button>
-					<div class="modal fade" id="${$(this).attr('id')}_descriptor_${sli}" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
+					<div class="modal fade" id="${$(this).attr('id')}_descriptor_${sli}" data-keyboard="false" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content shadow-lg">
 								<div class="modal-header">
 									<h5 class="modal-title">add file descriptor</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="close"
-										><span aria-hidden="true">&times;</span>
+									<button type="button" onclick="handleDescriptorClose(event)" class="close" data-target="#${$(this).attr('id')}_descriptor_${sli}" aria-label="close">
+										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
@@ -183,12 +184,7 @@ function refreshEditForm() {
 									></textarea>
 								</div>
 								<div class="modal-footer">
-									<button
-										type="button"
-										class="btn btn-sm btn-outline-primary text-capitalize"
-										data-dismiss="modal"
-										>save
-									</button>
+									<button type="button" class="btn btn-sm btn-primary" data-target="#${$(this).attr('id')}_descriptor_${sli}" onclick="handleDescriptorClose(event)">save</button>
 								</div>
 							</div>
 						</div>
@@ -263,6 +259,7 @@ function refreshEditForm() {
 	clipboard.destroy();
 }
 
+// close file descriptor and add modal-open to body so that form modal keeps scroll
 function handleDescriptorClose(e) {
 	e.preventDefault();
 	$(e.target.closest('button').dataset.target).modal('hide');
@@ -273,6 +270,5 @@ function handleDescriptorClose(e) {
 
 function dropMultiFormField(e) {
 	e.preventDefault();
-
 	e.target.closest('.dragula').remove();
 }
