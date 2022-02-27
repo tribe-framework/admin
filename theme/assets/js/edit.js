@@ -127,10 +127,10 @@ function refreshEditForm() {
 	});
 
 	var drake = dragula({
-	  isContainer: function (el) {
-	    return el.classList.contains('dragula-container');
-	  },
-	  direction: 'vertical'
+		isContainer: function (el) {
+			return el.classList.contains('dragula-container');
+		},
+		direction: 'vertical'
 	});
 
 	$(document).on('click', '.select_multi_drop_option', function(e) {
@@ -138,11 +138,11 @@ function refreshEditForm() {
 		$('#'+$(this).data('multi_drop_filled_table')+' .grid').append('<div class="bg-light grid-item w-100 p-3">'+$('#'+$(this).data('multi_drop_option_text')).text()+' <a href="#" class="float-right remove_multi_drop_option"><span class="fas fa-minus-circle"></span></a><input type="hidden" name="'+$(this).parent().data('name')+'" value="'+$(this).parent().data('value')+'"></div>');
 
 		var $grid = $('.grid').packery({
-		  itemSelector: '.grid-item'
+			itemSelector: '.grid-item'
 		});
 		$grid.find('.grid-item').each( function( i, gridItem ) {
-		  var draggie = new Draggabilly( gridItem );
-		  $grid.packery( 'bindDraggabillyEvents', draggie );
+			var draggie = new Draggabilly( gridItem );
+			$grid.packery( 'bindDraggabillyEvents', draggie );
 		});
 	});
 
@@ -152,22 +152,22 @@ function refreshEditForm() {
 
 	// code to handle file uploads
 	let sli=0;
-    $('.edit_form input[type=file]').fileupload({
+	$('.edit_form input[type=file]').fileupload({
 		dataType: 'json',
 
 		// this callback gets invoked as soon as a file is added to upload request queue
 		add: function(e, data) {
 			$('#progress').parent().removeClass('d-none');
-		    data.context = $('<div class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
+			data.context = $('<div class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
 				.append($('<span class="flex-grow-1">').text(data.files[0].name))
 				.appendTo('#'+$(this).attr('id')+'_fileuploads');
-		    data.submit();
+			data.submit();
 		},
 
 		// callback for upload progress events
 		progress: function(e, data) {
-		    var progress = parseInt((data.loaded / data.total) * 100, 10);
-		    $('#progress .bar').css('width', progress + '%');
+			var progress = parseInt((data.loaded / data.total) * 100, 10);
+			$('#progress .bar').css('width', progress + '%');
 		},
 
 		// callback for successful upload requests
@@ -238,52 +238,52 @@ function refreshEditForm() {
 					.prepend('<span class="fas fa-check-circle text-success mr-2">');
 			}
 
-		    data.context
-		      .append(`<div class="btn-group">
+			data.context
+				.append(`<div class="btn-group">
 					<span class="delete_btn btn btn-sm btn-outline-danger px-3"><i class="fas fa-trash-alt"></i></span>
 					<input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}">
 					<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><i class="fas fa-copy mr-1"></i>&nbsp;copy URL</span>
 					<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><i class="fas fa-copy mr-1"></i>&nbsp;copy shortcode</span>
 					<a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><i class="fas fa-external-link-alt mr-1"></i>&nbsp;view</a>
 					</div>${slvl}`)
-		      .addClass("done");
+				.addClass("done");
 
 		}
-    });
+	});
 
-    // submit form over ajax - used in edit.php
-    (() => {
-        let editForm = document.querySelector('.edit_form');
-        if (!editForm) return;
+	// submit form over ajax - used in edit.php
+	(() => {
+		let editForm = document.querySelector('.edit_form');
+		if (!editForm) return;
 
-        editForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
+		editForm.addEventListener('submit', async function (e) {
+			e.preventDefault();
 
-            $('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
-            $('.save_btn').prop('disabled', true);
+			$('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
+			$('.save_btn').prop('disabled', true);
 
-            let response = await fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this)
-            })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                $('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
-                $('.save_btn').prop('disabled', false);
-                $('#save-success').toast('show');
-                $('input[name=id]').val(data.last_data[0].id);
-                $('input[name=slug]').val(data.last_data[0].slug);
-                $('.object_slug').text(data.last_data[0].slug);
-                $('.editModalClose').attr('data-id', data.last_data[0].id);
-                $('#editModal .modal-title').text('#'+data.last_data[0].id);
-                $('#slug_update').prop('checked', false);
-                $('#slug_update_div').removeClass('d-none');
-            });
+			let response = await fetch(this.action, {
+				method: 'POST',
+				body: new FormData(this)
+			})
+				.then((response) => {
+					return response.json();
+				})
+				.then((data) => {
+					$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
+					$('.save_btn').prop('disabled', false);
+					$('#save-success').toast('show');
+					$('input[name=id]').val(data.last_data[0].id);
+					$('input[name=slug]').val(data.last_data[0].slug);
+					$('.object_slug').text(data.last_data[0].slug);
+					$('.editModalClose').attr('data-id', data.last_data[0].id);
+					$('#editModal .modal-title').text('#'+data.last_data[0].id);
+					$('#slug_update').prop('checked', false);
+					$('#slug_update_div').removeClass('d-none');
+				});
 
-        });
-    })()
+		});
+	})()
 }
 
 window.clipboard = null;

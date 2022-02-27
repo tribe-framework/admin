@@ -20,13 +20,13 @@ $_role = $_GET['role'] ?? false;
     <?= $admin->get_admin_menu('list', $type, $role['slug'] ?? null); ?>
 
     <?php if ($type == 'user'): ?>
-    <h5 class="mb-4">
-    <?= $role['title'] ?>
-    <small><i class="fas fa-angle-double-right"></i></small>
-    List of <?= $types[$type]['plural'] ?>
-    </h5>
+        <h5 class="mb-4">
+            <?= $role['title'] ?>
+            <small><i class="fas fa-angle-double-right"></i></small>
+            List of <?= $types[$type]['plural'] ?>
+        </h5>
     <?php endif ?>
-    
+
 </div>
 
 
@@ -41,15 +41,15 @@ if ($_type == 'user') {
 
 // count the number of display columns, to limit table width to container size if there are fewer than 6 colummns
 $listed_fields_number = 0 ;
-foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  { 
-    if (isset($is_listed)) 
-        $listed_fields_number++; 
+foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
+    if (isset($is_listed))
+        $listed_fields_number++;
 }
 ?>
 
 <?php if ($listed_fields_number>=6) { ?>
     </div><div class="px-lg-3"><!--closing container from includes/_header -->
-<?php } ?>
+    <?php } ?>
 
     <form id="dtList" action="/admin/delete-dt-rows" method="post">
         <!-- delete modal -->
@@ -100,28 +100,28 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 
         <table class="my-4 list table table-sm table-striped table-hover datatable border-bottom border-dark <?=($listed_fields_number>=6 ? 'cols-6-or-more' : '')?>" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>" data-lazyload=<?=($ids_number>25000 ? "true" : "false")?> >
             <thead class="thead-black">
-                <tr>
-                    <th scope="col">ID&nbsp;&nbsp;&nbsp;<span class="position-absolute mr-0" data-toggle="tooltip" data-placement="top" title="ID of a record is unique across the system. Slug is unique within the content type."><i class="fal fa-info-circle"></i></span></th>
-                    <?php
-                        $displayed_field_slugs = array();
+            <tr>
+                <th scope="col">ID&nbsp;&nbsp;&nbsp;<span class="position-absolute mr-0" data-toggle="tooltip" data-placement="top" title="ID of a record is unique across the system. Slug is unique within the content type."><i class="fal fa-info-circle"></i></span></th>
+                <?php
+                $displayed_field_slugs = array();
 
-                        foreach ($types[$type]['modules'] as $i => $module):
-                            if (!in_array($module['input_slug'], $displayed_field_slugs)):
-                                if (isset($module['list_field']) && $module['list_field']):
-                    ?>
-                    <th scope="col"
-                        data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>"
-                        data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>"
-                        >
-                        <?=$module['input_slug']?>
-                    </th>
-                    <?php
-                                endif;
-                                $displayed_field_slugs[] = $module['input_slug'];
-                            endif;
-                        endforeach;
-                    ?>
-                </tr>
+                foreach ($types[$type]['modules'] as $i => $module):
+                    if (!in_array($module['input_slug'], $displayed_field_slugs)):
+                        if (isset($module['list_field']) && $module['list_field']):
+                            ?>
+                            <th scope="col"
+                                data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>"
+                                data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>"
+                            >
+                                <?=$module['input_slug']?>
+                            </th>
+                        <?php
+                        endif;
+                        $displayed_field_slugs[] = $module['input_slug'];
+                    endif;
+                endforeach;
+                ?>
+            </tr>
             </thead>
         </table>
     </form>
@@ -148,24 +148,24 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 
 <!-- Modal -->
 <div class="modal fade editModal" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">...</h5>
-        <button type="button" class="close editModalClose" data-id="" data-is_new="" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"><span class="fal fa-lg fa-times"></span></span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">...</h5>
+                <button type="button" class="close editModalClose" data-id="" data-is_new="" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><span class="fal fa-lg fa-times"></span></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <?php if ($listed_fields_number>=6) { ?>
-    </div><div class="p-3 container"> <!--opening container from includes/_header -->
-<?php } ?>
+</div><div class="p-3 container"> <!--opening container from includes/_header -->
+    <?php } ?>
 
 
-<?php require_once __DIR__ . '/../includes/_footer.php';?>
+    <?php require_once __DIR__ . '/../includes/_footer.php';?>
