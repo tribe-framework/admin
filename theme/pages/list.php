@@ -107,7 +107,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
         <table class="my-4 list table table-sm table-striped table-hover datatable border-bottom border-dark <?=($listed_fields_number>=6 ? 'cols-6-or-more' : '')?>" data-jsonpath="list-json" data-type="<?=$type?>" data-role="<?=$_GET['role'] ?? ''?>" data-lazyload=<?=($ids_number>25000 ? "true" : "false")?> >
             <thead class="thead-black">
             <tr>
-                <th scope="col">ID&nbsp;&nbsp;&nbsp;<span class="position-absolute mr-0" data-toggle="tooltip" data-placement="top" title="ID of a record is unique across the system. Slug is unique within the content type."><i class="fal fa-info-circle"></i></span></th>
+                <th data-name="id" scope="col">ID&nbsp;&nbsp;&nbsp;<span class="position-absolute mr-0" data-toggle="tooltip" data-placement="top" title="ID of a record is unique across the system. Slug is unique within the content type."><i class="fal fa-info-circle"></i></span></th>
                 <?php
                 $displayed_field_slugs = array();
 
@@ -122,6 +122,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
                             <th scope="col"
                                 data-orderable="<?= $module['list_sortable'] ?? 'false' ?>"
                                 data-searchable="<?= $module['list_searchable'] ?? 'false' ?>"
+                                data-name="<?= $module['input_slug'] ?>"
                                 class="<?= $_filter ?>"
                             >
                                 <?=$module['input_slug']?>

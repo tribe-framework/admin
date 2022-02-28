@@ -12,13 +12,19 @@ $(document).ready(() => {
 
 	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}&role=${table.data('role')}`;
 
+	let column_name = [];
+	document.querySelectorAll('thead th').forEach(tth => {
+		column_name.push({name: tth.dataset.name})
+	});
+
 	let datatableOptions = {
+		columns: column_name,
         processing: isProcessing,
         serverSide: isServerSide,
 		ajax: datatableAjaxUrl,
 		initComplete: function () {
 			// select menu for column filter
-			this.api().columns('.column_filter_menu').every( function () {
+			this.api().columns('.column_filter_menu', {page: 'all'}).every( function () {
 				let column = this;
 				let select = $('<select><option value=""></option></select>')
 					.appendTo( $(column.footer()).empty() )
@@ -30,18 +36,12 @@ $(document).ready(() => {
 							.draw();
 					});
 
-				// fetch "text" from columns
-				let column_text = [];
-				this.nodes().each(n => {
-					column_text.push(n.innerText);
-				});
-
-				// select unique value from array
-				column_text = [... new Set(column_text)];
-
-				// add those unique values to select as option
-				column_text.forEach(ct => {
-					select.append(`<option value="${ct}">${ct}</option>`);
+				this.data().unique().sort().each(d => {
+					// convert string to html object and then get its innerText
+					let htmlObject = document.createElement('div');
+					htmlObject.innerHTML= d;
+					let text = htmlObject.innerText;
+					select.append(`<option value="${text}">${text}</option>`)
 				});
 			} );
 		},
@@ -57,7 +57,7 @@ $(document).ready(() => {
 		},
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
 		lengthMenu: [ [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000], [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000] ],
-		pageLength: 50,
+		pageLength: 10,
 		columnDefs: [{
 			targets: 0,
 		}],
