@@ -50,7 +50,7 @@ class Admin {
     public function new_and_list($type, $role_slug = '') {
         return '
 		<div class="btn-group">
-			<a class="edit_button btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0" data-type="'.$type.'"  data-role="'.$role_slug.'"href="#editModal" data-toggle="modal" data-href="/admin/edit?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '"><span class="fas fa-edit"></span>&nbsp;New</a>
+			<a class="edit_button btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0" data-type="'.$type.'"  data-role="'.$role_slug.'" href="#editModal" data-toggle="modal" data-href="/admin/edit?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '"><span class="fas fa-edit"></span>&nbsp;New</a>
 			<a href="' . BASE_URL . '/admin/list?type=' . $type . (trim($role_slug ?? '') ? '&role=' . urlencode($role_slug) : '') . '" class="btn btn-outline-primary border-top-0 border-left-0 border-right-0 rounded-0"><span class="fas fa-list"></span>&nbsp;List</a>
 		</div>';
     }
