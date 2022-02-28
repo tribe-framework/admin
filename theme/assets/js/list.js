@@ -41,6 +41,9 @@ $(document).ready(() => {
 					let htmlObject = document.createElement('div');
 					htmlObject.innerHTML= d;
 					let text = htmlObject.innerText;
+
+					if (!text) return;
+
 					select.append(`<option data-content="${truncate(text)}" value="${text}">${text}</option>`)
 				});
 			} );
