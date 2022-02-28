@@ -16,6 +16,37 @@ $(document).ready(() => {
         processing: isProcessing,
         serverSide: isServerSide,
 		ajax: datatableAjaxUrl,
+		initComplete: function () {
+			this.api().columns(2, {order: 'current'}).every( function () {
+				let column = this;
+				let select = $('<select><option value=""></option></select>')
+					.appendTo( $(column.footer()).empty() )
+					.on( 'change', function () {
+						let val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+						column
+							.search( val ? `^${val}$` : '', true, false )
+							.draw();
+					});
+
+				// fetch "text" from columns
+				let column_text = [];
+				column.nodes().each(n => {
+					column_text.push(n.innerText);
+				});
+
+				// select unique value from array
+				column_text = [... new Set(column_text)];
+
+				// add those unique values to select as option
+				column_text.forEach(ct => {
+					select.append(`<option value="${ct}">${ct}</option>`);
+				});
+				// column.data().unique().sort().each((d, j) => {
+				// 	select.append( `<option value="${d}">${d}</option>` )
+				// });
+			} );
+		},
 		drawCallback: function () {
 			popoverActivate();
 			rigDataTableRows();
@@ -53,24 +84,24 @@ $(document).ready(() => {
 				}
 			]
 		}],
-		"language": {
-			"info": "_START_ to _END_ of _TOTAL_",
-			"emptyTable": "No records found",
-    		"infoEmpty":      "0 to 0 of 0",
-    		"infoFiltered":   "(from _MAX_)",
-    		"infoPostFix":    "",
-    		"thousands":      ",",
-    		"lengthMenu":     "_MENU_ / page",
-    		"loadingRecords": '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>',
-    		"processing":     '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>',
-    		"search":         "_INPUT_",
-    		"searchPlaceholder": "Search...",
-    		"zeroRecords":    "No records found",
-		    "paginate": {
-		        "first":      "&#8656;",
-		        "last":       "&#8658;",
-		        "next":       "&gt;",
-		        "previous":   "&lt;"
+		language: {
+			info: "_START_ to _END_ of _TOTAL_",
+			emptyTable: "No records found",
+    		infoEmpty:      "0 to 0 of 0",
+    		infoFiltered:   "(from _MAX_)",
+    		infoPostFix:    "",
+    		thousands:      ",",
+    		lengthMenu:     "_MENU_ / page",
+    		loadingRecords: '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>',
+    		processing:     '<div class="spinner-grow spinner-border-lg text-primary-3" role="status"><span class="sr-only">Loading...</span></div>',
+    		search:         "_INPUT_",
+    		searchPlaceholder: "Search...",
+    		zeroRecords:    "No records found",
+		    paginate: {
+		        first:      "&#8656;",
+		        last:       "&#8658;",
+		        next:       "&gt;",
+		        previous:   "&lt;"
 		    }
 		}
 	};

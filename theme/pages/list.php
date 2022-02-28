@@ -129,6 +129,25 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
                 ?>
             </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <?php
+                    $displayed_field_slugs = array();
+
+                    foreach ($types[$type]['modules'] as $i => $module):
+                        if (!in_array($module['input_slug'], $displayed_field_slugs)):
+                            if (isset($module['list_field']) && $module['list_field']):
+                                ?>
+                                <th scope="col"></th>
+                            <?php
+                            endif;
+                            $displayed_field_slugs[] = $module['input_slug'];
+                        endif;
+                    endforeach;
+                    ?>
+                </tr>
+            </tfoot>
         </table>
     </form>
 </div>
