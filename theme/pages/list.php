@@ -114,11 +114,15 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
                 foreach ($types[$type]['modules'] as $i => $module):
                     if (!in_array($module['input_slug'], $displayed_field_slugs)):
                         if (isset($module['list_field']) && $module['list_field']):
+                            $_filter = '';
+                            if (!$module['input_primary'] && $module['list_sortable']) {
+                                $_filter = 'column_filter_menu';
+                            }
                             ?>
                             <th scope="col"
                                 data-orderable="<?= $module['list_sortable'] ?? 'false' ?>"
                                 data-searchable="<?= $module['list_searchable'] ?? 'false' ?>"
-                                class="<?= (($module['input_primary'] ?? false) && ($module['list_sortable'] ?? false)) ? '' : 'column_filter_menu' ?>"
+                                class="<?= $_filter ?>"
                             >
                                 <?=$module['input_slug']?>
                             </th>
