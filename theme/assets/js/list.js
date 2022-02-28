@@ -13,11 +13,13 @@ $(document).ready(() => {
 	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}&role=${table.data('role')}`;
 
 	let datatableOptions = {
+
         processing: isProcessing,
         serverSide: isServerSide,
 		ajax: datatableAjaxUrl,
 		initComplete: function () {
-			this.api().columns(2, {order: 'current'}).every( function () {
+			// select menu for column filter
+			this.api().columns('.column_filter_menu').every( function () {
 				let column = this;
 				let select = $('<select><option value=""></option></select>')
 					.appendTo( $(column.footer()).empty() )
@@ -31,7 +33,7 @@ $(document).ready(() => {
 
 				// fetch "text" from columns
 				let column_text = [];
-				column.nodes().each(n => {
+				this.nodes().each(n => {
 					column_text.push(n.innerText);
 				});
 

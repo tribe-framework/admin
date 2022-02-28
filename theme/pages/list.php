@@ -118,6 +118,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
                             <th scope="col"
                                 data-orderable="<?= $module['list_sortable'] ?? 'false' ?>"
                                 data-searchable="<?= $module['list_searchable'] ?? 'false' ?>"
+                                class="<?= $module['input_primary'] ? '' : 'column_filter_menu' ?>"
                             >
                                 <?=$module['input_slug']?>
                             </th>
@@ -131,7 +132,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
             </thead>
             <tfoot>
                 <tr>
-                    <th></th>
+                    <th data-name="id"></th>
                     <?php
                     $displayed_field_slugs = array();
 
@@ -139,7 +140,7 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
                         if (!in_array($module['input_slug'], $displayed_field_slugs)):
                             if (isset($module['list_field']) && $module['list_field']):
                                 ?>
-                                <th scope="col"></th>
+                                <th class="<?= $module['input_primary'] ? '' : 'column_filter_menu' ?>" scope="col"></th>
                             <?php
                             endif;
                             $displayed_field_slugs[] = $module['input_slug'];
