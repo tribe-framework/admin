@@ -26,7 +26,7 @@ $(document).ready(() => {
 			// select menu for column filter
 			this.api().columns('.column_filter_menu', {page: 'all'}).every( function () {
 				let column = this;
-				let select = $('<select class="selectpicker form-control"><option value=""></option></select>')
+				let select = $('<select class="selectpicker form-control" data-live-search="true"><option value=""></option></select>')
 					.appendTo( $(column.footer()).empty() )
 					.on( 'change', function () {
 						let val = $.fn.dataTable.util.escapeRegex($(this).val());
