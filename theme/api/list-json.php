@@ -1,4 +1,11 @@
 <?php
+/**
+ * @var object $admin
+ * @var object $sql
+ * @var object $dash
+ * @var array $types
+ * @var array $currentUser
+ */
 require_once __DIR__ . '/../_init.php';
 
 $api = new \Wildfire\Api;
@@ -12,7 +19,7 @@ $_role = $_GET['role'];
 
 // count number of records, if number of records are more than 25k, use ajax method with datatables
 if ($_type == 'user') {
-    $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type' AND `role_slug`='$_role'")[0]['total'];
+    $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(id) AS `total` FROM `data` WHERE `type`='{$_type}' AND `role_slug`='{$_role}'")[0]['total'];
 } else {
     $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type'")[0]['total'];
 }

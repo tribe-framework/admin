@@ -1,4 +1,10 @@
 <?php
+/**
+ * @var object $admin
+ * @var object $sql
+ * @var string $type
+ * @var array $types
+ */
 
 require_once __DIR__ . '/../includes/_header.php';
 
@@ -39,7 +45,7 @@ if ($_type == 'user') {
     $ids_number = $sql->executeSQL("SELECT COUNT(*) AS `total` FROM `data` WHERE `type`='$_type'")[0]['total'];
 }
 
-// count the number of display columns, to limit table width to container size if there are fewer than 6 colummns
+// count the number of display columns, to limit table width to container size if there are fewer than 6 columns
 $listed_fields_number = 0 ;
 foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
     if (isset($is_listed))
@@ -110,8 +116,8 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
                         if (isset($module['list_field']) && $module['list_field']):
                             ?>
                             <th scope="col"
-                                data-orderable="<?=isset($module['list_sortable']) ? $module['list_sortable'] : 'false'?>"
-                                data-searchable="<?=isset($module['list_searchable']) ? $module['list_searchable'] : 'false'?>"
+                                data-orderable="<?= $module['list_sortable'] ?? 'false' ?>"
+                                data-searchable="<?= $module['list_searchable'] ?? 'false' ?>"
                             >
                                 <?=$module['input_slug']?>
                             </th>
