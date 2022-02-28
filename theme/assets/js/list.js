@@ -26,7 +26,7 @@ $(document).ready(() => {
 			// select menu for column filter
 			this.api().columns('.column_filter_menu', {page: 'all'}).every( function () {
 				let column = this;
-				let select = $('<select><option value=""></option></select>')
+				let select = $('<select class="selectpicker form-control"><option value=""></option></select>')
 					.appendTo( $(column.footer()).empty() )
 					.on( 'change', function () {
 						let val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -41,7 +41,7 @@ $(document).ready(() => {
 					let htmlObject = document.createElement('div');
 					htmlObject.innerHTML= d;
 					let text = htmlObject.innerText;
-					select.append(`<option value="${text}">${text}</option>`)
+					select.append(`<option data-content="${truncate(text)}" value="${text}">${text}</option>`)
 				});
 			} );
 		},
@@ -142,6 +142,13 @@ function rigDataTableRows() {
 		});
 	});
 
+}
+
+function truncate(input) {
+	if (input.length > 25) {
+		return input.substring(0, 25) + '...';
+	}
+	return input;
 }
 
 function toggleMultiDeleteButton(e) {
