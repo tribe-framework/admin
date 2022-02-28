@@ -13,7 +13,6 @@ $(document).ready(() => {
 	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}&role=${table.data('role')}`;
 
 	let datatableOptions = {
-
         processing: isProcessing,
         serverSide: isServerSide,
 		ajax: datatableAjaxUrl,
@@ -44,9 +43,6 @@ $(document).ready(() => {
 				column_text.forEach(ct => {
 					select.append(`<option value="${ct}">${ct}</option>`);
 				});
-				// column.data().unique().sort().each((d, j) => {
-				// 	select.append( `<option value="${d}">${d}</option>` )
-				// });
 			} );
 		},
 		drawCallback: function () {
