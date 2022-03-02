@@ -230,7 +230,7 @@ class Functions {
             //if language is defined in types.json, it uses _lang
             $module_input_slug_lang = $module['input_slug'] . (is_array($module['input_lang'] ?? null) ? "_{$module['input_lang'][0]['slug']}" : '');
 
-            if ($_object[$module_input_slug_lang]) {
+            if ($_object[$module_input_slug_lang] ?? false) {
 
                 //if module value is an array
                 if (is_array($_object[$module_input_slug_lang])) {
