@@ -5,7 +5,9 @@ function activateTableButtons () {
 	if (!editButtons) return;
 
 	editButtons.forEach(btn => {
-		btn.addEventListener('click', async e => await loadEditForm(e));
+		if (typeof btn.onclick != 'loadEditForm') {
+			btn.addEventListener('click', async e => await loadEditForm(e));
+		}
 	})
 }
 
@@ -69,10 +71,18 @@ function refreshEditForm() {
 	$(document).on('keyup', '.typeout-content', function() {update_textarea($(this).data('input-slug'));});
 	$(document).on('blur', '.typeout-content', function() {update_textarea($(this).data('input-slug'));});
 
-	$(document).on('click', '.multi_add_btn', function(e) {
-		$(this).closest('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group').first().clone().appendTo('#'+$(this).data('group-class')+'-'+$(this).data('input-slug'));
-		$('#'+$(this).data('group-class')+'-'+$(this).data('input-slug')+' .input-group:last input').val('');
-	});
+	// multi add button
+	(() => {
+		let multiAddBtn = document.querySelectorAll('.multi_add_btn');
+		if (!multiAddBtn) return;
+
+		multiAddBtn.forEach(mab => {
+			mab.addEventListener('click', function (e) {
+				addNewTextArea(e);
+			})
+		})
+	})();
+
 
 	let multiAddBtn = document.querySelectorAll('.btn.multi_add');
 
@@ -286,8 +296,27 @@ function refreshEditForm() {
     })()
 }
 
-window.clipboard = null;
+// used with div.multi_add_btn
+function addNewTextArea (e) {
+	e.preventDefault();
+	let button = e.target.closest('button');
 
+	let cloned = button.closest(`#${button.dataset.groupClass}-${button.dataset.inputSlug} .input-group`)
+		.cloneNode(true) ?? null;
+
+	let parentGroup = document.querySelector(`#${button.dataset.groupClass}-${button.dataset.inputSlug}`)
+	if (!parentGroup) return;
+
+	// empty value and event listener on cloned item
+	cloned.querySelector('textarea').value = '';
+	cloned.querySelector('.multi_add_btn').addEventListener('click', function(e) {
+		addNewTextArea(e);
+	});
+
+	parentGroup.appendChild(cloned);
+}
+
+window.clipboard = null;
 function enableCopyButton() {
 	// destroy old clipboard
 	if (window.clipboard) {

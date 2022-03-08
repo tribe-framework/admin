@@ -1,3 +1,15 @@
+<?php
+/**
+ * @var string $module_input_slug_lang
+ * @var string $module_input_default_value
+ * @var string $module_input_type
+ * @var string $module_input_placeholder
+ * @var string $type
+ * @var array $post
+ * @var array $types
+ */
+?>
+
 <div class="textarea-group" id="textarea-group-<?= $module_input_slug_lang ?>">
     <?php
     $type_name_values = array();
@@ -31,25 +43,23 @@
                 placeholder="<?= $placeholder ?>"
             ><?= $type_name_value ?></textarea>
 
+            <?php if ($module_input_type == 'multi-textarea' || $module_input_type == 'multi_textarea'): ?>
+                <div class="input-group-append multi_add_btn align-self-end">
+                    <button data-group-class="textarea-group"
+                            data-input-slug="<?= $module_input_slug_lang ?>"
+                            title="Add new field"
+                            class="btn btn-outline-primary"
+                            type="button">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            <?php endif; // if multi-textarea ?>
+
             <?php if ($module_input_placeholder): ?>
                 <div class="col-12 row text-muted small m-0">
                     <span class="ml-auto mr-0"><?= $module_input_placeholder ?></span>
                 </div>
             <?php endif ?>
-
-            <?php if ($module_input_type == 'multi-textarea' || $module_input_type == 'multi_textarea'): ?>
-                <div
-                    class="input-group-append multi_add_btn"
-                    data-group-class="textarea-group"
-                    data-input-slug="<?= $module_input_slug_lang ?>">
-                    <button class="btn btn-outline-primary" type="button"><i class="fas fa-plus"></i></button>
-                </div>
-                <?php if ($module_input_placeholder): ?>
-                    <div class="col-12 row text-muted small m-0">
-                        <span class="ml-auto mr-0"><?= $module_input_placeholder ?></span>
-                    </div>
-                <?php endif; // if $module_input_placeholder ?>
-            <?php endif; // if multi-textarea ?>
         </div>
     <?php
         endif; // trim $type_name_value
