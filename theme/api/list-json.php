@@ -24,8 +24,11 @@ if ($unfiltered_ids_number>5000) {
 
     if ( strstr($_search_query, '##') ) {
         $temp_arr = explode('##', $_search_query);
-        $_search_by_column = trim($temp_arr[0]);
-        $_search_query = trim($temp_arr[1]);
+        foreach ($temp_arr as $temp_val) {
+            $temp_val = explode('::', $temp_val);
+            $_search_by_column[] = trim($temp_val[0]);
+            $_search_query_by_column[] = trim($temp_val[1]);
+        }
     }
     else { $_search_by_column = false; }
 
@@ -36,9 +39,17 @@ if ($unfiltered_ids_number>5000) {
         }
 
         //searchable columns, marry it to search query - SQL
-        if ( isset($module['list_searchable']) && trim($_search_query) && (!$_search_by_column || $_search_by_column == $module['input_slug']) ) {
-            $columns[]=$module['input_slug'];
-            $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+        if (!$_search_by_column) {
+            if ( isset($module['list_searchable']) && trim($_search_query) ) {
+                $columns[]=$module['input_slug'];
+                $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+            }
+        } else {
+            if ($key = array_search($module['input_slug'], $_search_by_column)) {
+                $columns[]=$module['input_slug'];
+                $_search_query = $_search_query_by_column[$key];
+                $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+            }
         }
     }
 }
@@ -64,8 +75,15 @@ if ($api->method('get')) {
     //if more than 25k records, use SQL directly
     if ($unfiltered_ids_number>5000) {
 
+        if (!$_search_by_column) {
+            $_search_sql_query_joined = implode(' OR ', $_search_sql_query);
+        }
+        else {
+            $_search_sql_query_joined = implode(' AND ', $_search_sql_query);
+        }
+
         //part of query that fetches the correct results, takes care of sort order
-        $_final_query = "FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}";
+        $_final_query = "FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".$_search_sql_query_joined.")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}";
 
         //count the records, with $_final_query
         $filterable_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` {$_final_query}")[0]['total'];
