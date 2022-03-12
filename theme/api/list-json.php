@@ -18,9 +18,16 @@ if ($_type == 'user') {
 }
 
 // if number is 25k build SQL query to fetch what user has typed in filter search
-if ($unfiltered_ids_number>25000) {
+if ($unfiltered_ids_number>5000) {
     //load the search query
     $_search_query = strtolower($_GET['search']['value']);
+
+    if ( strstr($_search_query, '##') ) {
+        $temp_arr = explode('##', $_search_query);
+        $_search_by_column = trim($temp_arr[0]);
+        $_search_query = trim($temp_arr[1]);
+    }
+    else { $_search_by_column = false; }
 
     // loading all list-able columns for the type
     foreach ($types[$_type]['modules'] as $module)  { 
@@ -29,7 +36,7 @@ if ($unfiltered_ids_number>25000) {
         }
 
         //searchable columns, marry it to search query - SQL
-        if (isset($module['list_searchable']) && trim($_search_query)) {
+        if ( isset($module['list_searchable']) && trim($_search_query) && (!$_search_by_column || $_search_by_column == $module['input_slug']) ) {
             $columns[]=$module['input_slug'];
             $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
         }
@@ -55,7 +62,7 @@ if ($api->method('get')) {
         $search_var = $_type;
 
     //if more than 25k records, use SQL directly
-    if ($unfiltered_ids_number>25000) {
+    if ($unfiltered_ids_number>5000) {
 
         //part of query that fetches the correct results, takes care of sort order
         $_final_query = "FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".implode(' OR ', $_search_sql_query).")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}";
