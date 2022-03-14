@@ -48,7 +48,10 @@ if ($unfiltered_ids_number>5000) {
             if ($key = array_search($module['input_slug'], $_search_by_column)) {
                 $columns[]=$module['input_slug'];
                 $_search_query = $_search_query_by_column[$key];
-                $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+                if ($_search_query=='**')
+                    $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') IS NULL";
+                else
+                    $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
             }
         }
     }
