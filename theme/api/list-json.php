@@ -48,8 +48,13 @@ if ($unfiltered_ids_number>5000) {
             if ($key = array_search($module['input_slug'], $_search_by_column)) {
                 $columns[]=$module['input_slug'];
                 $_search_query = $_search_query_by_column[$key];
-                if ($_search_query=='**')
-                    $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') IS NULL";
+                if ($_search_query=='**') {
+                    $_search_sql_query[] = "( 
+                        LOWER(`content`->>'$.".$module['input_slug']."') = '' OR
+                        LOWER(`content`->>'$.".$module['input_slug']."') LIKE '[\"\"]' OR
+                        LOWER(`content`->>'$.".$module['input_slug']."') IS NULL
+                        )";
+                }
                 else
                     $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
             }
@@ -128,14 +133,12 @@ if ($api->method('get')) {
             $i++;
     }
 
-    if (!$or['data']) {
+    if (!$or['data'][0][0]) {
         $or = [
-            'draw' => 0,
-            'recordsTotal' => 0,
-            'recordsFiltered' => 0,
-            'data' => []
+            'data' => false
         ];
+        $api->json($or)->send();
     }
-    
-    $api->json($or)->send();
+    else
+        $api->json($or)->send();
 }
