@@ -89,3 +89,38 @@ $fn = new \Wildfire\Admin\Functions;
     </div>
     <!-- // div card -->
 </div>
+
+
+<div class="col-lg-6 mb-2 mb-lg-0">
+    <div class="card">
+        <div class="card-header font-weight-bold text-uppercase small px-3 py-1"><em><span class="fad fa-analytics"></span>&nbsp;&nbsp;&nbsp;Analysis</em></div>
+
+        <div class="card-body p-0">
+
+            <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col" class="py-0 font-weight-light">Type</th>
+                  <th scope="col" class="py-0 font-weight-light">Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <?php
+                foreach ($types as $type) {
+
+                    if ($type['type']=='content' || $type['type']=='user' || $type['type']=='entity') {
+                        $ids = $dash->get_ids(array('type'=>$type['slug']), '=', 'AND');
+                        if ($ids[0]['id']) {
+                            $total = count($ids);
+                            echo '<tr><th scope="row" class="py-0 font-weight-light">'.$type['slug'].'</th><td class="py-0 font-weight-light">'.$total.'</td></tr>';
+                        }
+                    }
+                }
+                ?>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
