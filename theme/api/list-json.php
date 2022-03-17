@@ -20,7 +20,7 @@ if ($_type == 'user') {
 // if number is 25k build SQL query to fetch what user has typed in filter search
 if ($unfiltered_ids_number>5000) {
     //load the search query
-    $_search_query = strtolower($_GET['search']['value']);
+    $_search_query = addslashes(strtolower($_GET['search']['value']));
 
     if ( strstr($_search_query, '##') ) {
         $temp_arr = explode('##', $_search_query);
