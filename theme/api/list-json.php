@@ -33,7 +33,7 @@ if ($unfiltered_ids_number>5000) {
     else { $_search_by_column = false; }
 
     // loading all list-able columns for the type
-    foreach ($types[$_type]['modules'] as $module)  { 
+    foreach ($types[$_type]['modules'] as $module)  {
         if (isset($module['list_field'])) {
             $columns[]=$module['input_slug'];
         }
@@ -49,7 +49,7 @@ if ($unfiltered_ids_number>5000) {
                 $columns[]=$module['input_slug'];
                 $_search_query = $_search_query_by_column[$key];
                 if ($_search_query=='**') {
-                    $_search_sql_query[] = "( 
+                    $_search_sql_query[] = "(
                         LOWER(`content`->>'$.".$module['input_slug']."') = '' OR
                         LOWER(`content`->>'$.".$module['input_slug']."') LIKE '[\"\"]' OR
                         LOWER(`content`->>'$.".$module['input_slug']."') IS NULL
@@ -75,20 +75,11 @@ if ($api->method('get')) {
 
     //create search_var for $dash->get_all_ids
     //if type is user, use role as well
-    if ($_type=='user')
-        $search_var = ['type' => $_type, 'role_slug' => $_role];
-    else
-        $search_var = $_type;
+    $search_var = ($_type == 'user') ? ['type' => $_type, 'role_slug' => $_role] : $_type;
 
     //if more than 25k records, use SQL directly
     if ($unfiltered_ids_number>5000) {
-
-        if (!$_search_by_column) {
-            $_search_sql_query_joined = implode(' OR ', $_search_sql_query);
-        }
-        else {
-            $_search_sql_query_joined = implode(' AND ', $_search_sql_query);
-        }
+        $_search_sql_query_joined = !$_search_by_column ? implode(' OR ', $_search_sql_query) : implode(' AND ', $_search_sql_query);
 
         //part of query that fetches the correct results, takes care of sort order
         $_final_query = "FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".$_search_sql_query_joined.")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}";
@@ -120,6 +111,7 @@ if ($api->method('get')) {
     }
 
     $_dbObjects = $dash->getObjects($ids);
+    $test = $dash->getObject(22715);
 
     foreach ($_dbObjects as $_object) {
         if (
