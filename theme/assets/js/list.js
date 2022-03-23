@@ -10,7 +10,7 @@ $(document).ready(() => {
 		isServerSide = true;
 	}
 
-	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}&role=${table.data('role')}`;
+	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}`;
 
 	let column_name = [];
 	document.querySelectorAll('thead th').forEach(tth => {
