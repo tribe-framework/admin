@@ -7,8 +7,8 @@ $fn = new \Wildfire\Admin\Functions;
 $i = 0;
 $or=array();
 
-$_type = $_GET['type'];
-$_role = $_GET['role'];
+$_type = $_GET['type'] ?? null;
+$_role = $_GET['role'] ?? null;
 
 // count number of records, if number of records are more than 25k, use ajax method with datatables
 if ($_type == 'user') {
@@ -79,7 +79,9 @@ if ($api->method('get')) {
 
     //if more than 25k records, use SQL directly
     if ($unfiltered_ids_number>5000) {
-        $_search_sql_query_joined = !$_search_by_column ? implode(' OR ', $_search_sql_query) : implode(' AND ', $_search_sql_query);
+        if ($_search_sql_query ?? false) {
+            $_search_sql_query_joined = !$_search_by_column ? implode(' OR ', $_search_sql_query) : implode(' AND ', $_search_sql_query);
+        }
 
         //part of query that fetches the correct results, takes care of sort order
         $_final_query = "FROM `data` WHERE `type`='{$_type}' ".($_type=='user' ? "AND `role_slug`='{$_role}'" : "")." ".( trim($_search_query) ? "AND (".$_search_sql_query_joined.")" : "" )." ORDER BY `{$_search_column}` {$_search_direction}";
@@ -111,7 +113,6 @@ if ($api->method('get')) {
     }
 
     $_dbObjects = $dash->getObjects($ids);
-    $test = $dash->getObject(22715);
 
     foreach ($_dbObjects as $_object) {
         if (
@@ -126,11 +127,8 @@ if ($api->method('get')) {
     }
 
     if (!$or['data'][0][0]) {
-        $or = [
-            'data' => false
-        ];
-        $api->json($or)->send();
+        $or = ['data' => false];
     }
-    else
-        $api->json($or)->send();
+
+    $api->json($or)->send();
 }
