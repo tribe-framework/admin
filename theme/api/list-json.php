@@ -69,15 +69,12 @@ $_search_direction = $_GET['order'][0]['dir'] ?? 'DESC';
 $_search_column = ($_GET['order'][0]['column'] ? $columns[$_GET['order'][0]['column']] : 'id');
 
 if ($api->method('get')) {
-    if ($types['user']['roles_restricted_within_matching_modules'] ?? false) {
-        $user_restricted_to_input_modules = array_intersect(array_keys($currentUser), array_keys($types));
-    }
 
     //create search_var for $dash->get_all_ids
     //if type is user, use role as well
     $search_var = ($_type == 'user') ? ['type' => $_type, 'role_slug' => $_role] : $_type;
 
-    //if more than 25k records, use SQL directly
+    //if more than 5k records, use SQL directly
     if ($unfiltered_ids_number>5000) {
         if ($_search_sql_query ?? false) {
             $_search_sql_query_joined = !$_search_by_column ? implode(' OR ', $_search_sql_query) : implode(' AND ', $_search_sql_query);
@@ -99,7 +96,7 @@ if ($api->method('get')) {
             'recordsFiltered' => $filterable_ids_number
         ];
     }
-    //if less than 25k records, simply use $dash->get_all_ids
+    //if less than 5k records, simply use $dash->get_all_ids
     else {
         $filterable_ids_number = $unfiltered_ids_number;
         $ids = $dash->get_all_ids($search_var, $_search_column,  $_search_direction);
@@ -115,10 +112,7 @@ if ($api->method('get')) {
     $_dbObjects = $dash->getObjects($ids);
 
     foreach ($_dbObjects as $_object) {
-        if (
-            ($types['user']['roles_restricted_within_matching_modules'] ?? false) &&
-            !$admin->is_access_allowed($_object['id'], $user_restricted_to_input_modules)
-        ) {
+        if ( !$admin->is_access_allowed($_object['id']) ) {
             continue;
         }
 
