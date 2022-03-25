@@ -10,14 +10,14 @@ $or=array();
 $_type = $_GET['type'] ?? null;
 $_role = $_GET['role'] ?? null;
 
-// count number of records, if number of records are more than 25k, use ajax method with datatables
+// count number of records, if number of records are more than 5k, use ajax method with datatables
 if ($_type == 'user') {
     $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type' AND `role_slug`='$_role'")[0]['total'];
 } else {
     $unfiltered_ids_number = $sql->executeSQL("SELECT COUNT(`id`) AS `total` FROM `data` WHERE `type`='$_type'")[0]['total'];
 }
 
-// if number is 25k build SQL query to fetch what user has typed in filter search
+// if number is 5k build SQL query to fetch what user has typed in filter search
 if ($unfiltered_ids_number>5000) {
     //load the search query
     $_search_query = addslashes(strtolower($_GET['search']['value']));
@@ -53,6 +53,13 @@ if ($unfiltered_ids_number>5000) {
                         LOWER(`content`->>'$.".$module['input_slug']."') = '' OR
                         LOWER(`content`->>'$.".$module['input_slug']."') LIKE '[\"\"]' OR
                         LOWER(`content`->>'$.".$module['input_slug']."') IS NULL
+                        )";
+                }
+                else if ($_search_query=='!**') {
+                    $_search_sql_query[] = "(
+                        LOWER(`content`->>'$.".$module['input_slug']."') != '' AND
+                        LOWER(`content`->>'$.".$module['input_slug']."') NOT LIKE '[\"\"]' AND
+                        LOWER(`content`->>'$.".$module['input_slug']."') IS NOT NULL
                         )";
                 }
                 else
