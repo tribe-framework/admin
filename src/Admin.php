@@ -90,24 +90,17 @@ class Admin {
         return $list_types;
     }
 
-    public function is_access_allowed($id, $user_restricted_to_input_modules = array()) {
+    public function is_access_allowed($id) {
+        $types = $this->dash->getTypes();
         $auth = new Auth();
         $currentUser = $auth->getCurrentUser();
 
         //if user has even on field allowing access to edit post, they will be given access to the post
         $allowed_access = 0;
-        if (count($user_restricted_to_input_modules)) {
-            foreach ($user_restricted_to_input_modules as $key => $value) {
-                if (is_array($this->dash->get_content_meta($id, $value)) && count(array_intersect($currentUser[$value], $this->dash->get_content_meta($id, $value)))) {
-                    $allowed_access = 1;
-                    break;
-                } elseif (in_array($this->dash->get_content_meta($id, $value), $currentUser[$value]) || ($currentUser[$value] && $this->dash->get_content_meta($id, $value) == $currentUser[$value])) {
-                    $allowed_access = 1;
-                    break;
-                }
-            }
+        if ( $types['user']['roles'][$currentUser['role_slug']]['role'] == 'admin' || $types['user']['roles'][$currentUser['role_slug']]['role'] == 'crew' ) {
+           $allowed_access = true;
         } else {
-            $allowed_access = 1;
+            $allowed_access = false;
         }
 
         return $allowed_access;

@@ -168,6 +168,8 @@ class Functions {
         $currentUser = $auth->getCurrentUser();
         $types = $dash->getTypes();
 
+        
+
         $post = array();
 
         //little messy right now, too many overlapping variables
@@ -187,7 +189,7 @@ class Functions {
 
         // edit button
         $_editBtn = '';
-        if ($currentUser['role'] == 'admin' || $currentUser['user_id'] == $_object['user_id']) {
+        if ($types['user']['roles'][$currentUser['role_slug']]['role'] == 'admin' || ($types['user']['roles'][$currentUser['role_slug']]['role'] == 'crew' && $_object['content_privacy'] == 'pending') || $currentUser['user_id'] == $_object['user_id']) {
             $_editRole = $_type == 'user' ? '&role=' . $_role : '';
             $_editBtn = "<a class='edit_button badge badge-sm border border-dark font-weight-bold text-uppercase' title='Click here to edit' data-type='{$post['type']}' data-role='{$post['role']}' data-slug='{$post['slug']}' data-id='{$post['id']}' href='#editModal' data-toggle='modal' data-href='/admin/edit?type={$post['type']}&id={$post['id']}{$_editRole}'><i class='fas fa-edit text-success'></i>&nbsp;Edit</a>";
         }

@@ -10,7 +10,7 @@ $(document).ready(() => {
 		isServerSide = true;
 	}
 
-	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}`;
+	let datatableAjaxUrl = `/admin/${table.data('jsonpath')}?type=${table.data('type')}&role=${table.data('role')}`;
 
 	let datatableOptions = {
         processing: isProcessing,
