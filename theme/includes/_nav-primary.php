@@ -14,29 +14,11 @@ $admin_menus['admin_menu']['logo']['name'] = "{$menus['admin_menu']['logo']['nam
 $items = $admin_menus['admin_menu'];
 $session_user = $dash->getSessionUser();
 ?>
-<nav id="navPrimary" class="navbar navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0 position-sticky">
+<nav id="navPrimary" class="navbar navbar-expand-md navbar-light bg-primary mb-4 pt-1 pb-0">
     <!--  logo  -->
     <div>
-        <a href="/admin" class="navbar-brand cs-hover" title="Dashboard">
-            <i class="fas fa-tachometer-alt"></i>
-        </a>
-        <a href="<?= $items['logo']['href'] ?? '#' ?>" class="navbar-brand text-white text-decoration-none cs-hover" title="Preview" target="_blank">
-            <?php if (isset($items['logo']['src']) && trim($items['logo']['src'])): ?>
-                <img <?= isset($items['logo']['height']) ? "height='{$items['logo']['height']}'" : '' ?> src="<?= $items['logo']['src'] ?>" alt="">
-            <?php else: ?>
-                <?php
-                if (isset($items['logo']['name'])) :
-                    echo $items['logo']['name'];
-                    ?>
-                    <?php if (isset($items['logo']['byline'])): ?>
-                    <span class="small byline"><?= $items['logo']['byline'] ?></span>
-                <?php endif; ?>
-                <?php
-                else:
-                    echo 'Wildfire';
-                endif;
-                ?>
-            <?php endif; ?>
+        <a href="/" class="navbar-brand" title="Visit site">
+            <i class="fas fa-angle-double-left"></i>&nbsp;<?= $items['logo']['name'] ?? 'Tribe' ?>
         </a>
     </div>
 

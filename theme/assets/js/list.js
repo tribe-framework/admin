@@ -23,9 +23,7 @@ $(document).ready(() => {
 		},
 		rowId: [0],
 		deferRender: true,
-		fixedHeader: {
-        	headerOffset: document.querySelector('#navPrimary').clientHeight
-		},
+		fixedHeader: true,
 		dom: '<"#top.d-flex"iflp>rt<"#bottom1.d-flex"iflp><"#bottom2"B>',
 		lengthMenu: [ [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000], [10, 25, 50, 100, 250, 500, 1000, 2500, 10000, 25000] ],
 		pageLength: 50,
