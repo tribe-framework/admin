@@ -16,15 +16,6 @@ nav#navPrimary {
   z-index: 10;
 }
 
-nav a:hover:not(.cs-hover) {
-  background-color: var(--secondary);
-  color: var(--white);
-}
-
-nav a.cs-hover:hover {
-  color: var(--info) !important;
-}
-
 .sticky-bottom,
 .sticky-top {
   position: sticky;
