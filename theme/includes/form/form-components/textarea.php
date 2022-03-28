@@ -8,9 +8,11 @@
  * @var array $post
  * @var array $types
  */
+
+$is_multi_text = $module_input_type == 'multi-textarea' || $module_input_type == 'multi_textarea';
 ?>
 
-<div class="textarea-group" id="textarea-group-<?= $module_input_slug_lang ?>">
+<div class="textarea-group dragula-container" id="textarea-group-<?= $module_input_slug_lang ?>">
     <?php
     $type_name_values = array();
 
@@ -24,9 +26,10 @@
 
     foreach ($type_name_values as $i => $type_name_value):
         if ($i < 1 || trim($type_name_value)):
-    ?>
-        <?php
-            $textarea_name = $module_input_slug_lang . (($module_input_type == 'multi-textarea' || $module_input_type == 'multi_textarea') ? '[]' : '');
+            if ($is_multi_text) {
+                echo "<div class='dragula'>";
+            }
+            $textarea_name = $module_input_slug_lang . ($is_multi_text ? '[]' : '');
             $placeholder = $module_input_placeholder ?: ucfirst($types[$type]['name']) . " $module_input_slug_lang";
         ?>
         <div class="input-group mt-5">
@@ -63,6 +66,9 @@
         </div>
     <?php
         endif; // trim $type_name_value
+        if ($is_multi_text) {
+            echo "</div>"; # dragula
+        }
     endforeach;
     ?>
 </div>
