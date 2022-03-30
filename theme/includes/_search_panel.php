@@ -4,6 +4,9 @@ $fn = new \Wildfire\Admin\Functions;
 /**
  * doc
  * $db_record is mentioned in /admin/index.php
+ * @var object $dash
+ * @var array $types
+ * @var array $db_record
  */
 ?>
 
@@ -108,8 +111,7 @@ $fn = new \Wildfire\Admin\Functions;
                 
                 <?php
                 foreach ($types as $type) {
-
-                    if ($type['type']=='content' || $type['type']=='user' || $type['type']=='entity') {
+                    if (('content' == ($type['type'] ?? null)) || ('user' == ($type['type'] ?? null)) || ('entity' == $type['type'] ?? null)) {
                         $ids = $dash->get_ids(array('type'=>$type['slug']), '=', 'AND');
                         if ($ids[0]['id']) {
                             $total = count($ids);
