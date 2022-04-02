@@ -282,6 +282,7 @@ function refreshEditForm() {
             .then((data) => {
                 $('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
                 $('.save_btn').prop('disabled', false);
+				$('.view_btn').removeClass('disabled').attr('href', data.last_data[0].url);
                 $('#save-success').toast('show');
                 $('input[name=id]').val(data.last_data[0].id);
                 $('input[name=slug]').val(data.last_data[0].slug);
