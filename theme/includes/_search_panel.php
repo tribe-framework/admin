@@ -4,6 +4,10 @@ $fn = new \Wildfire\Admin\Functions;
 /**
  * doc
  * $db_record is mentioned in /admin/index.php
+ * @var object $dash
+ * @var object $sql
+ * @var array $types
+ * @var array $db_record
  */
 ?>
 
@@ -93,32 +97,38 @@ $fn = new \Wildfire\Admin\Functions;
 
 <div class="col-lg-6 mb-2 mb-lg-0">
     <div class="card">
-        <div class="card-header font-weight-bold text-uppercase small px-3 py-1"><em><span class="fad fa-analytics"></span>&nbsp;&nbsp;&nbsp;Analysis</em></div>
+        <div class="card-header font-weight-bold text-uppercase small px-3 py-1">
+            <em><span class="fad fa-analytics"></span>&nbsp;&nbsp;&nbsp;Analysis</em>
+        </div>
 
         <div class="card-body p-0">
-
             <table class="table">
                 <thead>
-                <tr>
-                  <th scope="col" class="py-0 font-weight-light">Type</th>
-                  <th scope="col" class="py-0 font-weight-light">Count</th>
-                </tr>
+                    <tr>
+                        <th scope="col" class="py-0 font-weight-light">Type</th>
+                        <th scope="col" class="py-0 font-weight-light">Count</th>
+                    </tr>
                 </thead>
-                <tbody>
-                
-                <?php
-                foreach ($types as $type) {
 
-                    if ($type['type']=='content' || $type['type']=='user' || $type['type']=='entity') {
-                        $ids = $dash->get_ids(array('type'=>$type['slug']), '=', 'AND');
-                        if ($ids[0]['id']) {
-                            $total = count($ids);
-                            echo '<tr><th scope="row" class="py-0 font-weight-light">'.$type['slug'].'</th><td class="py-0 font-weight-light">'.$total.'</td></tr>';
-                        }
+                <tbody>
+                <?php
+                $db_types = [];
+                foreach ($types as $type) {
+                    if (!in_array(($type['type'] ?? ''), ['content', 'user', 'entity'])) {
+                        continue;
+                    }
+                    $db_types[] = $type['slug'];
+                }
+
+                $db_types = implode("','", $db_types);
+                $stats = $sql->executeSQL("SELECT type,count(*) as count FROM data WHERE type IN ('{$db_types}') GROUP BY type");
+
+                if ($stats) {
+                    foreach ($stats as $stat) {
+                        echo "<tr><th scope='row' class='py-0 font-weight-light text-capitalize'>{$types[$stat['type']]['plural']}</th><td class='py-0 font-weight-light'>{$stat['count']}</td></tr>";
                     }
                 }
                 ?>
-
                 </tbody>
             </table>
         </div>

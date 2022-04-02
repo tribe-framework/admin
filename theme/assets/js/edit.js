@@ -136,9 +136,9 @@ function refreshEditForm() {
 		$(this).closest('.grid-item').remove();
 	});
 
-	var drake = dragula({
+	dragula({
 	  isContainer: function (el) {
-	    return el.classList.contains('dragula-container');
+		return el.classList.contains('dragula-container');
 	  },
 	  direction: 'vertical'
 	});

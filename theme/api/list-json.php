@@ -73,7 +73,7 @@ if ($unfiltered_ids_number>5000) {
 $_search_length = $_GET['length'] ?? 50;
 $_search_start = $_GET['start'] ?? 0;
 $_search_direction = $_GET['order'][0]['dir'] ?? 'DESC';
-$_search_column = ($_GET['order'][0]['column'] ? $columns[$_GET['order'][0]['column']] : 'id');
+$_search_column = ((isset($_GET['order']) && $_GET['order'][0]['column']) ? $columns[$_GET['order'][0]['column']] : 'id');
 
 if ($api->method('get')) {
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * @var object $admin
+ * @var object $dash
+ * @var array $currentUser
+ */
 require_once __DIR__.'/../includes/_header.php';
 
 echo $admin->get_admin_menu('dash');
