@@ -26,7 +26,16 @@
                 $option=$dash->get_content($opt['id']);
                 $titler=$dash->get_type_title_data($option);
                 $title_slug=$titler['slug'];
-                echo '<option value="'.$option['slug'].'" '.(($post[$module_input_slug_lang]==$option['slug'])?'selected="selected"':'').'>'.$option[$title_slug].'</option>';
+
+                $_value = $option['slug'] ?? '';
+                $_placeholder = $option[$title_slug] ?? '';
+
+                $_is_selected = '';
+                if ($post[$module_input_slug_lang] == $option['slug']) {
+                    $_is_selected = 'selected';
+                }
+
+                echo "<option value='{$_value}' {$_is_selected}>{$_placeholder}</option>";
             }
         }
         ?>
