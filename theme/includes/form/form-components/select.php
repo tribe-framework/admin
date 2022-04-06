@@ -31,7 +31,7 @@
                 $_placeholder = $option[$title_slug] ?? '';
 
                 $_is_selected = '';
-                if ($post[$module_input_slug_lang] == $option['slug']) {
+                if (($post[$module_input_slug_lang] ?? null) == $option['slug']) {
                     $_is_selected = 'selected';
                 }
 
