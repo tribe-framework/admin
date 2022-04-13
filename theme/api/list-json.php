@@ -34,7 +34,7 @@ if ($unfiltered_ids_number>5000) {
 
     // loading all list-able columns for the type
     foreach ($types[$_type]['modules'] as $module)  {
-        if (isset($module['list_field'])) {
+        if (isset($module['list_field']) || $module['input_slug']=='id') {
             $columns[]=$module['input_slug'];
         }
 
@@ -43,27 +43,38 @@ if ($unfiltered_ids_number>5000) {
             if ( isset($module['list_searchable']) && trim($_search_query) ) {
                 $columns[]=$module['input_slug'];
                 $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+                $_search_sql_query[] = "`id`='".$_search_query."'";
             }
         } else {
             if ($key = array_search($module['input_slug'], $_search_by_column)) {
                 $columns[]=$module['input_slug'];
+
+                if ($module['input_slug']=='id')
+                    $input_module_key = "`id`";
+                else
+                    $input_module_key = "LOWER(`content`->>'$.".$module['input_slug']."')";
+
                 $_search_query = $_search_query_by_column[$key];
                 if ($_search_query=='**') {
                     $_search_sql_query[] = "(
-                        LOWER(`content`->>'$.".$module['input_slug']."') = '' OR
-                        LOWER(`content`->>'$.".$module['input_slug']."') LIKE '[\"\"]' OR
-                        LOWER(`content`->>'$.".$module['input_slug']."') IS NULL
+                        ".$input_module_key." = '' OR
+                        ".$input_module_key." LIKE '[\"\"]' OR
+                        ".$input_module_key." IS NULL
                         )";
                 }
                 else if ($_search_query=='!**') {
                     $_search_sql_query[] = "(
-                        LOWER(`content`->>'$.".$module['input_slug']."') != '' AND
-                        LOWER(`content`->>'$.".$module['input_slug']."') NOT LIKE '[\"\"]' AND
-                        LOWER(`content`->>'$.".$module['input_slug']."') IS NOT NULL
+                        ".$input_module_key." != '' AND
+                        ".$input_module_key." NOT LIKE '[\"\"]' AND
+                        ".$input_module_key." IS NOT NULL
                         )";
                 }
-                else
-                    $_search_sql_query[] = "LOWER(`content`->>'$.".$module['input_slug']."') LIKE '%{$_search_query}%'";
+                else {
+                    $_search_sql_query[] = "(
+                        ".$input_module_key." LIKE '%{$_search_query}%' OR
+                        ".$input_module_key." = '$_search_query'
+                    )";
+                }
             }
         }
     }
