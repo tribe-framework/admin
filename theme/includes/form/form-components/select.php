@@ -4,7 +4,7 @@
             <?=$module_input_placeholder?$module_input_placeholder:'Select '.$module_input_slug_lang ?>
         </option>
         <?php
-        if ($options == $module_input_options) {
+        if ($options=$module_input_options) {
             foreach ($options as $opt) {
                 if (is_array($opt)) {
                     $_slug = $opt['slug'] ?? '';
