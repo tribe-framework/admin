@@ -6,7 +6,6 @@
         <?php
         if ($options=$module_input_options) {
             foreach ($options as $opt) {
-                print_r($opt);
                 if (is_array($opt)) {
                     $_slug = $opt['slug'] ?? '';
                     $_title = $opt['title'] ?? '';
@@ -27,6 +26,7 @@
                 $option=$dash->getObject($opt['id']);
                 $titler=$dash->get_type_title_data($option);
                 $title_slug=$titler['slug'];
+                echo "<option value=''>Test</option>";
                 echo '<option value="'.$option['slug'].'" '.(($post[$module_input_slug_lang]==$option['slug'])?'selected="selected"':'').'>'.$option[$title_slug].'</option>';
             }
         }
