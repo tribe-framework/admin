@@ -15,7 +15,7 @@
                         $_selected = (($post[$module_input_slug_lang] ?? null) == $opt['slug']) ? 'selected="selected"' : '';
                     }
 
-                    echo "<option value='$_slug' $_selected>'debugging'</option>";
+                    echo "<option value='{$_slug}' {$_selected}>{$_title}</option>";
                 } else {
                     echo '<option value="'.$opt.'" '.(($post[$module_input_slug_lang]==$opt)?'selected="selected"':'').'>'.$opt.'</option>';
                 }
