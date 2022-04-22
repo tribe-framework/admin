@@ -18,7 +18,7 @@
                         foreach ($options as $opt) {
                             $i++;
                             $option=$dash->get_content($opt['id']);
-                            $titler=$dash->get_type_title_data($option);
+                            $titler=$dash->get_type_title_data($option['type']);
                             $title_slug=$titler['slug'];
                             echo '
                             <tr><td class="grid-item p-3" data-name="'.$module_input_slug_lang.'[]" id="'.$module_input_slug_lang.'_customSwitch_'.$i.'" data-value="'.$option['slug'].'" '.(in_array($option['slug'], $post[$module_input_slug_lang])?'data-checked="checked"':'').'><span id="multi_drop_option_text_'.$module_input_slug_lang.'_'.$i.'">'.$option[$title_slug].' (ID: '.$opt['id'].')</span> <a href="#" class="float-right select_multi_drop_option" data-multi_drop_option_text="multi_drop_option_text_'.$module_input_slug_lang.'_'.$i.'" data-multi_drop_filled_table="multi_drop_filled_table_'.$module_input_slug_lang.'"><span class="fas fa-chevron-circle-left"></span></a></td></tr>';
