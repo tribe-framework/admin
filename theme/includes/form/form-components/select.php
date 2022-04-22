@@ -6,6 +6,7 @@
         <?php
         if ($options=$module_input_options) {
             foreach ($options as $opt) {
+                print_r($opt);
                 if (is_array($opt)) {
                     $_slug = $opt['slug'] ?? '';
                     $_title = $opt['title'] ?? '';
