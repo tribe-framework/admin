@@ -24,7 +24,7 @@
                         foreach ($options as $opt):
                             $i++;
                             $option = $dash->getObject($opt['id']);
-                            $titler = $dash->get_type_title_data($option);
+                            $titler = $dash->get_type_title_data($option['type']);
                             $title_slug = $titler['slug'];
                     ?>
                     <div class="custom-control custom-switch">
