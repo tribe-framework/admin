@@ -14,6 +14,7 @@ $components = [
     'multi-textarea' => 'textarea',
     'multi_textarea' => 'textarea',
     'typeout' => 'typeout',
+    'editorjs' => 'editorjs',
     'date' => 'date',
     'datetime-local' => 'datetime-local',
     'datetime_local' => 'datetime-local',

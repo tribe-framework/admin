@@ -77,6 +77,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="/vendor/wildfire/admin/theme/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/clipboard.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/keymaster.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
