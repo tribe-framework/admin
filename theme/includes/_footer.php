@@ -78,7 +78,12 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="/vendor/wildfire/admin/theme/assets/plugins/clipboard.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/keymaster.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
 <?php // js files to be loaded for specific pages - to reduce network requests ?>

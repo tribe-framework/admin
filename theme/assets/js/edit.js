@@ -32,6 +32,25 @@ async function loadEditForm (e) {
 
 	refreshEditForm();
 	enableEditFormButtons();
+
+	//EditorJS init
+	let editor = new EditorJS({
+	   tools:{
+	       header:Header,
+	       delimiter: Delimiter,
+	       paragraph: {
+	        class: Paragraph,
+	        inlineToolbar: true,
+	      },
+	      embed: Embed,
+	      image: SimpleImage,
+	   }
+	});
+	try {
+	  await editor.isReady;
+	} catch (reason) {
+	  console.log(`Editor.js initialization failed because of ${reason}`)
+	}
 }
 
 function enableEditFormButtons () {
