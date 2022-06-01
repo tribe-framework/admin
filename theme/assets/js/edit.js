@@ -73,6 +73,7 @@ async function loadEditFormContent (link) {
 // adds functionality to form buttons once they're loaded
 function refreshEditForm() {
 	// assign key shortcuts
+	console.log('refresing form');
 	key('⌘+s, ctrl+s', function(e){$('.save_btn').trigger('click'); e.preventDefault();});
 	key('⌘+b, ctrl+b', function(e){$('.typeout-bold').trigger('click'); e.preventDefault();});
 	key('⌘+i, ctrl+i', function(e){$('.typeout-italic').trigger('click'); e.preventDefault();});

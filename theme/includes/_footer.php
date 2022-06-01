@@ -104,6 +104,17 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/js/edit.js"></script>
+<?php
+// this part of code is to be used only on edit page that opens up as a form in new page, and not modal one
+if (isset($_GET['edit_form'])) :
+?>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
+<script>
+    $(document).ready(() => {
+        refreshEditForm();
+    });
+</script>
+<?php endif ?>
 <script src="/vendor/wildfire/admin/theme/assets/js/custom.js"></script>
 
 </body>

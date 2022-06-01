@@ -218,8 +218,10 @@ if ($post) {
     </div>
 </div>
 
+<?php if (!isset($_GET['edit_form'])): ?>
 <!-- js for typeout -->
-<script type="text/javascript" src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
+<?php endif ?>
 
 <?php
 if (($_GET['edit_form'] ?? null) == 'true') {
