@@ -4,6 +4,13 @@ require_once __DIR__ . '/../_init.php';
 $log = null;
 $save_activity_log = $types['webapp']['display_activity_log'] ?? false;
 
+$do_redirect = false;
+if (($_GET['redirect_back'] ?? null) == 'true') {
+    $do_redirect = true;
+    $redirect_uri = $_POST['redirect_uri'];
+    unset($_POST['redirect_uri']);
+}
+
 if ($save_activity_log && ($_POST['function'] != 'do_delete')) {
     if (is_numeric($_POST['id'])) {
         $log = $dash->getAttribute($_POST['id'], 'mysql_activity_log');
@@ -22,6 +29,11 @@ $last_query = [
     'last_data' => ${$_POST['class']}->get_last_data(),
     'last_redirect' => ${$_POST['class']}->get_last_redirect()
 ];
+
+if ($do_redirect) {
+    $redirect_uri = urldecode($redirect_uri);
+    header("Location: {$redirect_uri}");
+}
 
 $api = new \Wildfire\Api;
 $api->json($last_query)->send();

@@ -12,8 +12,10 @@
  */
 
 require_once __DIR__ . '/../_init.php';
+$edit_form = false;
 
 if (($_GET['edit_form'] ?? null) == 'true') {
+    $edit_form = true;
     require_once __DIR__ .'/../includes/_header.php';
 }
 
@@ -63,7 +65,8 @@ if (isset($_GET['id']) && !($pid = $_GET['id'])) {
     </div>
 </div>
 
-<form method="post" class="edit_form" action="/admin/json" autocomplete="off">
+<form method="post" class="edit_form" action="/admin/json<?= $edit_form ? '?redirect_back=true' : '' ?>" autocomplete="off">
+    <input type="hidden" name="redirect_uri" value="<?= urlencode($_SERVER['REQUEST_URI']) ?>">
     <?=
 		$admin->get_admin_menu(
 			($types[$type]['disallow_editing'] ?? null) ? 'view' : 'edit',
