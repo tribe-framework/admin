@@ -284,7 +284,7 @@ function refreshEditForm() {
     // submit form over ajax - used in edit.php
     (() => {
         let editForm = document.querySelector('.edit_form');
-        if (!editForm) return;
+		if (!editForm || FORM_SUBMIT_NATURAL) return;
 
         editForm.addEventListener('submit', async function (e) {
             e.preventDefault();

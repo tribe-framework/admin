@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../_init.php';
 
+$dash = new \Wildfire\Core\Dash;
+
 $log = null;
 $save_activity_log = $types['webapp']['display_activity_log'] ?? false;
 
@@ -8,6 +10,7 @@ $do_redirect = false;
 if (($_GET['redirect_back'] ?? null) == 'true') {
     $do_redirect = true;
     $redirect_uri = $_POST['redirect_uri'];
+    $redirect_uri = urldecode($redirect_uri);
     unset($_POST['redirect_uri']);
 }
 
@@ -30,9 +33,9 @@ $last_query = [
     'last_redirect' => ${$_POST['class']}->get_last_redirect()
 ];
 
-if ($do_redirect) {
-    $redirect_uri = urldecode($redirect_uri);
+if ($do_redirect && isset($redirect_uri)) {
     header("Location: {$redirect_uri}");
+    die();
 }
 
 $api = new \Wildfire\Api;

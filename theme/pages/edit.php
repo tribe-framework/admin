@@ -225,5 +225,8 @@ if ($post) {
 
 <?php
 if (($_GET['edit_form'] ?? null) == 'true') {
+    echo "<script> const FORM_SUBMIT_NATURAL = true; </script>";
     require_once __DIR__ .'/../includes/_footer.php';
+} else {
+    echo "<script> const FORM_SUBMIT_NATURAL = false; </script>";
 }
