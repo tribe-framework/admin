@@ -6,6 +6,9 @@ $dash = new \Wildfire\Core\Dash;
 $log = null;
 $save_activity_log = $types['webapp']['display_activity_log'] ?? false;
 
+\Wildfire\Core\Console::json($_POST, 1);
+die();
+
 $do_redirect = false;
 if (($_GET['redirect_back'] ?? null) == 'true') {
     $do_redirect = true;

@@ -46,6 +46,7 @@ async function loadEditForm (e) {
 	      image: SimpleImage,
 	   }
 	});
+	
 	try {
 	  await editor.isReady;
 	} catch (reason) {

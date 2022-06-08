@@ -40,6 +40,7 @@ $components = [
     'color' => 'color',
     'multi-color' => 'color',
     'multi_color' => 'color',
+    'display' => 'display'
 ];
 
 foreach ($types[$type]['modules'] as $module) {
