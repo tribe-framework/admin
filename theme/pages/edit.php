@@ -218,11 +218,6 @@ if ($post) {
     </div>
 </div>
 
-<?php if (!isset($_GET['edit_form'])): ?>
-<!-- js for typeout -->
-<script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
-<?php endif ?>
-
 <?php
 if (($_GET['edit_form'] ?? null) == 'true') {
     echo "<script> const FORM_SUBMIT_NATURAL = true; </script>";

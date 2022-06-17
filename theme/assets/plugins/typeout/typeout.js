@@ -1,11 +1,10 @@
-$( document ).ready(function() {
-	
+function initTypeOut () {
     document.execCommand('enableObjectResizing');
-	document.execCommand('enableInlineTableEditing');
+    document.execCommand('enableInlineTableEditing');
 
-	$('.typeout-exec').on("click", function() {
-		document.execCommand($(this).data('typeout-command'));
-	});
+    $('.typeout-exec').on("click", function() {
+        document.execCommand($(this).data('typeout-command'));
+    });
 
     $('.typeout-input-exec').on("click", function() {
         var savedSel = saveSelection();
@@ -34,28 +33,28 @@ $( document ).ready(function() {
         }
     });
 
-	$('.typeout-input').on("click", function() {
-		var savedSel = saveSelection();
-		var inputData = prompt($(this).data('typeout-info'), '');
-		restoreSelection(savedSel);
-		if ($(this).data('typeout-command')=='insertPDF') {
-			if(inputData)
-				inputData='<iframe border="0" width="100%" height="600px" src="https://drive.google.com/viewer?embedded=true&url='+inputData+'"></iframe>';
-			command='insertHTML';
-		}
-		else
-			command=$(this).data('typeout-command');
-		if (inputData)
-			document.execCommand(command, false, inputData);
-	});
+    $('.typeout-input').on("click", function() {
+        var savedSel = saveSelection();
+        var inputData = prompt($(this).data('typeout-info'), '');
+        restoreSelection(savedSel);
+        if ($(this).data('typeout-command')=='insertPDF') {
+            if(inputData)
+                inputData='<iframe border="0" width="100%" height="600px" src="https://drive.google.com/viewer?embedded=true&url='+inputData+'"></iframe>';
+            command='insertHTML';
+        }
+        else
+            command=$(this).data('typeout-command');
+        if (inputData)
+            document.execCommand(command, false, inputData);
+    });
 
     $(".typeout-content").focusout(function(){
-        var element = $(this);        
+        var element = $(this);
         if (!element.text().replace(" ", "").length) {
             element.empty();
         }
     });
-});
+}
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();

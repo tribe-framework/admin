@@ -32,25 +32,32 @@ async function loadEditForm (e) {
 
 	refreshEditForm();
 	enableEditFormButtons();
+	initEditorJs();
+	initTypeOut();
+}
 
-	//EditorJS init
-	let editor = new EditorJS({
-	   tools:{
-	       header:Header,
-	       delimiter: Delimiter,
-	       paragraph: {
-	        class: Paragraph,
-	        inlineToolbar: true,
-	      },
-	      embed: Embed,
-	      image: SimpleImage,
-	   }
-	});
-	
+async function initEditorJs () {
+	if (!document.querySelector('#editojs')) {
+		return;
+	}
+
 	try {
-	  await editor.isReady;
+		//EditorJS init
+		let editor = new EditorJS({
+			tools:{
+				header:Header,
+				delimiter: Delimiter,
+				paragraph: {
+					class: Paragraph,
+					inlineToolbar: true,
+				},
+				embed: Embed,
+				image: SimpleImage,
+			}
+		});
+		await editor.isReady;
 	} catch (reason) {
-	  console.log(`Editor.js initialization failed because of ${reason}`)
+		console.error(`Editor.js initialization failed because of ${reason}`)
 	}
 }
 
