@@ -83,7 +83,7 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
-    
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
 
 <?php // js files to be loaded for specific pages - to reduce network requests ?>
@@ -103,10 +103,9 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js"></script>
 <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
-<script src="/vendor/wildfire/admin/theme/assets/js/edit.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.js"></script>
 <script src="/vendor/wildfire/admin/theme/assets/js/custom.js"></script>
+<script src="/vendor/wildfire/admin/theme/assets/js/edit.js"></script>
 
 </body>
-
 </html>

@@ -93,10 +93,17 @@ function refreshEditForm() {
 		});
 	}
 
-	$('.typeout-content').each(function() {update_textarea($(this).data('input-slug'));});
+	$('.typeout-content').each(function() {
+		update_textarea($(this).data('input-slug'));
+	});
 
-	$(document).on('keyup', '.typeout-content', function() {update_textarea($(this).data('input-slug'));});
-	$(document).on('blur', '.typeout-content', function() {update_textarea($(this).data('input-slug'));});
+	$(document).on('keyup', '.typeout-content', function() {
+		update_textarea($(this).data('input-slug'));
+	});
+
+	$(document).on('blur', '.typeout-content', function() {
+		update_textarea($(this).data('input-slug'));
+	});
 
 	// multi add button
 	(() => {
@@ -373,3 +380,14 @@ function dropMultiFormField(e) {
 	e.preventDefault();
 	e.target.closest('.dragula').remove();
 }
+
+(() => {
+	if (!FORM_SUBMIT_NATURAL) {
+		return;
+	}
+
+	refreshEditForm();
+	enableEditFormButtons();
+	initEditorJs();
+	initTypeOut();
+})();
