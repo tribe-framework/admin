@@ -1,12 +1,13 @@
 'use strict';
 
 function activateTableButtons () {
-	let editButtons = document.querySelectorAll('.edit_button');
+	let editButtons = document.querySelectorAll(".edit_button:not([data-event-set='1'])");
 	if (!editButtons) return;
 
 	editButtons.forEach(btn => {
 		if (typeof btn.onclick != 'loadEditForm') {
 			btn.addEventListener('click', async e => await loadEditForm(e));
+			btn.dataset.eventSet = 1;
 		}
 	})
 }
@@ -306,27 +307,26 @@ function refreshEditForm() {
             $('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
             $('.save_btn').prop('disabled', true);
 
-            let response = await fetch(this.action, {
+            let res = await fetch(this.action, {
                 method: 'POST',
                 body: new FormData(this)
             })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                $('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
-                $('.save_btn').prop('disabled', false);
-				$('.view_btn').removeClass('disabled').attr('href', data.last_data[0].url);
-                $('#save-success').toast('show');
-                $('input[name=id]').val(data.last_data[0].id);
-                $('input[name=slug]').val(data.last_data[0].slug);
-                $('.object_slug').text(data.last_data[0].slug);
-                $('.editModalClose').attr('data-id', data.last_data[0].id);
-                $('#editModal .modal-title').text('#'+data.last_data[0].id);
-                $('#slug_update').prop('checked', false);
-                $('#slug_update_div').removeClass('d-none');
-            });
 
+			res = await res.json()
+
+			if (res) {
+				$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
+				$('.save_btn').prop('disabled', false);
+				$('.view_btn').removeClass('disabled').attr('href', data.last_data[0].url);
+				$('#save-success').toast('show');
+				$('input[name=id]').val(data.last_data[0].id);
+				$('input[name=slug]').val(data.last_data[0].slug);
+				$('.object_slug').text(data.last_data[0].slug);
+				$('.editModalClose').attr('data-id', data.last_data[0].id);
+				$('#editModal .modal-title').text('#'+data.last_data[0].id);
+				$('#slug_update').prop('checked', false);
+				$('#slug_update_div').removeClass('d-none');
+			}
         });
     })()
 }
@@ -381,6 +381,7 @@ function dropMultiFormField(e) {
 	e.target.closest('.dragula').remove();
 }
 
+// add js events to nodes if form is loaded as standalone page
 (() => {
 	if (!FORM_SUBMIT_NATURAL) {
 		return;
