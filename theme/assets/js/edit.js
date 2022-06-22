@@ -317,13 +317,13 @@ function refreshEditForm() {
 			if (res) {
 				$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
 				$('.save_btn').prop('disabled', false);
-				$('.view_btn').removeClass('disabled').attr('href', data.last_data[0].url);
+				$('.view_btn').removeClass('disabled').attr('href', res.last_data[0].url);
 				$('#save-success').toast('show');
-				$('input[name=id]').val(data.last_data[0].id);
-				$('input[name=slug]').val(data.last_data[0].slug);
-				$('.object_slug').text(data.last_data[0].slug);
-				$('.editModalClose').attr('data-id', data.last_data[0].id);
-				$('#editModal .modal-title').text('#'+data.last_data[0].id);
+				$('input[name=id]').val(res.last_data[0].id);
+				$('input[name=slug]').val(res.last_data[0].slug);
+				$('.object_slug').text(res.last_data[0].slug);
+				$('.editModalClose').attr('data-id', res.last_data[0].id);
+				$('#editModal .modal-title').text('#'+res.last_data[0].id);
 				$('#slug_update').prop('checked', false);
 				$('#slug_update_div').removeClass('d-none');
 			}
