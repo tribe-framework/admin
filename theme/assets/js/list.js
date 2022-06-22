@@ -85,7 +85,8 @@ $(document).ready(() => {
 			else {
 		        $.post('/admin/single-datatable-json', {"id": id}, function(data) {
 		        	//REPLACE RECORD AT ROW NUMBER
-					listDatatable.row(`#${id}`).invalidate(data).draw(false);
+					listDatatable.row(`#${id}`).data(data);
+					listDatatable.row(`#${id}`).invalidate('dom').draw(false);
 		        }, 'json');
 		    }
 		}
