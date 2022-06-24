@@ -14,6 +14,7 @@
 require_once __DIR__ . '/../_init.php';
 $edit_form = false;
 
+// condition to load form independently as a page
 if (($_GET['edit_form'] ?? null) == 'true') {
     $edit_form = true;
     require_once __DIR__ .'/../includes/_header.php';
@@ -46,9 +47,6 @@ if (isset($_GET['id']) && !($pid = $_GET['id'])) {
     $pid = $dash->get_next_id();
 }
 ?>
-
-<!-- css for typeout -->
-<link rel="stylesheet" type="text/css" href="<?=ADMIN_URL?>/plugins/typeout/typeout.css">
 
 <!-- popup banner for save (probably not being used anymore) -->
 <div class="popup-banner">

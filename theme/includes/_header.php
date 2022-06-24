@@ -20,9 +20,11 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/wildfire.css">
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/plugins/fontawesome/css/all.min.css">
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/plugins/datatables/datatables.min.css">
+    <!-- css for typeout -->
+    <link rel="stylesheet" type="text/css" href="/vendor/wildfire/admin/theme/assets/plugins/typeout/typeout.css">
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/custom.css">
 
-<!--    jquery -->
+    <!--    jquery -->
     <script src="/vendor/wildfire/admin/theme/assets/plugins/jquery.min.js"></script>
 
 	<?php
