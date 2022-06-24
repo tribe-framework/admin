@@ -354,3 +354,9 @@ span.slug-ellipsis {
   left: 1rem;
   right: 1rem;
 }
+
+.swal2-popup,
+.swal2-styled.swal2-confirm,
+.swal2-styled.swal2-cancel {
+  border-radius: unset !important;
+}

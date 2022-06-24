@@ -74,6 +74,7 @@ $(document).ready(() => {
 	};
 
 	let listDatatable = table.DataTable(datatableOptions);
+	window.dtable = listDatatable;
 
 	$(document).on('click', '.editModalClose', function(e) {
 		let id = $(this).attr('data-id');

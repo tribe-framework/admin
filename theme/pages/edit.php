@@ -3,6 +3,9 @@
  * this code is responsible for editing and modifying content in admin dashboard
  * basically the form that the admin uses
  *
+ * @query type    tribe type of requested object
+ * @query id      database id of requested object
+ *
  * @var object $dash
  * @var object $admin
  * @var array $currentUser
@@ -12,20 +15,8 @@
  */
 
 require_once __DIR__ . '/../_init.php';
-$edit_form = false;
 
-// condition to load form independently as a page
-if (($_GET['edit_form'] ?? null) == 'true') {
-    $edit_form = true;
-    require_once __DIR__ .'/../includes/_header.php';
-}
-
-$role = null;
-
-if (isset($_GET['id'])) {
-	$post = $dash->getObject($_GET['id']);
-}
-
+// check if user is authorized to be here
 $is_user_allowed = ($currentUser['role'] == 'admin') || ($post['user_id'] == $currentUser['user_id']) || (!$_GET['id']);
 
 if (!$is_user_allowed) {
@@ -33,8 +24,21 @@ if (!$is_user_allowed) {
     die();
 }
 
+// condition to load form independently as a page
+$edit_form = false;
+if (($_GET['edit_form'] ?? null) == 'true') {
+    $edit_form = true;
+    require_once __DIR__ .'/../includes/_header.php';
+}
+
+$role = null;
+// probably deprecated
 if (isset($_GET['role'])) {
     $role = $types['user']['roles'][$_GET['role']];
+}
+
+if (isset($_GET['id'])) {
+	$post = $dash->getObject($_GET['id']);
 }
 
 if (($post['type'] ?? ($_GET['type'] ?? null)) != $type) {
@@ -65,12 +69,14 @@ if (isset($_GET['id']) && !($pid = $_GET['id'])) {
 
 <form method="post" class="edit_form" action="/admin/json<?= $edit_form ? '?redirect_back=true' : '' ?>" autocomplete="off">
     <input type="hidden" name="redirect_uri" value="<?= urlencode($_SERVER['REQUEST_URI']) ?>">
-    <?=
+    <?php
+    echo
 		$admin->get_admin_menu(
 			($types[$type]['disallow_editing'] ?? null) ? 'view' : 'edit',
 			$type,
 			$role['slug'] ?? '',
-			$_GET['id'] ?? ''
+			$_GET['id'] ?? '',
+            $edit_form
 		);
     ?>
 
@@ -218,6 +224,6 @@ if ($post) {
 
 <?php
 if (($_GET['edit_form'] ?? null) == 'true') {
-    echo "<script> const FORM_SUBMIT_NATURAL = true; </script>";
+    echo "<script> const FORM_IS_PAGE = true; </script>";
     require_once __DIR__ .'/../includes/_footer.php';
 }

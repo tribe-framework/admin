@@ -66,11 +66,19 @@ function enableEditFormButtons () {
 	enableCopyButton();
 
 	let closeButton = document.querySelector('button.close_btn');
-	if (!closeButton) return;
 
-	closeButton.addEventListener('click', () => {
-		document.querySelector('.editModalClose').click();
-	});
+	if (closeButton) {
+		closeButton.addEventListener('click', () => {
+			document.querySelector('.editModalClose').click();
+		});
+	}
+
+	let delButton = document.querySelector('button.delete_btn');
+	if (delButton) {
+		delButton.addEventListener('click', e => {
+			formDelete(e);
+		})
+	}
 }
 
 async function loadEditFormContent (link) {
@@ -299,7 +307,7 @@ function refreshEditForm() {
     // submit form over ajax - used in edit.php
     (() => {
         let editForm = document.querySelector('.edit_form');
-		if (!editForm || typeof FORM_SUBMIT_NATURAL != 'undefined') return;
+		if (!editForm || typeof FORM_IS_PAGE != 'undefined') return;
 
         editForm.addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -381,9 +389,53 @@ function dropMultiFormField(e) {
 	e.target.closest('.dragula').remove();
 }
 
+async function formDelete(e) {
+	e.preventDefault();
+	let button = e.target.closest('button');
+
+	let result = await Swal.fire({
+		title: 'Are you sure?',
+		text: "Your action will delete this record!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: 'var(--danger)',
+		cancelButtonColor: 'var(--primary)',
+		confirmButtonText: 'Yes, delete it!'
+	})
+
+	if (result.isConfirmed) {
+		let res = await fetch(`/admin/delete-record?id=${button.dataset.id}`, {
+			method: 'delete'
+		});
+		res = await res.json();
+
+		if (res.status === 'ok') {
+			if (typeof FORM_IS_PAGE === 'undefined') {
+				dtable.row(`#${button.dataset.id}`).remove().draw(false);
+				$('#editModal').modal('hide');
+			}
+
+			Swal.fire({
+				title: 'Deleted!',
+				text: 'Record has been deleted.',
+				icon: 'success',
+				confirmButtonColor: 'var(--primary)'
+			}).then(() => {
+				if (typeof FORM_IS_PAGE === 'undefined') return;
+
+				let searchParam = new URLSearchParams(document.location.search);
+				let type = searchParam.get('type');
+
+				history.replaceState(null, null, `/admin/list?type=${type}`);
+				window.location.reload(true);
+			});
+		}
+	}
+}
+
 // add js events to nodes if form is loaded as standalone page
 (() => {
-	if (!FORM_SUBMIT_NATURAL) {
+	if (!FORM_IS_PAGE) {
 		return;
 	}
 

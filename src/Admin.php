@@ -10,8 +10,9 @@ class Admin {
         $this->dash = new Dash();
     }
 
-    public function get_admin_menu($page, $type = '', $role_slug = '', $id = 0) {
+    public function get_admin_menu($page, $type = '', $role_slug = '', $id = 0, $edit_form = false) {
         $op = '';
+
         if ($page == 'dash') {
             $op .= '
 			<div class="mb-4"><div class="card-body p-0">
@@ -20,7 +21,7 @@ class Admin {
 			</div>
 			</div></div>';
         }
-        if ($page == 'list') {
+        elseif ($page == 'list') {
             $op .= '
 			<div class="mb-4"><div class="card-body p-0">
 			<div class="btn-toolbar justify-content-between">
@@ -28,23 +29,36 @@ class Admin {
 			</div>
 			</div></div>';
         }
-        if ($page == 'edit') {
-            $op .= '
-			<div class="mb-4 bg-white sticky-top" style="z-index: 100"><div class="card-body p-0">
-			<div class="btn-toolbar justify-content-center">
-			' . $this->edit_options($type, $id) . '
-			</div>
-			</div></div>';
+        elseif ($page == 'edit') {
+            $edit_options = $this->edit_options($type, $id, $edit_form);
+
+            $op .= "<div class='mb-4 bg-white sticky-top' style='z-index:100;'>
+                        <div class='card-body p-0'>
+                            <div class='btn-toolbar border-bottom py-2 border-light justify-content-center align-items-center'>{$edit_options}</div>
+                        </div>
+                    </div>";
         }
+
         return $op;
     }
 
-    public function edit_options($type, $id = 0) {
-        return '<div class="btn-group">
-					<button type="submit" class="btn px-5 btn-success rounded-0 save_btn"><span class="fas fa-save"></span>&nbsp;Save</button>
-					<a href="' . ($id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#') . '" target="new" class="btn px-5 btn-outline-primary rounded-0 view_btn ' . ($type == 'user' ? 'd-none' : '') . ' ' . ($id ? '' : 'disabled') . '"><span class="fas fa-external-link-alt"></span>&nbsp;View</a>
-                    <button type="button" class="btn px-5 btn-outline-primary rounded-0 close_btn"><span class="fas fa-times"></span>&nbsp;Close</button>
-				</div>';
+    public function edit_options($type, $id = 0, $edit_form = false): string
+    {
+        $view_url = $id ? BASE_URL . '/' . $type . '/' . $this->dash->getAttribute($id, 'slug') : '#';
+        $visibility_class = $type == 'user' ? 'd-none' : '';
+        $is_disabled = $id ? '' : 'disabled';
+
+        $button = [];
+        $button['save'] = "<button type='submit' class='btn px-5 btn-success rounded-0 save_btn'><i class='fas fa-save'></i> Save</button>";
+        $button['view'] = "<a href='{$view_url}' target='new' class='btn px-5 btn-outline-primary rounded-0 view_btn {$visibility_class}' {$is_disabled}><i class='fas fa-external-link-alt'></i> View</a>";
+        $button['delete'] = "<button type='button' class='btn px-5 btn-outline-danger rounded-0 delete_btn' data-id='{$id}'><i class='fas fa-trash-alt mr-2'></i>Delete</button>";
+        $button['close'] = $edit_form ? '' : "<button type='button' class='btn d-inline-flex align-items-center justify-content-center rounded-0 close_btn' title='Close'><i class='fas fa-times'></i></button>";
+
+        return "<h6 class='mb-0 text-muted'>#{$id}</h6>
+                <div class='btn-group mx-auto'>
+                    {$button['save']} {$button['view']} {$button['delete']}
+                </div>
+                {$button['close']}";
     }
 
     public function new_and_list($type, $role_slug = '') {

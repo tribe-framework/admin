@@ -1,3 +1,4 @@
+
 <?php
 
 require_once __DIR__ . '/../includes/_header.php';
@@ -148,15 +149,15 @@ foreach (array_column($types[$type]['modules'], 'list_field') as $is_listed)  {
 
 <!-- Modal -->
 <div class="modal fade editModal" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header d-none">
         <h5 class="modal-title" id="editModalLabel">...</h5>
         <button type="button" class="close editModalClose" data-id="" data-is_new="" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"><span class="fal fa-lg fa-times"></span></span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pt-0">
         ...
       </div>
     </div>
