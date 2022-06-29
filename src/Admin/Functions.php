@@ -230,7 +230,7 @@ class Functions {
         $donotlist = 0;
         foreach ($types[$_type]['modules'] as $module) {
             // skip if 'list_field' is set to false on module
-            if (!($module['list_field'] ?? false)) {
+            if (!($module['list_field'] ?? false) && !($module['list_searchable'] ?? false)) {
                 continue;
             }
 
@@ -327,8 +327,22 @@ class Functions {
 
             if (($module['list_non_empty_only'] ?? false) && !trim($cont)) {
                 $donotlist = 1;
-            } else {
+            }
+
+            else if ($module['list_field']) {
                 $data[] = is_array($cont) ? $cont : trim($cont);
+            }
+
+            //check for list_searchable which are not list_fields, display them with d-none, so that they are searchable
+            else if (!($module['list_field'] ?? false) && (isset($module['list_searchable']) && $module['list_searchable'])) {
+                $_hidden_module_text = '';
+                
+                if (is_array($_object[$module_input_slug_lang]))
+                    $_hidden_module_text = implode(', ', $_object[$module_input_slug_lang]);
+                else
+                    $_hidden_module_text = $_object[$module_input_slug_lang];
+                
+                $data[1] .= '<span class="d-none">'.$_hidden_module_text.'</span>';
             }
         }
 
