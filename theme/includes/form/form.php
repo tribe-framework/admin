@@ -43,6 +43,7 @@ $components = [
     'display' => 'display'
 ];
 
+// loop through every module
 foreach ($types[$type]['modules'] as $module) {
     if (
         isset($module['restrict_to_roles']) &&
@@ -50,6 +51,9 @@ foreach ($types[$type]['modules'] as $module) {
     ) {
         continue;
     }
+
+    // make data html compatible
+    $post[$module['input_slug']] = htmlspecialchars($post[$module['input_slug']]);
 
     $module_input_slug = $module['input_slug'] ?? null;
     $module_input_type = $module['input_type'] ?? null;
