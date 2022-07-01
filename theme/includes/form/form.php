@@ -52,9 +52,6 @@ foreach ($types[$type]['modules'] as $module) {
         continue;
     }
 
-    // make data html compatible
-    $post[$module['input_slug']] = htmlspecialchars($post[$module['input_slug']]);
-
     $module_input_slug = $module['input_slug'] ?? null;
     $module_input_type = $module['input_type'] ?? null;
     $module_input_lang = $module['input_lang'] ?? null;
@@ -65,6 +62,13 @@ foreach ($types[$type]['modules'] as $module) {
     $module_input_min = $module['input_min'] ?? null;
     $module_input_max = $module['input_max'] ?? null;
     $slug_displayed = 0;
+
+    // make data html compatible
+    $types_to_be_escaped = ['text', 'textarea'];
+
+    if (in_array($module_input_type, $types_to_be_escaped)) {
+        $post[$module['input_slug']] = htmlspecialchars($post[$module['input_slug']]);
+    }
 
     $module_input_slug_arr = array();
 
