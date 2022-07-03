@@ -329,7 +329,7 @@ class Functions {
                 $donotlist = 1;
             }
 
-            else if ($module['list_field']) {
+            else if (isset($module['list_field']) && $module['list_field']) {
                 $data[] = is_array($cont) ? $cont : trim($cont);
             }
 
@@ -342,7 +342,7 @@ class Functions {
                 else
                     $_hidden_module_text = $_object[$module_input_slug_lang];
                 
-                $data[1] .= '<span class="d-none">'.$_hidden_module_text.'</span>';
+                $data[1] .= '<span class="d-none">'.strip_tags($_hidden_module_text).'</span>';
             }
         }
 
