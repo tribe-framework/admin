@@ -360,3 +360,11 @@ span.slug-ellipsis {
 .swal2-styled.swal2-cancel {
   border-radius: unset !important;
 }
+
+.dataTable tbody .btn-options a:focus,
+.dataTable tbody .btn-options a:focus > i,
+.dataTable tbody .btn-options a:hover,
+.dataTable tbody .btn-options a:hover > i {
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
+}
