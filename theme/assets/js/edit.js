@@ -1,5 +1,7 @@
 'use strict';
 
+let editor = null;
+
 function activateTableButtons () {
 	let editButtons = document.querySelectorAll(".edit_button:not([data-event-set='1'])");
 	if (!editButtons) return;
@@ -38,16 +40,31 @@ async function loadEditForm (e) {
 }
 
 async function initEditorJs () {
-	if (!document.querySelector('#editorjs')) {
-		return;
-	}
+	if (!document.querySelector('.editorjs')) return;
+
+	let editorInput = document.querySelector('.editorjs > input:first-of-type');
+	if (!editorInput) return;
+
+	let id = document.querySelector('input[name="id"]').value;
+
+	let response = await fetch(`/admin/editorjs-content?id=${id}&moduleName=${editorInput.name}`);
+	response = await response.json();
 
 	try {
         //EditorJS init
         editor = new EditorJS({
             holder: 'editorjs',
+			placeholder: 'Type here...',
+			data: response.ok ? response.data : {},
             tools:{
-                header: Header,
+                header: {
+                	class: Header,
+					config: {
+                		placeholder: 'Add a header',
+						levels: [3,4, 5],
+						defaultLevel: 4
+					}
+				},
                 delimiter: Delimiter,
                 paragraph: {
                     class: Paragraph,
@@ -64,12 +81,32 @@ async function initEditorJs () {
                     }
                 }
             },
-            data: {}
         });
         await editor.isReady;
     } catch (reason) {
         console.error(`Editor.js initialization failed because of ${reason}`)
     }
+}
+
+async function saveEditorJsForm() {
+	if (!editor) return;
+
+	let data = await editor.save()
+
+	let request = {
+		id: document.querySelector('input[name="id"]').value ?? null,
+		moduleName: document.querySelector('.editorjs > input').name,
+		data
+	};
+
+	let response = await fetch('/admin/editorjs-content', {
+		method: 'post',
+		body: JSON.stringify(request)
+	});
+
+	response = await response.json();
+
+	console.log(response);
 }
 
 function enableEditFormButtons () {
@@ -331,6 +368,8 @@ function refreshEditForm() {
             })
 
 			res = await res.json()
+
+			await saveEditorJsForm();
 
 			if (res) {
 				$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
