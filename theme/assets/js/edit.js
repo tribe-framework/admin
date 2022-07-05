@@ -38,28 +38,38 @@ async function loadEditForm (e) {
 }
 
 async function initEditorJs () {
-	if (!document.querySelector('#editojs')) {
+	if (!document.querySelector('#editorjs')) {
 		return;
 	}
 
 	try {
-		//EditorJS init
-		let editor = new EditorJS({
-			tools:{
-				header:Header,
-				delimiter: Delimiter,
-				paragraph: {
-					class: Paragraph,
-					inlineToolbar: true,
-				},
-				embed: Embed,
-				image: SimpleImage,
-			}
-		});
-		await editor.isReady;
-	} catch (reason) {
-		console.error(`Editor.js initialization failed because of ${reason}`)
-	}
+        //EditorJS init
+        editor = new EditorJS({
+            holder: 'editorjs',
+            tools:{
+                header: Header,
+                delimiter: Delimiter,
+                paragraph: {
+                    class: Paragraph,
+                    inlineToolbar: true,
+                },
+                embed: Embed,
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                            byFile: '/vendor/wildfire/admin/theme/api/uploader-file',
+                            byUrl: '/vendor/wildfire/admin/theme/api/uploader-url'
+                        }
+                    }
+                }
+            },
+            data: {}
+        });
+        await editor.isReady;
+    } catch (reason) {
+        console.error(`Editor.js initialization failed because of ${reason}`)
+    }
 }
 
 function enableEditFormButtons () {
