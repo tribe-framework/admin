@@ -58,8 +58,8 @@ async function initEditorJs () {
                     class: ImageTool,
                     config: {
                         endpoints: {
-                            byFile: '/vendor/wildfire/admin/theme/api/uploader-file',
-                            byUrl: '/vendor/wildfire/admin/theme/api/uploader-url'
+                            byFile: '/admin/uploader-file',
+                            byUrl: '/admin/uploader-url'
                         }
                     }
                 }
