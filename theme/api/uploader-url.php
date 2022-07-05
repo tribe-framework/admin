@@ -50,7 +50,7 @@ try {
         preg_match($pattern, $type, $match);
 
         if (!$match) {
-            throw new RuntimeException('File type not allowed');
+            throw new RuntimeException("Filetype {$type} not allowed");
         }
     }
 
