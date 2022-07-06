@@ -8,7 +8,7 @@
  * @var array $types
  */
 ?>
-<div class="editorjs py-5 mt-5 border border-light col-lg-11 shadow-sm mx-auto">
+<div class="editorjs py-4 mt-5 border border-light shadow-sm">
     <input type="hidden" name="<?= $module_input_slug_lang ?>">
     <div id="editorjs"
          data-input-slug="<?= $module_input_slug_lang; ?>"
