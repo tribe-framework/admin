@@ -372,6 +372,10 @@ function refreshEditForm() {
 			await saveEditorJsForm();
 
 			if (res) {
+				let formId = document.querySelector('#formId');
+				if (formId) {
+					formId.innerText = `#${res.last_data[0].id}`;
+				}
 				$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
 				$('.save_btn').prop('disabled', false);
 				$('.view_btn').removeClass('disabled').attr('href', res.last_data[0].url);

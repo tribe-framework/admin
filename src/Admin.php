@@ -54,7 +54,8 @@ class Admin {
         $button['delete'] = "<button type='button' class='btn px-5 btn-outline-danger rounded-0 delete_btn' data-id='{$id}'><i class='fas fa-trash-alt mr-2'></i>Delete</button>";
         $button['close'] = $edit_form ? '' : "<button type='button' class='btn d-inline-flex align-items-center justify-content-center rounded-0 close_btn' title='Close'><i class='fas fa-times'></i></button>";
 
-        return "<h6 class='mb-0 text-muted'>#{$id}</h6>
+        $formId = $id ? "#{$id}" : '';
+        return "<h6 class='mb-0 text-muted' id='formId'>{$formId}</h6>
                 <div class='btn-group mx-auto'>
                     {$button['save']} {$button['view']} {$button['delete']}
                 </div>
