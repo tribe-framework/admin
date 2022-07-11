@@ -96,7 +96,7 @@ async function saveEditorJsForm() {
 	let data = await editor.save()
 
 	let request = {
-		id: document.querySelector('input[name="id"]').value ?? null,
+		id: document.querySelector('#formId').innerText.replace(/#/g, '')  ?? null,
 		moduleName: document.querySelector('.editorjs > input').name,
 		data
 	};
