@@ -96,7 +96,7 @@ async function saveEditorJsForm() {
 	let data = await editor.save()
 
 	let request = {
-		id: document.querySelector('#formId').innerText.replace(/#/g, '')  ?? null,
+		id: document.querySelector('input[name="id"]').value ?? null,
 		moduleName: document.querySelector('.editorjs > input').name,
 		data
 	};
@@ -369,7 +369,7 @@ function refreshEditForm() {
                 body: new FormData(this)
             })
 
-			res = await res.json();
+			res = await res.json()
 
 			if (res) {
 				let formId = document.querySelector('#formId');
@@ -377,14 +377,16 @@ function refreshEditForm() {
 					formId.innerText = `#${res.last_data[0].id}`;
 				}
 
+				document.querySelector("input[name='id']").value = res.last_data[0].id;
+				document.querySelector("input[name='slug']").value = res.last_data[0].slug;
+
+				// save editorjs form after we've received id from form save
 				await saveEditorJsForm();
 
 				$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
 				$('.save_btn').prop('disabled', false);
 				$('.view_btn').removeClass('disabled').attr('href', res.last_data[0].url);
 				$('#save-success').toast('show');
-				$('input[name=id]').val(res.last_data[0].id);
-				$('input[name=slug]').val(res.last_data[0].slug);
 				$('.object_slug').text(res.last_data[0].slug);
 				$('.editModalClose').attr('data-id', res.last_data[0].id);
 				$('#editModal .modal-title').text('#'+res.last_data[0].id);
@@ -392,7 +394,7 @@ function refreshEditForm() {
 				$('#slug_update_div').removeClass('d-none');
 			}
         });
-    })()
+    })();
 }
 
 // used with div.multi_add_btn
