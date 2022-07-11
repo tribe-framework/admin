@@ -39,6 +39,10 @@ if ($api->method('get')) {
         $api->json(['error' => 'id and moduleName are necessary'])->send(400);
     }
 
+    if (isset($_GET['moduleName']) && trim($_GET['moduleName']) && (!isset($_GET['id']) || !trim($_GET['id']))) {
+        $api->json(['ok' => false, 'error' => "id invalid, possibly new form request"])->send();
+    }
+
     $response['data'] = $dash->getAttribute($_GET['id'], $_GET['moduleName']) ?? null;
     if (!$response['data']) {
         $api->json(['ok' => false])->send();
