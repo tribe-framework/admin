@@ -62,7 +62,9 @@ async function initEditorJs () {
 					config: {
                 		placeholder: 'Add a header',
 						levels: [3,4, 5],
-						defaultLevel: 4
+						defaultLevel: 4,
+						allowAnchor: true,
+						anchorLength: 50
 					}
 				},
                 delimiter: Delimiter,
