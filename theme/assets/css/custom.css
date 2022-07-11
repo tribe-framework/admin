@@ -225,8 +225,11 @@ table.dataTable tbody tr td, table.dataTable tbody tr th, table.dataTable thead 
   position: relative;
 }
 
-table.cols-6-or-more tbody tr td:nth-child(2), table.cols-6-or-more thead tr th:nth-child(2) {
-  min-width: 25% !important;
+@media screen and (min-width: 1024px) {
+  table.cols-6-or-more tbody tr td:nth-child(2),
+  table.cols-6-or-more thead tr th:nth-child(2) {
+    min-width: 40% !important;
+  }
 }
 
 table.dataTable thead tr th {
