@@ -60,12 +60,12 @@ foreach ($types[$type]['modules'] as $module) {
     // restrict form component to max id
     if (isset($module['restrict_id_max'])) {
         // for new posts (skip if $last_id is set and is bigger than restrict_id_max)
-        if (isset($last_id) && ($last_id >= $module['restrict_id_max'])) {
+        if (isset($last_id) && ($last_id > $module['restrict_id_max'])) {
             continue;
         }
 
         // for posts that already exist
-        if (!isset($last_id) && ($post['id'] >= $module['restrict_id_max'])) {
+        if (!isset($last_id) && ($post['id'] > $module['restrict_id_max'])) {
             continue;
         }
     }
@@ -73,12 +73,12 @@ foreach ($types[$type]['modules'] as $module) {
     // restrict form component to min id
     if (isset($module['restrict_id_min'])) {
         // for new posts
-        if (isset($last_id) && ($last_id <= $module['restrict_id_min'])) {
+        if (isset($last_id) && ($last_id < $module['restrict_id_min'])) {
             continue;
         }
 
         // for posts that already exist
-        if (!isset($last_id) && ($post['id'] <= $module['restrict_id_min'])) {
+        if (!isset($last_id) && ($post['id'] < $module['restrict_id_min'])) {
             continue;
         }
     }
