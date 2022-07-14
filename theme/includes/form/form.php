@@ -97,7 +97,10 @@ foreach ($types[$type]['modules'] as $module) {
     // make data html compatible
     $types_to_be_escaped = ['text', 'textarea'];
 
-    if (in_array($module_input_type, $types_to_be_escaped)) {
+    if (
+        in_array($module_input_type, $types_to_be_escaped) &&
+        isset($post[$module['input_slug']])
+    ) {
         $post[$module['input_slug']] = htmlspecialchars($post[$module['input_slug']], ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
     }
 
