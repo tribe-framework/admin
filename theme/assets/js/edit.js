@@ -119,6 +119,7 @@ function enableEditFormButtons () {
 	if (closeButton) {
 		closeButton.addEventListener('click', () => {
 			document.querySelector('.editModalClose').click();
+			editor = null;
 		});
 	}
 
@@ -471,6 +472,7 @@ async function formDelete(e) {
 			if (typeof FORM_IS_PAGE === 'undefined') {
 				dtable.row(`#${button.dataset.id}`).remove().draw(false);
 				$('#editModal').modal('hide');
+				editor = null;
 			}
 
 			Swal.fire({
