@@ -43,6 +43,10 @@ $components = [
     'display' => 'display'
 ];
 
+if (!$post) {
+    $last_id = (int) $sql->executeSQL("SELECT id from data order by id desc limit 1")[0]['id'] ?? null;
+}
+
 // loop through every module
 foreach ($types[$type]['modules'] as $module) {
     if (
@@ -50,6 +54,33 @@ foreach ($types[$type]['modules'] as $module) {
         !in_array($role['slug'], $module['restrict_to_roles'])
     ) {
         continue;
+    }
+
+
+    // restrict form component to max id
+    if (isset($module['restrict_max_id'])) {
+        // for new posts (skip if $last_id is set and is bigger than restrict_max_id)
+        if (isset($last_id) && ($last_id > $module['restrict_max_id'])) {
+            continue;
+        }
+
+        // for posts that already exist
+        if (!isset($last_id) && ($post['id'] > $module['restrict_max_id'])) {
+            continue;
+        }
+    }
+
+    // restrict form component to min id
+    if (isset($module['restrict_min_id'])) {
+        // for new posts
+        if ($isset($last_id) && ($last_id < $module['restrict_min_id'])) {
+            continue;
+        }
+
+        // for posts that already exist
+        if (!isset($last_id) && ($post['id'] < $module['restrict_min_id'])) {
+            continue;
+        }
     }
 
     $module_input_slug = $module['input_slug'] ?? null;
