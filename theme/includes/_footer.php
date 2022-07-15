@@ -79,11 +79,13 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 <script src="/vendor/wildfire/admin/theme/assets/plugins/keymaster.js"></script>
 
 <!-- editor js plugins -->
-<script src="/vendor/wildfire/admin/theme/assets/plugins/header-with-anchor/bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/editorjs-paragraph-with-alignment@3.0.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>

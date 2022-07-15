@@ -61,27 +61,31 @@ async function initEditorJs () {
                 	class: Header,
 					config: {
                 		placeholder: 'Add a header',
-						levels: [3,4, 5],
-						defaultLevel: 4,
-						allowAnchor: true,
-						anchorLength: 50
+						levels: [3,5],
+						defaultLevel: 3,
+                    inlineToolbar: true,
 					}
 				},
-                delimiter: Delimiter,
                 paragraph: {
                     class: Paragraph,
                     inlineToolbar: true,
                 },
-                embed: Embed,
-                image: {
-                    class: ImageTool,
-                    config: {
-                        endpoints: {
-                            byFile: '/admin/uploader-file',
-                            byUrl: '/admin/uploader-url'
-                        }
-                    }
-                }
+			    quote: {
+			      class: Quote,
+			      inlineToolbar: true,
+			      config: {
+			        quotePlaceholder: 'Enter the quote',
+			        captionPlaceholder: 'Quote\'s credit line',
+			      },
+			    },
+                list: {
+			      class: List,
+			      inlineToolbar: true,
+			      config: {
+			        defaultStyle: 'unordered'
+			      }
+			    },
+                delimiter: Delimiter,
             },
         });
         await editor.isReady;
