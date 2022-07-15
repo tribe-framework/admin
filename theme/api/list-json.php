@@ -1,4 +1,10 @@
 <?php
+/**
+ * @var object $sql
+ * @var object $dash
+ * @var object $admin
+ * @var array $types
+ */
 require_once __DIR__ . '/../_init.php';
 
 $api = new \Wildfire\Api;
