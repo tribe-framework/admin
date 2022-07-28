@@ -1,6 +1,7 @@
 'use strict';
 
-let editor = null;
+let editors = null;
+let editorIds = null;
 
 function activateTableButtons () {
 	let editButtons = document.querySelectorAll(".edit_button:not([data-event-set='1'])");
@@ -42,77 +43,87 @@ async function loadEditForm (e) {
 async function initEditorJs () {
 	if (!document.querySelector('.editorjs')) return;
 
-	let editorInput = document.querySelector('.editorjs > input:first-of-type');
-	if (!editorInput) return;
+	let editorInputs = document.querySelectorAll('.editorjs > input:first-of-type');
+	if (!editorInputs) return;
 
 	let id = document.querySelector('input[name="id"]').value;
 
-	let response = await fetch(`/admin/editorjs-content?id=${id}&moduleName=${editorInput.name}`);
-	response = await response.json();
+	editors = [];
+	editorIds = [];
+	for (const edInput of editorInputs) {
+		let response = await fetch(`/admin/editorjs-content?id=${id}&moduleName=${edInput.name}`);
+		response = await response.json();
 
-	try {
-        //EditorJS init
-        editor = new EditorJS({
-            holder: 'editorjs',
-			placeholder: 'Type here...',
-			data: response.ok ? response.data : {},
-            tools:{
-                header: {
-                	class: Header,
-					config: {
-                		placeholder: 'Add a header',
-						levels: [3,5],
-						defaultLevel: 3,
-                    inlineToolbar: true,
-					}
+		let editorId = edInput.parentElement.querySelector('.editorjs-tool').id;
+		editorIds.push(editorId);
+
+		try {
+			//EditorJS init
+			editors[editorId] = new EditorJS({
+				holder: editorId,
+				placeholder: 'Type here...',
+				logLevel: 'ERROR',
+				data: response.ok ? response.data : {},
+				tools: {
+					header: {
+						class: Header,
+						config: {
+							placeholder: 'Add a header',
+							levels: [3,5],
+							defaultLevel: 3,
+							inlineToolbar: true,
+						}
+					},
+					paragraph: {
+						class: Paragraph,
+						inlineToolbar: true,
+					},
+					quote: {
+						class: Quote,
+						inlineToolbar: true,
+						config: {
+							quotePlaceholder: 'Enter the quote',
+							captionPlaceholder: 'Quote\'s credit line',
+						},
+					},
+					list: {
+						class: List,
+						inlineToolbar: true,
+						config: {
+							defaultStyle: 'unordered'
+						}
+					},
+					delimiter: Delimiter,
 				},
-                paragraph: {
-                    class: Paragraph,
-                    inlineToolbar: true,
-                },
-			    quote: {
-			      class: Quote,
-			      inlineToolbar: true,
-			      config: {
-			        quotePlaceholder: 'Enter the quote',
-			        captionPlaceholder: 'Quote\'s credit line',
-			      },
-			    },
-                list: {
-			      class: List,
-			      inlineToolbar: true,
-			      config: {
-			        defaultStyle: 'unordered'
-			      }
-			    },
-                delimiter: Delimiter,
-            },
-        });
-        await editor.isReady;
-    } catch (reason) {
-        console.error(`Editor.js initialization failed because of ${reason}`)
-    }
+			});
+
+			await editors[editorId].isReady;
+		} catch (reason) {
+			console.error(`Editor.js initialization failed because of ${reason}`)
+		}
+	}
 }
 
 async function saveEditorJsForm() {
-	if (!editor) return;
+	if (!editorIds) return;
 
-	let data = await editor.save()
+	for (const editorId of editorIds) {
+		let data = await editors[editorId].save()
+		let moduleName = document.querySelector(`#${editorId}`).dataset.inputSlug;
 
-	let request = {
-		id: document.querySelector('input[name="id"]').value ?? null,
-		moduleName: document.querySelector('.editorjs > input').name,
-		data
-	};
+		let request = {
+			id: document.querySelector('input[name="id"]').value ?? null,
+			moduleName,
+			data
+		};
 
-	let response = await fetch('/admin/editorjs-content', {
-		method: 'post',
-		body: JSON.stringify(request)
-	});
+		let response = await fetch('/admin/editorjs-content', {
+			method: 'post',
+			body: JSON.stringify(request)
+		});
 
-	response = await response.json();
-
-	console.log(response);
+		response = await response.json();
+	}
 }
 
 function enableEditFormButtons () {
