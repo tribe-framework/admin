@@ -94,6 +94,7 @@ $fn = new \Wildfire\Admin\Functions;
     <!-- // div card -->
 </div>
 
+<?php if ($types['webapp']['display_summary'] !== false): ?>
 
 <div class="col-lg-6 mb-2 mb-lg-0">
     <div class="card">
@@ -134,3 +135,5 @@ $fn = new \Wildfire\Admin\Functions;
         </div>
     </div>
 </div>
+
+<?php endif; ?>
