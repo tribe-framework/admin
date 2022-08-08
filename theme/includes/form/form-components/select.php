@@ -20,7 +20,7 @@
                     $_title = $opt['title'] ?? '';
                     $_selected = '';
 
-                    if (isset($post)) {
+                    if (isset($post) && isset($opt)) {
                         $_selected = (($post[$module_input_slug_lang] ?? null) == $opt['slug']) ? 'selected="selected"' : '';
                     }
 
@@ -35,10 +35,7 @@
                 $option=$dash->getObject($opt['id']);
                 $titler=$dash->get_type_title_data($option['type']);
                 $title_slug=$titler['slug'];
-
-                $is_selected = isset($post[$module_input_slug_lang]) ? "selected='selected'" : '';
-
-                echo "<option value='{$option['slug']}' {$is_selected}>{$option[$title_slug]}</option>";
+                echo '<option value="'.$option['slug'].'" '.(($post[$module_input_slug_lang]==$option['slug'])?'selected="selected"':'').'>'.$option[$title_slug].'</option>';
             }
         }
         ?>
