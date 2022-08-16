@@ -24,7 +24,7 @@ if ($_type == 'user') {
 }
 
 // if number is 5k build SQL query to fetch what user has typed in filter search
-if ($unfiltered_ids_number>5000) {
+if ($unfiltered_ids_number>5000 || ($types[$_type]['list_lazyload'] ?? false)) {
     //load the search query
     $_search_query = addslashes(strtolower($_GET['search']['value']));
 
@@ -99,7 +99,7 @@ if ($api->method('get')) {
     $search_var = ($_type == 'user') ? ['type' => $_type, 'role_slug' => $_role] : $_type;
 
     //if more than 5k records, use SQL directly
-    if ($unfiltered_ids_number>5000) {
+    if ($unfiltered_ids_number>5000 || ($types[$_type]['list_lazyload'] ?? false)) {
         if ($_search_sql_query ?? false) {
             $_search_sql_query_joined = !$_search_by_column ? implode(' OR ', $_search_sql_query) : implode(' AND ', $_search_sql_query);
         }
