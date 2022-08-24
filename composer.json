@@ -18,7 +18,7 @@
     "require": {
     	"wildfire/core": "^3.1",
     	"wildfire/auth": "^2.0",
-        "wildfire/api": "^0.1"
+        "wildfire/api": "^0.2"
     },
     "autoload": {
         "psr-4": {

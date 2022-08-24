@@ -2,6 +2,11 @@
 require_once __DIR__ . '/../_init.php';
 
 $app_title = $types['webapp']['headmeta_title'] ?? false;
+$html_title = "Wildfire Dashboard ".  ($app_title ? "&raquo; $app_title" : '');
+
+if ($slug === 'list' && isset($_GET['type'])) {
+	$html_title = ucwords($types[$_GET['type']]['plural']) . " | $html_title";
+}
 ?>
 
 <!doctype html>
@@ -14,7 +19,9 @@ $app_title = $types['webapp']['headmeta_title'] ?? false;
 		name="description"
 		content="Content management dashboard interface <?= $app_title ? "for $app_title" : '' ?>"
 	>
-	<title>Wildfire Dashboard <?= $app_title ? "&raquo; $app_title" : '' ?></title>
+
+	<title><?= $html_title ?></title>
+
 	<link rel="stylesheet" href="https://use.typekit.net/xkh7dxd.css">
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/vendor/wildfire/admin/theme/assets/css/wildfire.css">
