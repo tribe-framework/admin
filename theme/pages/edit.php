@@ -203,6 +203,15 @@ if ($post) {
     </div>
 </div>
 
+<!-- toast for save error -->
+<div id="save-error" class="admin-toast toast position-fixed bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+    <div class="toast-body d-flex align-items-start">
+        <span class="msg">Changes saved successfully. Refresh to see</span>
+        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
 <!-- toast for successful copy -->
 <div id="toast-success" class="admin-toast toast position-fixed bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1000">
     <div class="toast-body">

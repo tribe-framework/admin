@@ -202,15 +202,15 @@ function refreshEditForm() {
 				e.preventDefault();
 
 				let buttonParentWrapper = e.target
-					.closest('button')
-					.closest('.multi_add_btn_parent');
+				.closest('button')
+				.closest('.multi_add_btn_parent');
 
 				let listId = buttonParentWrapper.previousElementSibling.id;
 
 				let inputForm = buttonParentWrapper
-					.previousElementSibling
-					.querySelector('div.dragula:last-of-type')
-					.cloneNode(true);
+				.previousElementSibling
+				.querySelector('div.dragula:last-of-type')
+				.cloneNode(true);
 
 				window.iform = inputForm;
 
@@ -225,7 +225,7 @@ function refreshEditForm() {
 				inputForm.querySelector('.input-group-prepend > span').innerText = listIndexes[listId];
 				inputForm.querySelector('input').value = "";
 				inputForm.querySelector('.btn.delete-multi-form')
-					.addEventListener('click', e => dropMultiFormField(e));
+				.addEventListener('click', e => dropMultiFormField(e));
 
 				buttonParentWrapper.querySelector('.input-append').appendChild(inputForm);
 			});
@@ -245,10 +245,10 @@ function refreshEditForm() {
 	});
 
 	dragula({
-	  isContainer: function (el) {
-		return el.classList.contains('dragula-container');
-	  },
-	  direction: 'vertical'
+		isContainer: function (el) {
+			return el.classList.contains('dragula-container');
+		},
+		direction: 'vertical'
 	});
 
 	$(document).on('click', '.select_multi_drop_option', function(e) {
@@ -256,11 +256,11 @@ function refreshEditForm() {
 		$('#'+$(this).data('multi_drop_filled_table')+' .grid').append('<div class="bg-light grid-item w-100 p-3">'+$('#'+$(this).data('multi_drop_option_text')).text()+' <a href="#" class="float-right remove_multi_drop_option"><span class="fas fa-minus-circle"></span></a><input type="hidden" name="'+$(this).parent().data('name')+'" value="'+$(this).parent().data('value')+'"></div>');
 
 		var $grid = $('.grid').packery({
-		  itemSelector: '.grid-item'
+			itemSelector: '.grid-item'
 		});
 		$grid.find('.grid-item').each( function( i, gridItem ) {
-		  var draggie = new Draggabilly( gridItem );
-		  $grid.packery( 'bindDraggabillyEvents', draggie );
+			var draggie = new Draggabilly( gridItem );
+			$grid.packery( 'bindDraggabillyEvents', draggie );
 		});
 	});
 
@@ -270,22 +270,22 @@ function refreshEditForm() {
 
 	// code to handle file uploads
 	let sli=0;
-    $('.edit_form input[type=file]').fileupload({
+	$('.edit_form input[type=file]').fileupload({
 		dataType: 'json',
 
 		// this callback gets invoked as soon as a file is added to upload request queue
 		add: function(e, data) {
 			$('#progress').parent().removeClass('d-none');
-		    data.context = $('<div class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
-				.append($('<span class="flex-grow-1">').text(data.files[0].name))
-				.appendTo('#'+$(this).attr('id')+'_fileuploads');
-		    data.submit();
+			data.context = $('<div class="mt-2 mb-0 pb-2 file dragula d-flex justify-content-between align-items-center">')
+			.append($('<span class="flex-grow-1">').text(data.files[0].name))
+			.appendTo('#'+$(this).attr('id')+'_fileuploads');
+			data.submit();
 		},
 
 		// callback for upload progress events
 		progress: function(e, data) {
-		    var progress = parseInt((data.loaded / data.total) * 100, 10);
-		    $('#progress .bar').css('width', progress + '%');
+			var progress = parseInt((data.loaded / data.total) * 100, 10);
+			$('#progress .bar').css('width', progress + '%');
 		},
 
 		// callback for successful upload requests
@@ -304,34 +304,34 @@ function refreshEditForm() {
 
 			if ($(this).data('descriptor')) {
 				slvl += `<button
-						type="button"
-						class="btn btn-sm btn-outline-primary m-1 text-capitalize"
-						data-toggle="modal"
-						data-target="#${$(this).attr('id')}_descriptor_${sli}"
-						><i class="fas fa-align-left mr-1"></i>descriptor
-					</button>
-					<div class="modal fade" id="${$(this).attr('id')}_descriptor_${sli}" data-keyboard="false" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered">
-							<div class="modal-content shadow-lg">
-								<div class="modal-header">
-									<h5 class="modal-title">add file descriptor</h5>
-									<button type="button" onclick="handleDescriptorClose(event)" class="close" data-target="#${$(this).attr('id')}_descriptor_${sli}" aria-label="close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<textarea
-										name="${$(this).attr('id')}_descriptor[]"
-										class="form-control"
-										placeholder="enter file descriptor"
-									></textarea>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-sm btn-primary" data-target="#${$(this).attr('id')}_descriptor_${sli}" onclick="handleDescriptorClose(event)">save</button>
-								</div>
-							</div>
-						</div>
-					</div>`;
+				type="button"
+				class="btn btn-sm btn-outline-primary m-1 text-capitalize"
+				data-toggle="modal"
+				data-target="#${$(this).attr('id')}_descriptor_${sli}"
+				><i class="fas fa-align-left mr-1"></i>descriptor
+				</button>
+				<div class="modal fade" id="${$(this).attr('id')}_descriptor_${sli}" data-keyboard="false" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content shadow-lg">
+				<div class="modal-header">
+				<h5 class="modal-title">add file descriptor</h5>
+				<button type="button" onclick="handleDescriptorClose(event)" class="close" data-target="#${$(this).attr('id')}_descriptor_${sli}" aria-label="close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+				<textarea
+				name="${$(this).attr('id')}_descriptor[]"
+				class="form-control"
+				placeholder="enter file descriptor"
+				></textarea>
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-primary" data-target="#${$(this).attr('id')}_descriptor_${sli}" onclick="handleDescriptorClose(event)">save</button>
+				</div>
+				</div>
+				</div>
+				</div>`;
 			}
 
 			document.querySelector('#progress .bar').classList.add('d-none');
@@ -347,47 +347,51 @@ function refreshEditForm() {
 			const isImage = data.result.files[0].type.includes('image');
 			if (isImage) {
 				data.context
-					.prepend(`
-						<span class="fas fa-check-circle text-success mr-2">
-						<img class="thumb-preview" src="${data.result.files[0].url}">
-					`);
+				.prepend(`
+				<span class="fas fa-check-circle text-success mr-2">
+				<img class="thumb-preview" src="${data.result.files[0].url}">
+				`);
 			} else {
 				data.context
-					.prepend('<span class="fas fa-check-circle text-success mr-2">');
+				.prepend('<span class="fas fa-check-circle text-success mr-2">');
 			}
 
-		    data.context
-		      .append(`<div class="btn-group">
-					<span class="delete_btn btn btn-sm btn-outline-danger px-3"><i class="fas fa-trash-alt"></i></span>
-					<input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}">
-					<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><i class="fas fa-copy mr-1"></i>&nbsp;copy URL</span>
-					<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><i class="fas fa-copy mr-1"></i>&nbsp;copy shortcode</span>
-					<a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><i class="fas fa-external-link-alt mr-1"></i>&nbsp;view</a>
-					</div>${slvl}`)
-		      .addClass("done");
+			data.context
+			.append(`<div class="btn-group">
+			<span class="delete_btn btn btn-sm btn-outline-danger px-3"><i class="fas fa-trash-alt"></i></span>
+			<input type="hidden" name="${$(this).attr('id')}[]" value="${data.result.files[0].url}">
+			<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="${data.result.files[0].url}"><i class="fas fa-copy mr-1"></i>&nbsp;copy URL</span>
+			<span class="copy_btn btn btn-sm btn-outline-primary px-3 text-capitalize" data-clipboard-text="[[${data.result.files[0].url}]]"><i class="fas fa-copy mr-1"></i>&nbsp;copy shortcode</span>
+			<a style="display: inline-block;" class="btn btn-sm btn-outline-primary px-3 text-capitalize" href="${data.result.files[0].url}" target="new"><i class="fas fa-external-link-alt mr-1"></i>&nbsp;view</a>
+			</div>${slvl}`)
+			.addClass("done");
 
 		}
-    });
+	});
 
-    // submit form over ajax - used in edit.php
-    (() => {
-        let editForm = document.querySelector('.edit_form');
+	// submit form over ajax - used in edit.php
+	(() => {
+		let editForm = document.querySelector('.edit_form');
 		if (!editForm || typeof FORM_IS_PAGE != 'undefined') return;
 
-        editForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
+		editForm.addEventListener('submit', async function (e) {
+			e.preventDefault();
 
-            $('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
-            $('.save_btn').prop('disabled', true);
+			$('.save_btn').html('<div class="spinner-border spinner-border-sm mb-1" role="status"><span class="sr-only">Loading...</span></div>&nbsp;Save');
+			$('.save_btn').prop('disabled', true);
 
-            let res = await fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this)
-            })
+			let res = await fetch(this.action, {
+				method: 'POST',
+				body: new FormData(this)
+			})
 
 			res = await res.json()
 
-			if (res) {
+			try {
+				if (!!res.last_error) {
+					throw res.last_error;
+				}
+
 				let formId = document.querySelector('#formId');
 				if (formId) {
 					formId.innerText = `#${res.last_data[0].id}`;
@@ -399,18 +403,24 @@ function refreshEditForm() {
 				// save editorjs form after we've received id from form save
 				await saveEditorJsForm();
 
-				$('.save_btn').html('<span class="fa fa-save"></span>&nbsp;Save');
-				$('.save_btn').prop('disabled', false);
-				$('.view_btn').removeClass('disabled').attr('href', res.last_data[0].url);
 				$('#save-success').toast('show');
 				$('.object_slug').text(res.last_data[0].slug);
 				$('.editModalClose').attr('data-id', res.last_data[0].id);
-				$('#editModal .modal-title').text('#'+res.last_data[0].id);
+				$('#editModal .modal-title').text('#' + res.last_data[0].id);
+				$('.view_btn').removeClass('disabled').attr('href', res.last_data[0].url);
 				$('#slug_update').prop('checked', false);
 				$('#slug_update_div').removeClass('d-none');
+			} catch (e) {
+				// display error
+				$('#save-error .msg').text(e);
+				$('#save-error').toast('show');
+			} finally {
+				// enable save button so that user can have another attempt
+				$('.save_btn').html('<i class="fa fa-save"></i>&nbsp;Save');
+				$('.save_btn').prop('disabled', false);
 			}
-        });
-    })();
+		});
+	})();
 }
 
 // used with div.multi_add_btn
@@ -419,7 +429,7 @@ function addNewTextArea (e) {
 	let button = e.target.closest('button');
 
 	let cloned = button.closest(`#${button.dataset.groupClass}-${button.dataset.inputSlug} .input-group`)
-		.cloneNode(true) ?? null;
+	.cloneNode(true) ?? null;
 
 	let parentGroup = document.querySelector(`#${button.dataset.groupClass}-${button.dataset.inputSlug}`)
 	if (!parentGroup) return;
