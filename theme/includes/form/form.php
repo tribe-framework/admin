@@ -76,7 +76,7 @@ foreach ($types[$type]['modules'] as $module) {
     if (isset($module['restrict_id_min'])) {
         // for new posts
         // must have last_id greater than restrict_id_min
-        if (isset($last_id) && ($last_id > $module['restrict_id_min'])) {
+        if (isset($last_id) && ($last_id < $module['restrict_id_min'])) {
             continue;
         }
 
