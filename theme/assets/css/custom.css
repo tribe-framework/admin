@@ -386,3 +386,15 @@ span.slug-ellipsis {
   background-color: var(--primary) !important;
   color: var(--white) !important;
 }
+
+div.dataTables_wrapper div.dataTables_processing {
+  top: 7rem;
+  margin: unset;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--dark);
+}
+
+div.dataTables_processing > div:last-child > div {
+  background-color: var(--white);
+}
