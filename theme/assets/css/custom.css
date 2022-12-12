@@ -146,12 +146,14 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   /* display: none; <- Crashes Chrome on hover */
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
   /* <-- Apparently some margin are still there even though it's hidden */
 }
 
 input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
   /* Firefox */
 }
 
@@ -388,13 +390,50 @@ span.slug-ellipsis {
 }
 
 div.dataTables_wrapper div.dataTables_processing {
-  top: 7rem;
+  top: 4rem;
   margin: unset;
+  height: 0;
+  border: unset;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--dark);
+  background-color: transparent;
+  position: sticky;
+  padding: unset;
+  overflow: visible;
+}
+
+div.dataTables_processing > div:last-child {
+  padding: 2em;
+  background-color: var(--white);
+  border-top: 1px solid var(--dark);
+  border-bottom: 1px solid var(--dark);
+  margin: auto;
+}
+
+div.dataTables_processing > div:last-child:before,
+div.dataTables_processing > div:last-child:after{
+  content: '';
+  position: absolute;
+  padding: 2em 1em;
+  background-color: var(--white);
+  top: -1px;
+  border-top: 1px solid var(--dark);
+  border-bottom: 1px solid var(--dark);
+}
+
+div.dataTables_processing > div:last-child:before {
+  left: 0;
+  transform: translate(-100%, 0);
+  border-left: 1px solid var(--dark);
+}
+
+div.dataTables_processing > div:last-child:after {
+  right: 0;
+  transform: translateX(100%);
+  border-right: 1px solid var(--dark);
 }
 
 div.dataTables_processing > div:last-child > div {
-  background-color: var(--white);
+  background-color: var(--dark);
+  top: 2rem;
 }
