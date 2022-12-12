@@ -70,6 +70,9 @@ $(document).ready(() => {
 		        "next":       "&gt;",
 		        "previous":   "&lt;"
 		    }
+		},
+		search: {
+			return: true
 		}
 	};
 
