@@ -4,15 +4,15 @@
     "repositories": {
         "wildfire/core": {
             "type": "git",
-            "url": "https://github.com/wil-ldf-ire/core.git"
+            "url": "https://github.com/wil-ldf-ire/tribe-core.git"
         },
         "wildfire/auth": {
             "type": "git",
-            "url": "https://github.com/wil-ldf-ire/auth.git"
+            "url": "https://github.com/wil-ldf-ire/tribe-auth.git"
         },
         "wildfire/api": {
             "type": "git",
-            "url": "https://github.com/wil-ldf-ire/api.git"
+            "url": "https://github.com/wil-ldf-ire/tribe-api.git"
         }
     },
     "require": {
